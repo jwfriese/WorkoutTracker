@@ -1,49 +1,127 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10089" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Qfj-1o-PIo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10089" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qk4-tX-a8e">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10072.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--Workout List View Controller-->
-        <scene sceneID="Xhl-fq-ClO">
+        <!--Workout View Controller-->
+        <scene sceneID="gRG-0b-usZ">
             <objects>
-                <viewController storyboardIdentifier="WorkoutListViewController" id="ObG-SB-gx5" customClass="WorkoutListViewController" customModule="WorkoutTracker" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="oXP-tp-TpY">
+                <viewController storyboardIdentifier="WorkoutViewController" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qk4-tX-a8e" customClass="WorkoutViewController" customModule="WorkoutTracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="HTj-eB-3j1">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </tableView>
-                    <navigationItem key="navigationItem" id="1Dh-pm-weQ">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="ZBH-aU-R3Q">
+                    <navigationItem key="navigationItem" id="m4i-TO-sL0">
+                        <barButtonItem key="rightBarButtonItem" title="Add Lift" id="SVQ-Dv-yiI">
                             <connections>
-                                <action selector="addWorkoutItem" destination="ObG-SB-gx5" id="avt-ri-wQm"/>
+                                <action selector="addLift" destination="qk4-tX-a8e" id="sCy-kT-iMt"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="tableView" destination="oXP-tp-TpY" id="El1-uA-HB2"/>
+                        <outlet property="tableView" destination="HTj-eB-3j1" id="dha-tV-6Ir"/>
+                        <segue destination="cnx-OH-T3m" kind="presentation" identifier="PresentModalLiftEntryForm" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="c1k-Ls-EAp"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qTA-uV-IwP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="riU-D2-QPQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1080" y="-644"/>
+            <point key="canvasLocation" x="1228" y="143"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="ojA-cX-Icw">
+        <!--Lift Entry Form View Controller-->
+        <scene sceneID="Ico-WV-vze">
             <objects>
-                <navigationController id="Qfj-1o-PIo" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dPQ-b9-T7r">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
+                <viewController storyboardIdentifier="LiftEntryFormViewController" modalPresentationStyle="overCurrentContext" id="cnx-OH-T3m" customClass="LiftEntryFormViewController" customModule="WorkoutTracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="HAf-AN-RJo"/>
+                        <viewControllerLayoutGuide type="bottom" id="CY6-Te-KGd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mq0-gS-bc1">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view alpha="0.25" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JKI-Gw-Oyf" userLabel="Background View">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OoX-WQ-8ql" userLabel="Form Content View">
+                                <rect key="frame" x="90" y="180" width="420" height="240"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lift Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GAw-CB-1y0" userLabel="Name Label">
+                                        <rect key="frame" x="16" y="60" width="74" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IW5-1V-34e">
+                                        <rect key="frame" x="126" y="151" width="168" height="41"/>
+                                        <color key="backgroundColor" red="0.0" green="0.61249224405942471" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="24"/>
+                                        <state key="normal" title="Create"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="createButtonTapped" destination="cnx-OH-T3m" eventType="touchUpInside" id="hSl-UN-9tI"/>
+                                        </connections>
+                                    </button>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ssH-mZ-jZW" userLabel="Name Text Field">
+                                        <rect key="frame" x="106" y="56" width="298" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="textFieldEdited" destination="cnx-OH-T3m" eventType="editingChanged" id="Lzb-wC-YIY"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="IW5-1V-34e" secondAttribute="bottom" constant="48" id="8tl-Uj-dNW"/>
+                                    <constraint firstAttribute="trailing" secondItem="ssH-mZ-jZW" secondAttribute="trailing" constant="16" id="F4e-BB-jK5"/>
+                                    <constraint firstItem="GAw-CB-1y0" firstAttribute="leading" secondItem="OoX-WQ-8ql" secondAttribute="leading" constant="16" id="Hgw-US-W8j"/>
+                                    <constraint firstItem="IW5-1V-34e" firstAttribute="width" secondItem="OoX-WQ-8ql" secondAttribute="width" multiplier="0.4" id="QMr-F9-08O"/>
+                                    <constraint firstItem="IW5-1V-34e" firstAttribute="centerX" secondItem="OoX-WQ-8ql" secondAttribute="centerX" id="QYr-7B-Yvy"/>
+                                    <constraint firstItem="ssH-mZ-jZW" firstAttribute="centerY" secondItem="GAw-CB-1y0" secondAttribute="centerY" id="ad7-0d-jh1"/>
+                                    <constraint firstItem="GAw-CB-1y0" firstAttribute="top" secondItem="OoX-WQ-8ql" secondAttribute="top" constant="60" id="ecS-s4-rIt"/>
+                                    <constraint firstItem="ssH-mZ-jZW" firstAttribute="leading" secondItem="GAw-CB-1y0" secondAttribute="trailing" constant="16" id="x5t-c0-AXG"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                        <color key="value" red="0.69633507853403143" green="0.69633507853403143" blue="0.69633507853403143" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="JKI-Gw-Oyf" firstAttribute="centerX" secondItem="mq0-gS-bc1" secondAttribute="centerX" id="0Hm-qc-b0D"/>
+                            <constraint firstItem="JKI-Gw-Oyf" firstAttribute="centerY" secondItem="mq0-gS-bc1" secondAttribute="centerY" id="1qb-Nd-GBz"/>
+                            <constraint firstItem="OoX-WQ-8ql" firstAttribute="centerX" secondItem="mq0-gS-bc1" secondAttribute="centerX" id="7qj-3E-Ws5"/>
+                            <constraint firstItem="OoX-WQ-8ql" firstAttribute="centerY" secondItem="mq0-gS-bc1" secondAttribute="centerY" id="IPB-1g-KLY"/>
+                            <constraint firstItem="OoX-WQ-8ql" firstAttribute="height" secondItem="mq0-gS-bc1" secondAttribute="height" multiplier="0.4" id="Uf0-dY-zHO"/>
+                            <constraint firstItem="JKI-Gw-Oyf" firstAttribute="height" secondItem="mq0-gS-bc1" secondAttribute="height" id="X3W-du-v4H"/>
+                            <constraint firstItem="OoX-WQ-8ql" firstAttribute="width" secondItem="mq0-gS-bc1" secondAttribute="width" multiplier="0.7" id="aZH-xk-te6"/>
+                            <constraint firstItem="JKI-Gw-Oyf" firstAttribute="width" secondItem="mq0-gS-bc1" secondAttribute="width" id="lzE-L3-uBj"/>
+                        </constraints>
+                    </view>
                     <connections>
-                        <segue destination="ObG-SB-gx5" kind="relationship" relationship="rootViewController" id="dz3-Xc-YX7"/>
+                        <outlet property="createButton" destination="IW5-1V-34e" id="GkL-Zm-qqa"/>
+                        <outlet property="formContentView" destination="OoX-WQ-8ql" id="8bn-FP-4kg"/>
+                        <outlet property="nameEntryInputField" destination="ssH-mZ-jZW" id="m8T-q6-Qe7"/>
                     </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9eC-b9-Apg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UHD-uH-geU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="-644"/>
+            <point key="canvasLocation" x="2001" y="687"/>
         </scene>
     </scenes>
 </document>

@@ -1,6 +1,6 @@
 import Foundation
 
-public class WorkoutIdentifier {
+public class WorkoutListItem {
     public init(withTimestamp timestamp: Int) {
         self.timestamp = timestamp
     }

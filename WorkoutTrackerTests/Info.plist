@@ -20,5 +20,7 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>APP_DELEGATE_NAME</key>
+	<string>${APP_DELEGATE_NAME}</string>
 </dict>
 </plist>

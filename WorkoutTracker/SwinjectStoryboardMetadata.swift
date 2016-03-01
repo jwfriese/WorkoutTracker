@@ -2,7 +2,7 @@ import Foundation
 import Swinject
 
 public protocol SwinjectStoryboardMetadata {
-    var name: String { get }
-    var container: Container { get }
+    static var name: String { get }
+    static var container: Container { get }
 }
 

@@ -8,29 +8,28 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="hWv-ey-Tya" customClass="WorkoutListTableViewCell" customModule="WorkoutTracker" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="MSK-3J-3Jy" customClass="WorkoutLiftTableViewCell" customModule="WorkoutTracker" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hWv-ey-Tya" id="MxG-wH-D8w">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MSK-3J-3Jy" id="TPA-1H-fVo">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4qQ-CC-Dcw">
-                        <rect key="frame" x="16" y="8" width="42" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YP5-E4-rLu">
+                        <rect key="frame" x="20" y="11" width="42" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="4qQ-CC-Dcw" firstAttribute="leading" secondItem="MxG-wH-D8w" secondAttribute="leadingMargin" constant="8" id="2pl-2P-eh0"/>
-                    <constraint firstItem="4qQ-CC-Dcw" firstAttribute="top" secondItem="MxG-wH-D8w" secondAttribute="topMargin" id="pfn-QB-Cf8"/>
+                    <constraint firstItem="YP5-E4-rLu" firstAttribute="centerY" secondItem="TPA-1H-fVo" secondAttribute="centerY" id="81h-fQ-j0I"/>
+                    <constraint firstItem="YP5-E4-rLu" firstAttribute="leading" secondItem="TPA-1H-fVo" secondAttribute="leadingMargin" constant="12" id="asb-mW-Hvx"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="contentLabel" destination="4qQ-CC-Dcw" id="H5N-Mw-DAF"/>
+                <outlet property="contentLabel" destination="YP5-E4-rLu" id="cVz-1Z-wrs"/>
             </connections>
-            <point key="canvasLocation" x="94" y="257"/>
         </tableViewCell>
     </objects>
 </document>

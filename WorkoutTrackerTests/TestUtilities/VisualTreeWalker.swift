@@ -3,6 +3,20 @@ import Quick
 import Nimble
 
 class VisualTreeWalker {
+    class func findFirstResponder(rootVisual: UIView) -> UIView? {
+        if rootVisual.isFirstResponder() {
+            return rootVisual
+        }
+        
+        for subview in rootVisual.subviews  {
+            if let firstResponderSubview = findFirstResponder(subview) {
+                return firstResponderSubview
+            }
+        }
+        
+        return nil
+    }
+    
     class func findAllSubviewsOfType<T: UIView>(subviewType: T.Type, rootVisual: UIView) -> [UIView] {
         var subviews = [UIView]()
         for subview in rootVisual.subviews {

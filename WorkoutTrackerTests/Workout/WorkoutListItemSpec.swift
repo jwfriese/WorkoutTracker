@@ -2,13 +2,13 @@ import Quick
 import Nimble
 import WorkoutTracker
 
-class WorkoutIdentifierSpec: QuickSpec {
+class WorkoutListItemSpec: QuickSpec {
     override func spec() {
-        describe("WorkoutIdentifier") {
-            var subject: WorkoutIdentifier!
+        describe("WorkoutListItem") {
+            var subject: WorkoutListItem!
             
             beforeEach {
-                subject = WorkoutIdentifier(withTimestamp: 2555)
+                subject = WorkoutListItem(withTimestamp: 2555)
             }
             
             describe("Its initializer") {
