@@ -101,9 +101,9 @@ class WorkoutListViewControllerSpec: QuickSpec {
                         }
                         
                         it("sets each cell with the correct workout") {
-                            expect(firstCell.workoutListItem).to(beIdenticalTo(subject.workouts[0]))
-                            expect(secondCell.workoutListItem).to(beIdenticalTo(subject.workouts[1]))
-                            expect(thirdCell.workoutListItem).to(beIdenticalTo(subject.workouts[2]))
+                            expect(firstCell.workout).to(beIdenticalTo(subject.workouts[0]))
+                            expect(secondCell.workout).to(beIdenticalTo(subject.workouts[1]))
+                            expect(thirdCell.workout).to(beIdenticalTo(subject.workouts[2]))
                         }
                         
                         describe("Selecting a cell") {
@@ -114,6 +114,11 @@ class WorkoutListViewControllerSpec: QuickSpec {
                             it("should present the page for that workout") {
                                 expect(navigationController.topViewController).to(beAnInstanceOf(WorkoutViewController.self))
                             }
+                            
+                            it("sets the selected cell's lift on the presented lift page") {
+                                let workoutViewController = navigationController.topViewController as? WorkoutViewController
+                                expect(workoutViewController?.workout).to(beIdenticalTo(firstCell.workout))
+                            }
                         }
                     }
                 }
@@ -123,9 +128,9 @@ class WorkoutListViewControllerSpec: QuickSpec {
 }
 
 class MockTimestamper: Timestamper {
-    var timestamp: Int!
+    var timestamp: UInt!
     
-    override func getTimestamp() -> Int {
+    override func getTimestamp() -> UInt {
         if let timestamp = timestamp {
             return timestamp
         }

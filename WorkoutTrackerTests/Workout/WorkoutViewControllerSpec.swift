@@ -15,6 +15,8 @@ class WorkoutViewControllerSpec: QuickSpec {
                 subject = storyboard.instantiateViewControllerWithIdentifier("WorkoutViewController")
                     as! WorkoutViewController
                 
+                subject.workout = Workout(withName: "turtle workout", timestamp: 1000)
+                
                 navigationController = TestNavigationController()
                 navigationController.pushViewController(subject, animated: false)
                 
@@ -28,10 +30,6 @@ class WorkoutViewControllerSpec: QuickSpec {
                 
                 it("should set its title") {
                     expect(subject.title).to(equal("Workout"))
-                }
-                
-                it("should have created a model object for itself") {
-                    expect(subject.workout).toNot(beNil())
                 }
                 
                 it("should have added itself as the table view's delegate") {

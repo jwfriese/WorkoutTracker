@@ -4,7 +4,7 @@ import Swinject
 public class WorkoutListViewController: UIViewController {
     @IBOutlet public private(set) weak var tableView: UITableView?
     
-    public private(set) var workouts: [WorkoutListItem] = []
+    public private(set) var workouts: [Workout] = []
     public var timestamper: Timestamper!
     
     override public func viewDidLoad() {
@@ -17,8 +17,16 @@ public class WorkoutListViewController: UIViewController {
     }
     
     @IBAction public func addWorkoutItem() {
-        workouts.append(WorkoutListItem(withTimestamp: timestamper.getTimestamp()))
+        workouts.append(Workout(withName: "", timestamp: timestamper.getTimestamp()))
         tableView?.reloadData()
+    }
+    
+    override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ShowWorkoutDetail" {
+            if let workoutViewController = segue.destinationViewController as? WorkoutViewController {
+                workoutViewController.workout = sender as? Workout
+            }
+        }
     }
 }
 
@@ -30,14 +38,13 @@ extension WorkoutListViewController: UITableViewDataSource {
     public func tableView(tableView: UITableView,
         cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
             let cell = tableView.dequeueReusableCellWithIdentifier(WorkoutListTableViewCell.name) as! WorkoutListTableViewCell
-            cell.workoutListItem = workouts[indexPath.row]
-            
+            cell.workout = workouts[indexPath.row]
             return cell
     }
 }
 
 extension WorkoutListViewController: UITableViewDelegate {
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.performSegueWithIdentifier("ShowWorkoutDetail", sender: self)
+        self.performSegueWithIdentifier("ShowWorkoutDetail", sender: workouts[indexPath.row])
     }
 }

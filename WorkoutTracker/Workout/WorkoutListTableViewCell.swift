@@ -5,11 +5,11 @@ public class WorkoutListTableViewCell: UITableViewCell {
     
     @IBOutlet weak public var contentLabel: UILabel?
     
-    public var workoutListItem: WorkoutListItem! {
+    public var workout: Workout! {
         didSet {
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "MM/dd/YYYY, hh:mma"
-            let date = NSDate(timeIntervalSince1970: Double(workoutListItem.timestamp))
+            let date = NSDate(timeIntervalSince1970: Double(workout.timestamp))
             
             contentLabel?.text = dateFormatter.stringFromDate(date)
         }

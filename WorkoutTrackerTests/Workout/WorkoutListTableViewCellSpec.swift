@@ -15,10 +15,10 @@ class WorkoutListTableViewCellSpec: QuickSpec {
                     as! WorkoutListTableViewCell
             }
             
-            describe("Setting a workout list item") {
+            describe("Setting a workout") {
                 beforeEach {
-                    let workoutListItem = WorkoutListItem(withTimestamp:644569200) // June 05, 1990 12:00AM
-                    subject.workoutListItem = workoutListItem
+                    let workout = Workout(withName: "", timestamp: 644569200) // June 05, 1990 12:00AM
+                    subject.workout = workout
                 }
                 
                 it("beautifies the item's timestamp and sets it as the content label's text") {

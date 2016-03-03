@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7B0B63891C7C09FE0054E80D /* WorkoutListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B63881C7C09FE0054E80D /* WorkoutListItem.swift */; };
 		7B0B638C1C7C0A050054E80D /* WorkoutListTableViewCellSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B638A1C7C0A050054E80D /* WorkoutListTableViewCellSpec.swift */; };
-		7B0B638D1C7C0A050054E80D /* WorkoutListItemSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B638B1C7C0A050054E80D /* WorkoutListItemSpec.swift */; };
 		7B41503D1C6B9D380032333F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B41503C1C6B9D380032333F /* AppDelegate.swift */; };
 		7B4150441C6B9D380032333F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B4150431C6B9D380032333F /* Assets.xcassets */; };
 		7B4150471C6B9D380032333F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B4150451C6B9D380032333F /* LaunchScreen.storyboard */; };
@@ -71,9 +69,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		7B0B63881C7C09FE0054E80D /* WorkoutListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutListItem.swift; sourceTree = "<group>"; };
 		7B0B638A1C7C0A050054E80D /* WorkoutListTableViewCellSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutListTableViewCellSpec.swift; sourceTree = "<group>"; };
-		7B0B638B1C7C0A050054E80D /* WorkoutListItemSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutListItemSpec.swift; sourceTree = "<group>"; };
 		7B4150391C6B9D380032333F /* WorkoutTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorkoutTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B41503C1C6B9D380032333F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B4150431C6B9D380032333F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -221,7 +217,6 @@
 			isa = PBXGroup;
 			children = (
 				7BB90D331C7CC370007D365E /* WorkoutListTableViewCell.xib */,
-				7B0B63881C7C09FE0054E80D /* WorkoutListItem.swift */,
 				7B6AC0AE1C74D7740063F667 /* WorkoutListViewController.swift */,
 				7B6AC0B51C761CD20063F667 /* WorkoutList.storyboard */,
 				7B6AC0D31C7A4DCC0063F667 /* WorkoutListTableViewCell.swift */,
@@ -249,7 +244,6 @@
 			children = (
 				7BB90D311C7CC08F007D365E /* WorkoutListViewControllerSpec.swift */,
 				7B0B638A1C7C0A050054E80D /* WorkoutListTableViewCellSpec.swift */,
-				7B0B638B1C7C0A050054E80D /* WorkoutListItemSpec.swift */,
 				7BB90D351C7D5D6F007D365E /* WorkoutViewControllerSpec.swift */,
 				7BB90D461C7F4E3B007D365E /* WorkoutListStoryboardMetadataSpec.swift */,
 				7BB90D481C7F5464007D365E /* WorkoutStoryboardMetadataSpec.swift */,
@@ -466,7 +460,6 @@
 				7BB90D611C888D29007D365E /* LiftSetTableViewCell.swift in Sources */,
 				7BB90D6B1C889513007D365E /* LiftSet.swift in Sources */,
 				7BB90D451C7F4DF5007D365E /* WorkoutStoryboardMetadata.swift in Sources */,
-				7B0B63891C7C09FE0054E80D /* WorkoutListItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,7 +482,6 @@
 				7B6AC0CB1C7A30100063F667 /* LocalStorageWorkerSpec.swift in Sources */,
 				7BB90D511C85E5FA007D365E /* WorkoutSpec.swift in Sources */,
 				7BB90D4B1C80A6C6007D365E /* LiftEntryFormViewControllerSpec.swift in Sources */,
-				7B0B638D1C7C0A050054E80D /* WorkoutListItemSpec.swift in Sources */,
 				7B6AC0B91C76253F0063F667 /* VisualTreeWalker.swift in Sources */,
 				7B0B638C1C7C0A050054E80D /* WorkoutListTableViewCellSpec.swift in Sources */,
 				7BB90D321C7CC08F007D365E /* WorkoutListViewControllerSpec.swift in Sources */,

@@ -8,7 +8,17 @@ class WorkoutSpec: QuickSpec {
             var subject: Workout!
             
             beforeEach {
-                subject = Workout()
+                subject = Workout(withName: "turtle workout", timestamp: 1000)
+            }
+            
+            describe("Its initializer") {
+                it("sets the workout's name") {
+                    expect(subject.name).to(equal("turtle workout"))
+                }
+                
+                it("sets the workout's timestamp") {
+                    expect(subject.timestamp).to(equal(1000))
+                }
             }
             
             describe("Adding a new lift") {

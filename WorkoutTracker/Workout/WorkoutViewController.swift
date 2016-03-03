@@ -9,7 +9,6 @@ public class WorkoutViewController: UIViewController {
         super.viewDidLoad()
         
         title = "Workout"
-        workout = Workout()
         tableView?.delegate = self
         tableView?.dataSource = self
         
