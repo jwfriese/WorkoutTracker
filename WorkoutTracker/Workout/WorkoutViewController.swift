@@ -26,6 +26,10 @@ public class WorkoutViewController: UIViewController {
                 
                 liftEntryFormViewController.delegate = self
             }
+        } else if segue.identifier == "ShowLift" {
+            if let liftViewController = segue.destinationViewController as? LiftViewController {
+                liftViewController.lift = sender as! Lift
+            }
         }
     }
 }
@@ -39,7 +43,9 @@ extension WorkoutViewController: LiftEntryFormDelegate {
 }
 
 extension WorkoutViewController: UITableViewDelegate {
-    
+    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.performSegueWithIdentifier("ShowLift", sender: workout.lifts[indexPath.row])
+    }
 }
 
 extension WorkoutViewController: UITableViewDataSource {

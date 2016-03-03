@@ -20,10 +20,6 @@ public class WorkoutListViewController: UIViewController {
         workouts.append(WorkoutListItem(withTimestamp: timestamper.getTimestamp()))
         tableView?.reloadData()
     }
-    
-    override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-    }
 }
 
 extension WorkoutListViewController: UITableViewDataSource {
@@ -38,12 +34,10 @@ extension WorkoutListViewController: UITableViewDataSource {
             
             return cell
     }
-    
-    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.performSegueWithIdentifier("ShowWorkoutDetail", sender: self)
-    }
 }
 
 extension WorkoutListViewController: UITableViewDelegate {
-    
+    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.performSegueWithIdentifier("ShowWorkoutDetail", sender: self)
+    }
 }

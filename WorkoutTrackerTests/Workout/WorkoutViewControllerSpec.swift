@@ -117,6 +117,21 @@ class WorkoutViewControllerSpec: QuickSpec {
                             expect(secondCell.lift).to(beIdenticalTo(subject.workout.lifts[1]))
                             expect(thirdCell.lift).to(beIdenticalTo(subject.workout.lifts[2]))
                         }
+                        
+                        describe("Selecting a cell") {
+                            beforeEach {
+                                subject.tableView(subject.tableView!, didSelectRowAtIndexPath: firstIndexPath)
+                            }
+                            
+                            it("presents the page for that lift") {
+                                expect(navigationController.topViewController).to(beAnInstanceOf(LiftViewController.self))
+                            }
+                            
+                            it("sets the selected cell's lift on the presented lift page") {
+                                let liftViewController = navigationController.topViewController as? LiftViewController
+                                expect(liftViewController?.lift).to(beIdenticalTo(firstCell.lift))
+                            }
+                        }
                     }
                 }
             }

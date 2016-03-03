@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10089" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10072.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LiftTableViewHeaderView" customModule="WorkoutTracker" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="LiftTableViewHeaderView" customModule="WorkoutTracker" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="kCQ-iO-T1m">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="elR-5r-kT1" userLabel="Set View">
+                            <rect key="frame" x="0.0" y="0.0" width="200" height="600"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yRQ-7J-mBl" userLabel="Set Title Label">
+                                    <rect key="frame" x="87" y="8" width="26" height="575"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oHR-47-tAo" userLabel="Separator View">
+                                    <rect key="frame" x="30" y="599" width="140" height="1"/>
+                                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="1" id="s1o-Zi-WCs"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="yRQ-7J-mBl" firstAttribute="bottom" secondItem="oHR-47-tAo" secondAttribute="top" constant="-16" id="4J3-0M-YGQ"/>
+                                <constraint firstAttribute="bottom" secondItem="oHR-47-tAo" secondAttribute="bottom" id="58X-33-WqW"/>
+                                <constraint firstItem="oHR-47-tAo" firstAttribute="width" secondItem="elR-5r-kT1" secondAttribute="width" multiplier="0.7" id="Bb7-Gn-npf"/>
+                                <constraint firstItem="yRQ-7J-mBl" firstAttribute="centerX" secondItem="elR-5r-kT1" secondAttribute="centerX" id="CVR-nP-CEW"/>
+                                <constraint firstItem="oHR-47-tAo" firstAttribute="centerX" secondItem="elR-5r-kT1" secondAttribute="centerX" id="Jkh-Kd-0Xz"/>
+                                <constraint firstItem="yRQ-7J-mBl" firstAttribute="top" secondItem="elR-5r-kT1" secondAttribute="top" constant="8" id="Uug-Sc-zGc"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jGG-Nl-qVl" userLabel="Weight View">
+                            <rect key="frame" x="200" y="0.0" width="200" height="600"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weight" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Toi-0p-CKi" userLabel="Weight Title Label">
+                                    <rect key="frame" x="73" y="8" width="54" height="575"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8L1-rh-NWo" userLabel="Separator View">
+                                    <rect key="frame" x="30" y="599" width="140" height="1"/>
+                                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="1" id="Pqh-h8-xrJ"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="8L1-rh-NWo" secondAttribute="bottom" id="0i1-ia-K3L"/>
+                                <constraint firstItem="8L1-rh-NWo" firstAttribute="centerX" secondItem="jGG-Nl-qVl" secondAttribute="centerX" id="FLy-wx-Qob"/>
+                                <constraint firstItem="Toi-0p-CKi" firstAttribute="centerX" secondItem="jGG-Nl-qVl" secondAttribute="centerX" id="HA1-te-gUV"/>
+                                <constraint firstItem="Toi-0p-CKi" firstAttribute="top" secondItem="jGG-Nl-qVl" secondAttribute="top" constant="8" id="WDu-en-cw0"/>
+                                <constraint firstItem="Toi-0p-CKi" firstAttribute="bottom" secondItem="8L1-rh-NWo" secondAttribute="top" constant="-16" id="fIG-WN-kI4"/>
+                                <constraint firstItem="8L1-rh-NWo" firstAttribute="width" secondItem="jGG-Nl-qVl" secondAttribute="width" multiplier="0.7" id="uS4-pz-dX3"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U6a-Em-Y3b" userLabel="Reps View">
+                            <rect key="frame" x="400" y="0.0" width="200" height="600"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z4b-dS-0GD" userLabel="Reps Title Label">
+                                    <rect key="frame" x="81" y="8" width="39" height="575"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vjI-O6-08G" userLabel="Separator View" customClass="LiftTableViewHeaderView" customModule="WorkoutTracker" customModuleProvider="target">
+                                    <rect key="frame" x="30" y="599" width="140" height="1"/>
+                                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="1" id="P2f-Dl-cAd"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="Z4b-dS-0GD" firstAttribute="bottom" secondItem="vjI-O6-08G" secondAttribute="top" constant="-16" id="9p0-W1-B05"/>
+                                <constraint firstItem="vjI-O6-08G" firstAttribute="width" secondItem="U6a-Em-Y3b" secondAttribute="width" multiplier="0.7" id="Anx-cf-knw"/>
+                                <constraint firstItem="Z4b-dS-0GD" firstAttribute="top" secondItem="U6a-Em-Y3b" secondAttribute="top" constant="8" id="EGX-CI-v0Q"/>
+                                <constraint firstItem="Z4b-dS-0GD" firstAttribute="centerX" secondItem="U6a-Em-Y3b" secondAttribute="centerX" id="KOc-ZH-Kzc"/>
+                                <constraint firstItem="vjI-O6-08G" firstAttribute="centerX" secondItem="U6a-Em-Y3b" secondAttribute="centerX" id="npk-Ib-lro"/>
+                                <constraint firstAttribute="bottom" secondItem="vjI-O6-08G" secondAttribute="bottom" id="xwS-5s-G37"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="kCQ-iO-T1m" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Avt-W8-kUI"/>
+                <constraint firstItem="kCQ-iO-T1m" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Nab-Xk-VHM"/>
+                <constraint firstItem="kCQ-iO-T1m" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="iXW-6z-GYj"/>
+                <constraint firstItem="kCQ-iO-T1m" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="tts-VI-qFH"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

@@ -48,6 +48,16 @@
 		7BB90D531C85F00C007D365E /* WorkoutLiftTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB90D521C85F00C007D365E /* WorkoutLiftTableViewCell.swift */; };
 		7BB90D551C85F01E007D365E /* WorkoutLiftTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BB90D541C85F01E007D365E /* WorkoutLiftTableViewCell.xib */; };
 		7BB90D571C85F07F007D365E /* WorkoutLiftTableViewCellSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB90D561C85F07F007D365E /* WorkoutLiftTableViewCellSpec.swift */; };
+		7BB90D591C8744DF007D365E /* LiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB90D581C8744DF007D365E /* LiftViewController.swift */; };
+		7BB90D5B1C8748DD007D365E /* SetEntryFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB90D5A1C8748DD007D365E /* SetEntryFormViewController.swift */; };
+		7BB90D5D1C87490D007D365E /* LiftViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB90D5C1C87490D007D365E /* LiftViewControllerSpec.swift */; };
+		7BB90D5F1C888266007D365E /* SetEntryFormViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB90D5E1C888266007D365E /* SetEntryFormViewControllerSpec.swift */; };
+		7BB90D611C888D29007D365E /* LiftSetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB90D601C888D29007D365E /* LiftSetTableViewCell.swift */; };
+		7BB90D631C888D52007D365E /* LiftSetTableViewCellSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB90D621C888D52007D365E /* LiftSetTableViewCellSpec.swift */; };
+		7BB90D651C888E45007D365E /* LiftSetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BB90D641C888E45007D365E /* LiftSetTableViewCell.xib */; };
+		7BB90D671C888F38007D365E /* LiftTableViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BB90D661C888F38007D365E /* LiftTableViewHeaderView.xib */; };
+		7BB90D691C88944C007D365E /* LiftSetSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB90D681C88944C007D365E /* LiftSetSpec.swift */; };
+		7BB90D6B1C889513007D365E /* LiftSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB90D6A1C889513007D365E /* LiftSet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +116,16 @@
 		7BB90D521C85F00C007D365E /* WorkoutLiftTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutLiftTableViewCell.swift; sourceTree = "<group>"; };
 		7BB90D541C85F01E007D365E /* WorkoutLiftTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WorkoutLiftTableViewCell.xib; sourceTree = "<group>"; };
 		7BB90D561C85F07F007D365E /* WorkoutLiftTableViewCellSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutLiftTableViewCellSpec.swift; sourceTree = "<group>"; };
+		7BB90D581C8744DF007D365E /* LiftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftViewController.swift; sourceTree = "<group>"; };
+		7BB90D5A1C8748DD007D365E /* SetEntryFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetEntryFormViewController.swift; sourceTree = "<group>"; };
+		7BB90D5C1C87490D007D365E /* LiftViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftViewControllerSpec.swift; sourceTree = "<group>"; };
+		7BB90D5E1C888266007D365E /* SetEntryFormViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetEntryFormViewControllerSpec.swift; sourceTree = "<group>"; };
+		7BB90D601C888D29007D365E /* LiftSetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftSetTableViewCell.swift; sourceTree = "<group>"; };
+		7BB90D621C888D52007D365E /* LiftSetTableViewCellSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftSetTableViewCellSpec.swift; sourceTree = "<group>"; };
+		7BB90D641C888E45007D365E /* LiftSetTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LiftSetTableViewCell.xib; sourceTree = "<group>"; };
+		7BB90D661C888F38007D365E /* LiftTableViewHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LiftTableViewHeaderView.xib; sourceTree = "<group>"; };
+		7BB90D681C88944C007D365E /* LiftSetSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftSetSpec.swift; sourceTree = "<group>"; };
+		7BB90D6A1C889513007D365E /* LiftSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftSet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,6 +234,12 @@
 				7BB90D4E1C85E59B007D365E /* Workout.swift */,
 				7BB90D521C85F00C007D365E /* WorkoutLiftTableViewCell.swift */,
 				7BB90D541C85F01E007D365E /* WorkoutLiftTableViewCell.xib */,
+				7BB90D581C8744DF007D365E /* LiftViewController.swift */,
+				7BB90D5A1C8748DD007D365E /* SetEntryFormViewController.swift */,
+				7BB90D601C888D29007D365E /* LiftSetTableViewCell.swift */,
+				7BB90D641C888E45007D365E /* LiftSetTableViewCell.xib */,
+				7BB90D661C888F38007D365E /* LiftTableViewHeaderView.xib */,
+				7BB90D6A1C889513007D365E /* LiftSet.swift */,
 			);
 			path = Workout;
 			sourceTree = "<group>";
@@ -231,6 +257,10 @@
 				7BB90D4C1C841DB8007D365E /* LiftSpec.swift */,
 				7BB90D501C85E5FA007D365E /* WorkoutSpec.swift */,
 				7BB90D561C85F07F007D365E /* WorkoutLiftTableViewCellSpec.swift */,
+				7BB90D5C1C87490D007D365E /* LiftViewControllerSpec.swift */,
+				7BB90D5E1C888266007D365E /* SetEntryFormViewControllerSpec.swift */,
+				7BB90D621C888D52007D365E /* LiftSetTableViewCellSpec.swift */,
+				7BB90D681C88944C007D365E /* LiftSetSpec.swift */,
 			);
 			path = Workout;
 			sourceTree = "<group>";
@@ -361,7 +391,9 @@
 			files = (
 				7BB90D551C85F01E007D365E /* WorkoutLiftTableViewCell.xib in Resources */,
 				7B6AC0B61C761CD20063F667 /* WorkoutList.storyboard in Resources */,
+				7BB90D671C888F38007D365E /* LiftTableViewHeaderView.xib in Resources */,
 				7B4150471C6B9D380032333F /* LaunchScreen.storyboard in Resources */,
+				7BB90D651C888E45007D365E /* LiftSetTableViewCell.xib in Resources */,
 				7B4150441C6B9D380032333F /* Assets.xcassets in Resources */,
 				7BB90D431C7F4D4C007D365E /* Workout.storyboard in Resources */,
 				7BB90D341C7CC370007D365E /* WorkoutListTableViewCell.xib in Resources */,
@@ -416,7 +448,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BB90D5B1C8748DD007D365E /* SetEntryFormViewController.swift in Sources */,
 				7BB90D411C7F4B7E007D365E /* LiftEntryFormViewController.swift in Sources */,
+				7BB90D591C8744DF007D365E /* LiftViewController.swift in Sources */,
 				7B6AC0D61C7A5F9A0063F667 /* SwinjectStoryboardMetadata.swift in Sources */,
 				7B6AC0D41C7A4DCC0063F667 /* WorkoutListTableViewCell.swift in Sources */,
 				7BB90D301C7CBFD1007D365E /* WorkoutViewController.swift in Sources */,
@@ -429,6 +463,8 @@
 				7BB90D4F1C85E59B007D365E /* Workout.swift in Sources */,
 				7B6AC0D81C7A60060063F667 /* WorkoutListStoryboardMetadata.swift in Sources */,
 				7B41503D1C6B9D380032333F /* AppDelegate.swift in Sources */,
+				7BB90D611C888D29007D365E /* LiftSetTableViewCell.swift in Sources */,
+				7BB90D6B1C889513007D365E /* LiftSet.swift in Sources */,
 				7BB90D451C7F4DF5007D365E /* WorkoutStoryboardMetadata.swift in Sources */,
 				7B0B63891C7C09FE0054E80D /* WorkoutListItem.swift in Sources */,
 			);
@@ -438,12 +474,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BB90D631C888D52007D365E /* LiftSetTableViewCellSpec.swift in Sources */,
+				7BB90D691C88944C007D365E /* LiftSetSpec.swift in Sources */,
+				7BB90D5D1C87490D007D365E /* LiftViewControllerSpec.swift in Sources */,
 				7BB90D361C7D5D6F007D365E /* WorkoutViewControllerSpec.swift in Sources */,
 				7B6AC0A61C712AAB0063F667 /* AppDelegateSpec.swift in Sources */,
 				7BB90D471C7F4E3B007D365E /* WorkoutListStoryboardMetadataSpec.swift in Sources */,
 				7BB90D3C1C7E10BC007D365E /* TestAppDelegate.swift in Sources */,
 				7BB90D4D1C841DB8007D365E /* LiftSpec.swift in Sources */,
 				7BB90D571C85F07F007D365E /* WorkoutLiftTableViewCellSpec.swift in Sources */,
+				7BB90D5F1C888266007D365E /* SetEntryFormViewControllerSpec.swift in Sources */,
 				7B6AC0AC1C74D5E50063F667 /* TestNavigationController.swift in Sources */,
 				7BB90D491C7F5464007D365E /* WorkoutStoryboardMetadataSpec.swift in Sources */,
 				7B6AC0CB1C7A30100063F667 /* LocalStorageWorkerSpec.swift in Sources */,
