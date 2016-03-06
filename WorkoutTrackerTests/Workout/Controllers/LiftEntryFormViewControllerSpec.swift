@@ -5,6 +5,15 @@ import WorkoutTracker
 
 class LiftEntryFormViewControllerSpec: QuickSpec {
     override func spec() {
+        
+        class MockLiftEntryFormDelegate: LiftEntryFormDelegate {
+            var enteredName: String?
+            
+            func liftEnteredWithName(name: String) {
+                enteredName = name
+            }
+        }
+        
         describe("LiftEntryFormViewController") {
             var subject: LiftEntryFormViewController!
             var mockLiftEntryFormDelegate: MockLiftEntryFormDelegate!
@@ -86,13 +95,5 @@ class LiftEntryFormViewControllerSpec: QuickSpec {
                 }
             }
         }
-    }
-}
-
-class MockLiftEntryFormDelegate: LiftEntryFormDelegate {
-    var enteredName: String?
-    
-    func liftEnteredWithName(name: String) {
-        enteredName = name
     }
 }

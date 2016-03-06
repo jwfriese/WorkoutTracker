@@ -22,7 +22,8 @@ public class LiftEntryFormViewController: UIViewController {
     }
     
     @IBAction public func createButtonTapped() {
-        delegate?.liftEnteredWithName((nameEntryInputField?.text)!)
+        let liftName = (nameEntryInputField?.text)!
+        delegate?.liftEnteredWithName(liftName)
     }
     
     @IBAction public func textFieldEdited() {

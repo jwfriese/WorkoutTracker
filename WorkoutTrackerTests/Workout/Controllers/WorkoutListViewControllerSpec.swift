@@ -4,10 +4,51 @@ import Swinject
 import WorkoutTracker
 
 class WorkoutListViewControllerSpec: QuickSpec {
+    class MockTimestamper: Timestamper {
+        var timestamp: UInt!
+        
+        override func getTimestamp() -> UInt {
+            if let timestamp = timestamp {
+                return timestamp
+            }
+            
+            return 0
+        }
+    }
+    
+    class MockWorkoutSaveAgent: WorkoutSaveAgent {
+        var savedWorkout: Workout?
+        
+        init() {
+            super.init(withWorkoutSerializer:nil, localStorageWorker:nil)
+        }
+        
+        override func save(workout: Workout) -> String {
+            savedWorkout = workout
+            return ""
+        }
+    }
+    
+    class MockWorkoutLoadAgent: WorkoutLoadAgent {
+        init() {
+            super.init(withWorkoutDeserializer:nil, localStorageWorker:nil)
+        }
+        
+        override func loadAllWorkouts() -> [Workout] {
+            return [
+                Workout(withName: "turtle workout one", timestamp: 1000),
+                Workout(withName: "turtle workout two", timestamp: 2000),
+                Workout(withName: "turtle workout three", timestamp: 3000)
+            ]
+        }
+    }
+    
     override func spec() {
         describe("WorkoutListViewController") {
             var subject: WorkoutListViewController!
             var mockTimestamper: MockTimestamper!
+            var mockWorkoutSaveAgent: MockWorkoutSaveAgent!
+            var mockWorkoutLoadAgent: MockWorkoutLoadAgent!
             
             var navigationController: TestNavigationController!
             
@@ -15,11 +56,17 @@ class WorkoutListViewControllerSpec: QuickSpec {
                 let container = Container()
                 
                 mockTimestamper = MockTimestamper()
+                mockWorkoutSaveAgent = MockWorkoutSaveAgent()
+                mockWorkoutLoadAgent = MockWorkoutLoadAgent()
                 
                 container.register(Timestamper.self) { _ in mockTimestamper }
+                container.register(WorkoutSaveAgent.self) { _ in mockWorkoutSaveAgent }
+                container.register(WorkoutLoadAgent.self) { _ in mockWorkoutLoadAgent }
                 
                 container.registerForStoryboard(WorkoutListViewController.self) { resolver, instance in
                     instance.timestamper = resolver.resolve(Timestamper.self)
+                    instance.workoutSaveAgent = resolver.resolve(WorkoutSaveAgent.self)
+                    instance.workoutLoadAgent = resolver.resolve(WorkoutLoadAgent.self)
                 }
                 
                 let storyboard = SwinjectStoryboard.create(name: "WorkoutList", bundle: nil, container: container)
@@ -57,6 +104,13 @@ class WorkoutListViewControllerSpec: QuickSpec {
                     expect(realCell).toNot(beNil())
                 }
                 
+                it("loads all the workouts from disk into memory") {
+                    expect(subject.workouts.count).to(equal(3))
+                    expect(subject.workouts[0].name).to(equal("turtle workout one"))
+                    expect(subject.workouts[1].name).to(equal("turtle workout two"))
+                    expect(subject.workouts[2].name).to(equal("turtle workout three"))
+                }
+                
                 describe("Tapping the right nav bar item") {
                     beforeEach {
                         let navigationItem = subject.navigationItem
@@ -65,7 +119,11 @@ class WorkoutListViewControllerSpec: QuickSpec {
                     }
                     
                     it("adds a new item") {
-                        expect(subject.workouts.count).to(equal(1))
+                        expect(subject.workouts.count).to(equal(4))
+                    }
+                    
+                    it("saves the newly added item") {
+                        expect(mockWorkoutSaveAgent.savedWorkout).to(beIdenticalTo(subject.workouts[3]))
                     }
                 }
                 
@@ -82,13 +140,13 @@ class WorkoutListViewControllerSpec: QuickSpec {
                     }
                     
                     it("has a row for each workout") {
-                        expect(subject.tableView(subject.tableView!, numberOfRowsInSection: 0)).to(equal(3))
+                        expect(subject.tableView(subject.tableView!, numberOfRowsInSection: 0)).to(equal(6))
                     }
                     
                     describe("Its cells") {
-                        let firstIndexPath = NSIndexPath(forRow: 0, inSection: 0)
-                        let secondIndexPath = NSIndexPath(forRow: 1, inSection: 0)
-                        let thirdIndexPath = NSIndexPath(forRow: 2, inSection: 0)
+                        let firstIndexPath = NSIndexPath(forRow: 3, inSection: 0)
+                        let secondIndexPath = NSIndexPath(forRow: 4, inSection: 0)
+                        let thirdIndexPath = NSIndexPath(forRow: 5, inSection: 0)
                         
                         var firstCell: WorkoutListTableViewCell!
                         var secondCell: WorkoutListTableViewCell!
@@ -101,9 +159,9 @@ class WorkoutListViewControllerSpec: QuickSpec {
                         }
                         
                         it("sets each cell with the correct workout") {
-                            expect(firstCell.workout).to(beIdenticalTo(subject.workouts[0]))
-                            expect(secondCell.workout).to(beIdenticalTo(subject.workouts[1]))
-                            expect(thirdCell.workout).to(beIdenticalTo(subject.workouts[2]))
+                            expect(firstCell.workout).to(beIdenticalTo(subject.workouts[3]))
+                            expect(secondCell.workout).to(beIdenticalTo(subject.workouts[4]))
+                            expect(thirdCell.workout).to(beIdenticalTo(subject.workouts[5]))
                         }
                         
                         describe("Selecting a cell") {
@@ -124,17 +182,5 @@ class WorkoutListViewControllerSpec: QuickSpec {
                 }
             }
         }
-    }
-}
-
-class MockTimestamper: Timestamper {
-    var timestamp: UInt!
-    
-    override func getTimestamp() -> UInt {
-        if let timestamp = timestamp {
-            return timestamp
-        }
-        
-        return 0
     }
 }

@@ -5,12 +5,34 @@ import WorkoutTracker
 
 class WorkoutViewControllerSpec: QuickSpec {
     override func spec() {
+        
+        class MockWorkoutSaveAgent: WorkoutSaveAgent {
+            var savedWorkout: Workout?
+            
+            init() {
+                super.init(withWorkoutSerializer: nil, localStorageWorker: nil)
+            }
+            
+            override func save(workout: Workout) -> String {
+                savedWorkout = workout
+                return ""
+            }
+        }
+        
         describe("WorkoutViewController") {
             var subject: WorkoutViewController!
+            var mockWorkoutSaveAgent: MockWorkoutSaveAgent!
             var navigationController: TestNavigationController!
             
             beforeEach {
-                let storyboard = SwinjectStoryboard.create(name: WorkoutStoryboardMetadata.name, bundle: nil, container: WorkoutStoryboardMetadata.container)
+                mockWorkoutSaveAgent = MockWorkoutSaveAgent()
+                
+                let container = WorkoutStoryboardMetadata.container
+                container.register(WorkoutSaveAgent.self) { resolver in
+                    return mockWorkoutSaveAgent
+                }
+                
+                let storyboard = SwinjectStoryboard.create(name: WorkoutStoryboardMetadata.name, bundle: nil, container: container)
                 
                 subject = storyboard.instantiateViewControllerWithIdentifier("WorkoutViewController")
                     as! WorkoutViewController
@@ -68,6 +90,12 @@ class WorkoutViewControllerSpec: QuickSpec {
                         
                         it("dismisses the lift entry form modal") {
                             expect(subject.presentedViewController).toEventually(beNil(), timeout:2.0)
+                        }
+                        
+                        it("saves the workout with the new lift on it") {
+                            let savedWorkout = mockWorkoutSaveAgent.savedWorkout
+                            expect(savedWorkout).toNot(beNil())
+                            expect(savedWorkout?.lifts.first?.name).to(equal(subject.workout.lifts.first?.name))
                         }
                         
                         it("reloads the table view's data") {

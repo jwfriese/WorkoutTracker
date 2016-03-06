@@ -23,20 +23,11 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="oXP-tp-TpY" id="El1-uA-HB2"/>
-                        <segue destination="kId-cZ-saX" kind="show" identifier="ShowWorkoutDetail" id="Nji-B5-9NR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qTA-uV-IwP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1110" y="-631"/>
-        </scene>
-        <!--Workout-->
-        <scene sceneID="Wwr-TI-tIh">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Workout" id="kId-cZ-saX" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HXT-FR-0hM" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1814.5" y="-631"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ojA-cX-Icw">

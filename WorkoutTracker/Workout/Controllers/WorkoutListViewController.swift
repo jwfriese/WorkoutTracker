@@ -6,6 +6,8 @@ public class WorkoutListViewController: UIViewController {
     
     public private(set) var workouts: [Workout] = []
     public var timestamper: Timestamper!
+    public var workoutSaveAgent: WorkoutSaveAgent!
+    public var workoutLoadAgent: WorkoutLoadAgent!
     
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -14,19 +16,15 @@ public class WorkoutListViewController: UIViewController {
         tableView?.dataSource = self
         tableView?.registerNib(UINib(nibName: WorkoutListTableViewCell.name, bundle: nil),
             forCellReuseIdentifier:WorkoutListTableViewCell.name)
+        
+        workouts = workoutLoadAgent.loadAllWorkouts()
     }
     
     @IBAction public func addWorkoutItem() {
-        workouts.append(Workout(withName: "", timestamp: timestamper.getTimestamp()))
+        let workout = Workout(withName: "", timestamp: timestamper.getTimestamp())
+        workouts.append(workout)
         tableView?.reloadData()
-    }
-    
-    override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "ShowWorkoutDetail" {
-            if let workoutViewController = segue.destinationViewController as? WorkoutViewController {
-                workoutViewController.workout = sender as? Workout
-            }
-        }
+        workoutSaveAgent.save(workout)
     }
 }
 
@@ -45,6 +43,12 @@ extension WorkoutListViewController: UITableViewDataSource {
 
 extension WorkoutListViewController: UITableViewDelegate {
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.performSegueWithIdentifier("ShowWorkoutDetail", sender: workouts[indexPath.row])
+        let workoutStoryboard = SwinjectStoryboard.create(name: WorkoutStoryboardMetadata.name,
+            bundle: nil, container: WorkoutStoryboardMetadata.container)
+        let workoutViewController = workoutStoryboard.instantiateInitialViewController() as!
+            WorkoutViewController
+        workoutViewController.workout = workouts[indexPath.row]
+        
+        self.navigationController?.pushViewController(workoutViewController, animated: true)
     }
 }
