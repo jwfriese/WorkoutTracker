@@ -240,7 +240,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="xi6-N9-soR" firstAttribute="centerX" secondItem="ojl-Ob-W52" secondAttribute="centerX" id="2Xm-gb-gJB"/>
                             <constraint firstItem="xi6-N9-soR" firstAttribute="width" secondItem="ojl-Ob-W52" secondAttribute="width" multiplier="0.7" id="ANi-mj-oR4"/>
