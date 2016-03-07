@@ -66,11 +66,18 @@ public class WorkoutListStoryboardMetadata: SwinjectStoryboardMetadata {
                 return WorkoutLoadAgent(withWorkoutDeserializer: workoutDeserializer!,
                     localStorageWorker: localStorageWorker!)
             }
+            
+            container.register(WorkoutDeleteAgent.self) { resolver in
+                let localStorageWorker = resolver.resolve(LocalStorageWorker.self)
+                
+                return WorkoutDeleteAgent(withLocalStorageWorker: localStorageWorker)
+            }
     
             container.registerForStoryboard(WorkoutListViewController.self) { resolver, instance in
                 instance.timestamper = resolver.resolve(Timestamper.self)
                 instance.workoutSaveAgent = resolver.resolve(WorkoutSaveAgent.self)
                 instance.workoutLoadAgent = resolver.resolve(WorkoutLoadAgent.self)
+                instance.workoutDeleteAgent = resolver.resolve(WorkoutDeleteAgent.self)
             }
             
             return container

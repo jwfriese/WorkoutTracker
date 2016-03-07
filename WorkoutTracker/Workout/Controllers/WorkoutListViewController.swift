@@ -8,6 +8,7 @@ public class WorkoutListViewController: UIViewController {
     public var timestamper: Timestamper!
     public var workoutSaveAgent: WorkoutSaveAgent!
     public var workoutLoadAgent: WorkoutLoadAgent!
+    public var workoutDeleteAgent: WorkoutDeleteAgent!
     
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +39,16 @@ extension WorkoutListViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCellWithIdentifier(WorkoutListTableViewCell.name) as! WorkoutListTableViewCell
             cell.workout = workouts[indexPath.row]
             return cell
+    }
+    
+    public func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if editingStyle == .Delete {
+            let workoutToDelete = workouts[indexPath.row]
+            workouts.removeAtIndex(indexPath.row)
+            self.tableView?.reloadData()
+            workoutDeleteAgent.delete(workoutToDelete)
+        }
     }
 }
 

@@ -43,12 +43,25 @@ class WorkoutListViewControllerSpec: QuickSpec {
         }
     }
     
+    class MockWorkoutDeleteAgent: WorkoutDeleteAgent {
+        var deletedWorkout: Workout?
+        
+        init() {
+            super.init(withLocalStorageWorker: nil)
+        }
+        
+        override func delete(workout: Workout) {
+            deletedWorkout = workout
+        }
+    }
+    
     override func spec() {
         describe("WorkoutListViewController") {
             var subject: WorkoutListViewController!
             var mockTimestamper: MockTimestamper!
             var mockWorkoutSaveAgent: MockWorkoutSaveAgent!
             var mockWorkoutLoadAgent: MockWorkoutLoadAgent!
+            var mockWorkoutDeleteAgent: MockWorkoutDeleteAgent!
             
             var navigationController: TestNavigationController!
             
@@ -58,15 +71,18 @@ class WorkoutListViewControllerSpec: QuickSpec {
                 mockTimestamper = MockTimestamper()
                 mockWorkoutSaveAgent = MockWorkoutSaveAgent()
                 mockWorkoutLoadAgent = MockWorkoutLoadAgent()
+                mockWorkoutDeleteAgent = MockWorkoutDeleteAgent()
                 
                 container.register(Timestamper.self) { _ in mockTimestamper }
                 container.register(WorkoutSaveAgent.self) { _ in mockWorkoutSaveAgent }
                 container.register(WorkoutLoadAgent.self) { _ in mockWorkoutLoadAgent }
+                container.register(WorkoutDeleteAgent.self) { _ in mockWorkoutDeleteAgent }
                 
                 container.registerForStoryboard(WorkoutListViewController.self) { resolver, instance in
                     instance.timestamper = resolver.resolve(Timestamper.self)
                     instance.workoutSaveAgent = resolver.resolve(WorkoutSaveAgent.self)
                     instance.workoutLoadAgent = resolver.resolve(WorkoutLoadAgent.self)
+                    instance.workoutDeleteAgent = resolver.resolve(WorkoutDeleteAgent.self)
                 }
                 
                 let storyboard = SwinjectStoryboard.create(name: "WorkoutList", bundle: nil, container: container)
@@ -176,6 +192,29 @@ class WorkoutListViewControllerSpec: QuickSpec {
                             it("sets the selected cell's lift on the presented lift page") {
                                 let workoutViewController = navigationController.topViewController as? WorkoutViewController
                                 expect(workoutViewController?.workout).to(beIdenticalTo(firstCell.workout))
+                            }
+                        }
+                        
+                        describe("Swiping right on a cell and tapping the revealed delete button") {
+                            var workoutToDelete: Workout!
+                            
+                            beforeEach {
+                                workoutToDelete = firstCell.workout
+                                
+                                subject.tableView(subject.tableView!, commitEditingStyle: .Delete,
+                                    forRowAtIndexPath: firstIndexPath)
+                            }
+                            
+                            it("deletes the cell") {
+                                expect(subject.tableView(subject.tableView!, numberOfRowsInSection: 0)).to(equal(5))
+                            }
+                            
+                            it("removes the associated workout from the list of workouts") {
+                                expect(subject.workouts).toNot(contain(workoutToDelete))
+                            }
+                            
+                            it("deletes the workout from disk") {
+                                expect(workoutToDelete).to(beIdenticalTo(mockWorkoutDeleteAgent.deletedWorkout))
                             }
                         }
                     }

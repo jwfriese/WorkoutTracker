@@ -74,6 +74,8 @@
 		7BB90DDC1C8B841D007D365E /* LiftDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB90DDB1C8B841D007D365E /* LiftDeserializerSpec.swift */; };
 		7BB90DDE1C8B8DF6007D365E /* LiftSetDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB90DDD1C8B8DF6007D365E /* LiftSetDeserializer.swift */; };
 		7BB90DE01C8B8E50007D365E /* LiftSetDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB90DDF1C8B8E50007D365E /* LiftSetDeserializerSpec.swift */; };
+		7BB90DE21C8D41AB007D365E /* WorkoutDeleteAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB90DE11C8D41AB007D365E /* WorkoutDeleteAgent.swift */; };
+		7BB90DE41C8D41D4007D365E /* WorkoutDeleteAgentSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB90DE31C8D41D4007D365E /* WorkoutDeleteAgentSpec.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -158,6 +160,8 @@
 		7BB90DDB1C8B841D007D365E /* LiftDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftDeserializerSpec.swift; sourceTree = "<group>"; };
 		7BB90DDD1C8B8DF6007D365E /* LiftSetDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftSetDeserializer.swift; sourceTree = "<group>"; };
 		7BB90DDF1C8B8E50007D365E /* LiftSetDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftSetDeserializerSpec.swift; sourceTree = "<group>"; };
+		7BB90DE11C8D41AB007D365E /* WorkoutDeleteAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutDeleteAgent.swift; sourceTree = "<group>"; };
+		7BB90DE31C8D41D4007D365E /* WorkoutDeleteAgentSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutDeleteAgentSpec.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -437,6 +441,7 @@
 			children = (
 				7BB90DCC1C8B22E9007D365E /* WorkoutSaveAgent.swift */,
 				7BB90DD11C8B2332007D365E /* WorkoutLoadAgent.swift */,
+				7BB90DE11C8D41AB007D365E /* WorkoutDeleteAgent.swift */,
 			);
 			path = FileSystem;
 			sourceTree = "<group>";
@@ -446,6 +451,7 @@
 			children = (
 				7BB90DCF1C8B231E007D365E /* WorkoutSaveAgentSpec.swift */,
 				7BB90DD31C8B2374007D365E /* WorkoutLoadAgentSpec.swift */,
+				7BB90DE31C8D41D4007D365E /* WorkoutDeleteAgentSpec.swift */,
 			);
 			path = FileSystem;
 			sourceTree = "<group>";
@@ -600,6 +606,7 @@
 				7BB90DB91C893331007D365E /* SerializationContainerModule.swift in Sources */,
 				7BB90D901C890A9D007D365E /* WorkoutLiftTableViewCell.swift in Sources */,
 				7BB90D921C890A9D007D365E /* WorkoutListTableViewCell.swift in Sources */,
+				7BB90DE21C8D41AB007D365E /* WorkoutDeleteAgent.swift in Sources */,
 				7BB90DD61C8B24E1007D365E /* WorkoutDeserializer.swift in Sources */,
 				7BB90DCD1C8B22E9007D365E /* WorkoutSaveAgent.swift in Sources */,
 				7BB90DBD1C8950AD007D365E /* LiftSerializer.swift in Sources */,
@@ -653,6 +660,7 @@
 				7BB90DA81C890AAA007D365E /* LiftSpec.swift in Sources */,
 				7BB90DB01C890AAA007D365E /* WorkoutLiftTableViewCellSpec.swift in Sources */,
 				7BB90DAD1C890AAA007D365E /* WorkoutListViewControllerSpec.swift in Sources */,
+				7BB90DE41C8D41D4007D365E /* WorkoutDeleteAgentSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

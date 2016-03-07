@@ -31,6 +31,7 @@ class WorkoutListStoryboardMetadataSpec: QuickSpec {
                     var liftDeserializer: LiftDeserializer?
                     var liftSetDeserializer: LiftSetDeserializer?
                     var workoutListViewController: WorkoutListViewController?
+                    var workoutDeleteAgent: WorkoutDeleteAgent?
                     
                     beforeEach {
                         timestamper = container.resolve(Timestamper.self)
@@ -44,6 +45,7 @@ class WorkoutListStoryboardMetadataSpec: QuickSpec {
                         liftDeserializer = container.resolve(LiftDeserializer.self)
                         liftSetDeserializer = container.resolve(LiftSetDeserializer.self)
                         workoutListViewController = storyboard.instantiateViewControllerWithIdentifier("WorkoutListViewController") as? WorkoutListViewController
+                        workoutDeleteAgent = container.resolve(WorkoutDeleteAgent.self)
                     }
                     
                     it("can produce a Timestamper") {
@@ -86,6 +88,10 @@ class WorkoutListStoryboardMetadataSpec: QuickSpec {
                         expect(liftSetDeserializer).toNot(beNil())
                     }
                     
+                    it("can produce a WorkoutDeleteAgent") {
+                        expect(workoutDeleteAgent).toNot(beNil())
+                    }
+                    
                     describe("Its WorkoutListViewController") {
                         it("can be created") {
                             expect(workoutListViewController).toNot(beNil())
@@ -101,6 +107,10 @@ class WorkoutListStoryboardMetadataSpec: QuickSpec {
                         
                         it("is created with a WorkoutLoadAgent") {
                             expect(workoutListViewController?.workoutLoadAgent).toNot(beNil())
+                        }
+                        
+                        it("is created with a WorkoutDeleteAgent") {
+                            expect(workoutListViewController?.workoutDeleteAgent).toNot(beNil())
                         }
                     }
                     
@@ -145,6 +155,12 @@ class WorkoutListStoryboardMetadataSpec: QuickSpec {
                     describe("Its LiftDeserializer") {
                         it("is created with a LiftSetDeserializer") {
                             expect(liftDeserializer?.liftSetDeserializer).toNot(beNil())
+                        }
+                    }
+                    
+                    describe("Its WorkoutDeleteAgent") {
+                        it("is created with a LocalStorageWorker") {
+                            expect(workoutDeleteAgent?.localStorageWorker).toNot(beNil())
                         }
                     }
                 }
