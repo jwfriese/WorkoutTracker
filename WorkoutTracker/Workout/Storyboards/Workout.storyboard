@@ -49,7 +49,7 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OoX-WQ-8ql" userLabel="Form Content View">
-                                <rect key="frame" x="90" y="180" width="420" height="240"/>
+                                <rect key="frame" x="90" y="100" width="420" height="240"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lift Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GAw-CB-1y0" userLabel="Name Label">
                                         <rect key="frame" x="16" y="60" width="74" height="21"/>
@@ -107,11 +107,11 @@
                             <constraint firstItem="JKI-Gw-Oyf" firstAttribute="centerX" secondItem="mq0-gS-bc1" secondAttribute="centerX" id="0Hm-qc-b0D"/>
                             <constraint firstItem="JKI-Gw-Oyf" firstAttribute="centerY" secondItem="mq0-gS-bc1" secondAttribute="centerY" id="1qb-Nd-GBz"/>
                             <constraint firstItem="OoX-WQ-8ql" firstAttribute="centerX" secondItem="mq0-gS-bc1" secondAttribute="centerX" id="7qj-3E-Ws5"/>
-                            <constraint firstItem="OoX-WQ-8ql" firstAttribute="centerY" secondItem="mq0-gS-bc1" secondAttribute="centerY" id="IPB-1g-KLY"/>
                             <constraint firstItem="OoX-WQ-8ql" firstAttribute="height" secondItem="mq0-gS-bc1" secondAttribute="height" multiplier="0.4" id="Uf0-dY-zHO"/>
                             <constraint firstItem="JKI-Gw-Oyf" firstAttribute="height" secondItem="mq0-gS-bc1" secondAttribute="height" id="X3W-du-v4H"/>
                             <constraint firstItem="OoX-WQ-8ql" firstAttribute="width" secondItem="mq0-gS-bc1" secondAttribute="width" multiplier="0.7" id="aZH-xk-te6"/>
                             <constraint firstItem="JKI-Gw-Oyf" firstAttribute="width" secondItem="mq0-gS-bc1" secondAttribute="width" id="lzE-L3-uBj"/>
+                            <constraint firstItem="OoX-WQ-8ql" firstAttribute="top" secondItem="HAf-AN-RJo" secondAttribute="bottom" constant="80" id="noq-40-o1z"/>
                         </constraints>
                     </view>
                     <connections>
@@ -168,7 +168,7 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xi6-N9-soR" userLabel="Form Content View">
-                                <rect key="frame" x="90" y="180" width="420" height="240"/>
+                                <rect key="frame" x="90" y="100" width="420" height="240"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weight" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Cj-Uc-V8W" userLabel="Weight Label">
                                         <rect key="frame" x="8" y="48" width="54" height="21"/>
@@ -244,11 +244,11 @@
                         <constraints>
                             <constraint firstItem="xi6-N9-soR" firstAttribute="centerX" secondItem="ojl-Ob-W52" secondAttribute="centerX" id="2Xm-gb-gJB"/>
                             <constraint firstItem="xi6-N9-soR" firstAttribute="width" secondItem="ojl-Ob-W52" secondAttribute="width" multiplier="0.7" id="ANi-mj-oR4"/>
-                            <constraint firstItem="xi6-N9-soR" firstAttribute="centerY" secondItem="ojl-Ob-W52" secondAttribute="centerY" id="ZOK-sk-szm"/>
                             <constraint firstItem="5GQ-h0-bUx" firstAttribute="width" secondItem="ojl-Ob-W52" secondAttribute="width" id="ago-6Z-FZt"/>
                             <constraint firstItem="5GQ-h0-bUx" firstAttribute="centerY" secondItem="ojl-Ob-W52" secondAttribute="centerY" id="c5o-Kj-D0f"/>
                             <constraint firstItem="5GQ-h0-bUx" firstAttribute="height" secondItem="ojl-Ob-W52" secondAttribute="height" id="ddY-WQ-cxB"/>
                             <constraint firstItem="xi6-N9-soR" firstAttribute="height" secondItem="ojl-Ob-W52" secondAttribute="height" multiplier="0.4" id="f8G-u6-89e"/>
+                            <constraint firstItem="xi6-N9-soR" firstAttribute="top" secondItem="yNe-Yb-HDO" secondAttribute="bottom" constant="80" id="kvc-g0-cGS"/>
                             <constraint firstItem="5GQ-h0-bUx" firstAttribute="centerX" secondItem="ojl-Ob-W52" secondAttribute="centerX" id="sBa-XJ-f0F"/>
                         </constraints>
                     </view>
