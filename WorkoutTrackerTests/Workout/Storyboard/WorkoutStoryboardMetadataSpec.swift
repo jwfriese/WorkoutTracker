@@ -26,6 +26,7 @@ class WorkoutStoryboardMetadataSpec: QuickSpec {
                     var liftSerializer: LiftSerializer?
                     var liftSetSerializer: LiftSetSerializer?
                     var workoutViewController: WorkoutViewController?
+                    var liftViewController: LiftViewController?
                     
                     beforeEach {
                         workoutSaveAgent = container.resolve(WorkoutSaveAgent.self)
@@ -34,6 +35,7 @@ class WorkoutStoryboardMetadataSpec: QuickSpec {
                         liftSerializer = container.resolve(LiftSerializer.self)
                         liftSetSerializer = container.resolve(LiftSetSerializer.self)
                         workoutViewController = storyboard.instantiateViewControllerWithIdentifier("WorkoutViewController") as? WorkoutViewController
+                        liftViewController = storyboard.instantiateViewControllerWithIdentifier("LiftViewController") as? LiftViewController
                     }
                     
                     it("can produce a WorkoutSaveAgent") {
@@ -63,6 +65,16 @@ class WorkoutStoryboardMetadataSpec: QuickSpec {
                         
                         it("is created with a WorkoutSaveAgent") {
                             expect(workoutViewController?.workoutSaveAgent).toNot(beNil())
+                        }
+                    }
+                    
+                    describe("Its LiftViewController") {
+                        it("can be created") {
+                            expect(liftViewController).toNot(beNil())
+                        }
+                        
+                        it("is created with a WorkoutSaveAgent") {
+                            expect(liftViewController?.workoutSaveAgent).toNot(beNil())
                         }
                     }
                     

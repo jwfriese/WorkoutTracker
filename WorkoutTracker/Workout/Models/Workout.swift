@@ -12,5 +12,6 @@ public class Workout {
     
     public func addLift(lift: Lift) {
         lifts.append(lift)
+        lift.workout = self
     }
 }

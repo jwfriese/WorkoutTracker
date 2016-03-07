@@ -33,6 +33,10 @@ class WorkoutSpec: QuickSpec {
                     expect(subject.lifts.count).to(equal(1))
                     expect(subject.lifts[0].name).to(equal("turtle press"))
                 }
+                
+                it("associates this workout with the added lift") {
+                    expect(subject.lifts[0].workout).to(beIdenticalTo(subject))
+                }
             }
         }
     }

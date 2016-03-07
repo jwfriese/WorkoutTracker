@@ -29,6 +29,10 @@ class LiftSpec: QuickSpec {
                     expect(subject.sets.count).to(equal(1))
                     expect(subject.sets[0]).to(beIdenticalTo(set))
                 }
+                
+                it("associates this lift with the added set") {
+                    expect(subject.sets[0].lift).to(beIdenticalTo(subject))
+                }
             }
         }
     }

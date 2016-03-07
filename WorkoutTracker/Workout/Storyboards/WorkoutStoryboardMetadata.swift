@@ -43,6 +43,10 @@ public class WorkoutStoryboardMetadata: SwinjectStoryboardMetadata {
                 instance.workoutSaveAgent = resolver.resolve(WorkoutSaveAgent.self)
             }
             
+            container.registerForStoryboard(LiftViewController.self) { resolver, instance in
+               instance.workoutSaveAgent = resolver.resolve(WorkoutSaveAgent.self)
+            }
+            
             return container
         }
     }

@@ -5,18 +5,41 @@ import WorkoutTracker
 
 class LiftViewControllerSpec: QuickSpec {
     override func spec() {
+        
+        class MockWorkoutSaveAgent: WorkoutSaveAgent {
+            var savedWorkout: Workout?
+            
+            init() {
+                super.init(withWorkoutSerializer: nil, localStorageWorker: nil)
+            }
+            
+            override func save(workout: Workout) -> String {
+                savedWorkout = workout
+                return ""
+            }
+        }
+        
         describe("LiftViewController") {
             var subject: LiftViewController!
+            var mockWorkoutSaveAgent: MockWorkoutSaveAgent!
             var navigationController: TestNavigationController!
             var lift: Lift!
             
             beforeEach {
-                let storyboard = SwinjectStoryboard.create(name: WorkoutStoryboardMetadata.name, bundle: nil, container: WorkoutStoryboardMetadata.container)
+                mockWorkoutSaveAgent = MockWorkoutSaveAgent()
+                
+                let container = WorkoutStoryboardMetadata.container
+                container.register(WorkoutSaveAgent.self) { resolver in
+                    return mockWorkoutSaveAgent
+                }
+                
+                let storyboard = SwinjectStoryboard.create(name: WorkoutStoryboardMetadata.name, bundle: nil, container: container)
                 
                 subject = storyboard.instantiateViewControllerWithIdentifier("LiftViewController")
                     as! LiftViewController
                 
                 lift = Lift(withName: "turtle deadlift")
+                lift.workout = Workout(withName: "turtle workout", timestamp: 1000)
                 subject.lift = lift
                 
                 navigationController = TestNavigationController()
@@ -67,6 +90,13 @@ class LiftViewControllerSpec: QuickSpec {
                             expect(subject.lift.sets.count).to(equal(1))
                             expect(subject.lift.sets[0].weight).to(equal(135))
                             expect(subject.lift.sets[0].reps).to(equal(10))
+                        }
+                        
+                        it("saves the workout with the new lift set on it") {
+                            let savedWorkout = mockWorkoutSaveAgent.savedWorkout
+                            expect(savedWorkout).toNot(beNil())
+                            let setWorkout = subject.lift.sets[0].lift?.workout
+                            expect(savedWorkout?.name).to(equal(setWorkout?.name))
                         }
                         
                         it("dismisses the set entry form modal") {
