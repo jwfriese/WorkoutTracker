@@ -1,16 +1,16 @@
 import UIKit
 
-public protocol SetEntryFormDelegate {
+public protocol SetEditFormDelegate {
     func setEnteredWithWeight(weight: Double, reps: Int)
 }
 
-public class SetEntryFormViewController: UIViewController {
+public class SetEditFormViewController: UIViewController {
     @IBOutlet public weak var formContentView: UIView?
     @IBOutlet public weak var weightEntryInputField: UITextField?
     @IBOutlet public weak var repsEntryInputField: UITextField?
     @IBOutlet public weak var addButton: UIButton?
     
-    public var delegate: SetEntryFormDelegate?
+    public var delegate: SetEditFormDelegate?
     
     override public func viewDidLoad() {
         super.viewDidLoad()

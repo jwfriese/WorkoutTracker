@@ -3,18 +3,18 @@ import Nimble
 import Swinject
 import WorkoutTracker
 
-class SetEntryFormViewControllerSpec: QuickSpec {
+class SetEditFormViewControllerSpec: QuickSpec {
     override func spec() {
-        describe("SetEntryFormViewController") {
-            var subject: SetEntryFormViewController!
-            var mockSetEntryFormDelegate: MockSetEntryFormDelegate!
+        describe("SetEditFormViewController") {
+            var subject: SetEditFormViewController!
+            var mockSetEditFormDelegate: MockSetEditFormDelegate!
             
             beforeEach {
                 let storyboard = SwinjectStoryboard.create(name: WorkoutStoryboardMetadata.name, bundle: nil, container: WorkoutStoryboardMetadata.container)
-                subject = storyboard.instantiateViewControllerWithIdentifier("SetEntryFormViewController")
-                    as! SetEntryFormViewController
-                mockSetEntryFormDelegate = MockSetEntryFormDelegate()
-                subject.delegate = mockSetEntryFormDelegate
+                subject = storyboard.instantiateViewControllerWithIdentifier("SetEditFormViewController")
+                    as! SetEditFormViewController
+                mockSetEditFormDelegate = MockSetEditFormDelegate()
+                subject.delegate = mockSetEditFormDelegate
                 TestAppDelegate.setAsRootViewController(subject)
             }
             
@@ -97,8 +97,8 @@ class SetEntryFormViewControllerSpec: QuickSpec {
                     }
                     
                     it("passes the form data along to its delegate") {
-                        expect(mockSetEntryFormDelegate.enteredWeight).to(equal(235))
-                        expect(mockSetEntryFormDelegate.enteredReps).to(equal(3))
+                        expect(mockSetEditFormDelegate.enteredWeight).to(equal(235))
+                        expect(mockSetEditFormDelegate.enteredReps).to(equal(3))
                     }
                 }
             }
@@ -106,7 +106,7 @@ class SetEntryFormViewControllerSpec: QuickSpec {
     }
 }
 
-class MockSetEntryFormDelegate: SetEntryFormDelegate {
+class MockSetEditFormDelegate: SetEditFormDelegate {
     var enteredWeight: Double?
     var enteredReps: Int?
     

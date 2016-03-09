@@ -144,17 +144,17 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="Ugo-92-vXo" id="0ec-jX-4cS"/>
-                        <segue destination="Bn4-7w-fxI" kind="presentation" identifier="PresentModalSetEntryForm" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="DS8-JY-SV5"/>
+                        <segue destination="Bn4-7w-fxI" kind="presentation" identifier="PresentModalSetEditForm" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="DS8-JY-SV5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HUr-7e-Tqo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2001" y="-71"/>
         </scene>
-        <!--Set Entry Form View Controller-->
+        <!--Set Edit Form View Controller-->
         <scene sceneID="Tzz-T4-cgX">
             <objects>
-                <viewController storyboardIdentifier="SetEntryFormViewController" id="Bn4-7w-fxI" customClass="SetEntryFormViewController" customModule="WorkoutTracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SetEditFormViewController" id="Bn4-7w-fxI" customClass="SetEditFormViewController" customModule="WorkoutTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yNe-Yb-HDO"/>
                         <viewControllerLayoutGuide type="bottom" id="egA-Oo-dp5"/>

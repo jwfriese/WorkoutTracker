@@ -19,20 +19,20 @@ public class LiftViewController: UIViewController {
     }
     
     @IBAction public func addSet() {
-        self.performSegueWithIdentifier("PresentModalSetEntryForm", sender: self)
+        self.performSegueWithIdentifier("PresentModalSetEditForm", sender: self)
     }
     
     override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "PresentModalSetEntryForm" {
-            if let setEntryFormViewController = segue.destinationViewController as? SetEntryFormViewController {
+        if segue.identifier == "PresentModalSetEditForm" {
+            if let setEditFormViewController = segue.destinationViewController as? SetEditFormViewController {
                 
-                setEntryFormViewController.delegate = self
+                setEditFormViewController.delegate = self
             }
         }
     }
 }
 
-extension LiftViewController: SetEntryFormDelegate {
+extension LiftViewController: SetEditFormDelegate {
     public func setEnteredWithWeight(weight: Double, reps: Int) {
         lift.addSet(LiftSet(withWeight: weight, reps: reps))
         workoutSaveAgent.save(lift.workout!)

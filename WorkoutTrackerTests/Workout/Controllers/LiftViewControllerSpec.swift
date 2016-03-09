@@ -75,10 +75,10 @@ class LiftViewControllerSpec: QuickSpec {
                     }
                     
                     it("presents a modal allowing the user to enter set information") {
-                        let modalSetEntryForm = subject.presentedViewController as? SetEntryFormViewController
+                        let modalSetEditForm = subject.presentedViewController as? SetEditFormViewController
                         
-                        expect(modalSetEntryForm).toNot(beNil())
-                        expect(modalSetEntryForm?.delegate as? LiftViewController).to(beIdenticalTo(subject))
+                        expect(modalSetEditForm).toNot(beNil())
+                        expect(modalSetEditForm?.delegate as? LiftViewController).to(beIdenticalTo(subject))
                     }
                     
                     describe("When the set entry form modal finishes") {
