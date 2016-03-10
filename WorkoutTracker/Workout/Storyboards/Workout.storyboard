@@ -194,7 +194,6 @@
                                         <rect key="frame" x="126" y="151" width="168" height="41"/>
                                         <color key="backgroundColor" red="0.0" green="0.61249224410000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="24"/>
-                                        <state key="normal" title="Add"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="10"/>
@@ -202,7 +201,7 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="addButtonTapped" destination="Bn4-7w-fxI" eventType="touchUpInside" id="sFw-5V-IHc"/>
+                                            <action selector="formSubmitButtonTapped" destination="Bn4-7w-fxI" eventType="touchUpInside" id="wNN-ti-SZU"/>
                                         </connections>
                                     </button>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6eJ-dT-pFd" userLabel="Reps Text Field">
@@ -253,8 +252,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="addButton" destination="iki-Bp-few" id="uMF-hU-ceT"/>
                         <outlet property="formContentView" destination="xi6-N9-soR" id="KXZ-Kb-FYW"/>
+                        <outlet property="formSubmitButton" destination="iki-Bp-few" id="xJP-ps-421"/>
                         <outlet property="repsEntryInputField" destination="6eJ-dT-pFd" id="ycJ-2O-jaH"/>
                         <outlet property="weightEntryInputField" destination="jU0-V9-QIB" id="K8q-vN-IzC"/>
                     </connections>

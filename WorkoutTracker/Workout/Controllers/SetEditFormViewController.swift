@@ -8,21 +8,31 @@ public class SetEditFormViewController: UIViewController {
     @IBOutlet public weak var formContentView: UIView?
     @IBOutlet public weak var weightEntryInputField: UITextField?
     @IBOutlet public weak var repsEntryInputField: UITextField?
-    @IBOutlet public weak var addButton: UIButton?
+    @IBOutlet public weak var formSubmitButton: UIButton?
     
+    public var set: LiftSet?
     public var delegate: SetEditFormDelegate?
     
     override public func viewDidLoad() {
         super.viewDidLoad()
         
+        if set == nil {
+            set = LiftSet(withWeight: 0, reps: 0)
+            weightEntryInputField?.becomeFirstResponder()
+            formSubmitButton?.setTitle("Add", forState: .Normal)
+            disableFormSubmitButton()
+        } else {
+            formSubmitButton?.setTitle("Save", forState: .Normal)
+            
+            weightEntryInputField?.text = String(set!.weight)
+            repsEntryInputField?.text = String(set!.reps)
+        }
+        
         formContentView?.layer.borderWidth = 2.0
         formContentView?.layer.borderColor = UIColor.grayColor().CGColor
-        
-        weightEntryInputField?.becomeFirstResponder()
-        disableAddButton()
     }
     
-    @IBAction public func addButtonTapped() {
+    @IBAction public func formSubmitButtonTapped() {
         let weight = Double((weightEntryInputField?.text)!)
         let reps = Int((repsEntryInputField?.text)!)
         delegate?.setEnteredWithWeight(weight!, reps: reps!)
@@ -33,25 +43,25 @@ public class SetEditFormViewController: UIViewController {
             if let repsEntryInputFieldText = repsEntryInputField?.text {
                 if weightEntryInputFieldText.characters.count == 0 ||
                    repsEntryInputFieldText.characters.count == 0 {
-                    disableAddButton()
+                    disableFormSubmitButton()
                 } else {
-                    enableAddButton()
+                    enableFormSubmitButton()
                 }
             } else {
-                disableAddButton()
+                disableFormSubmitButton()
             }
         } else {
-            disableAddButton()
+            disableFormSubmitButton()
         }
     }
     
-    private func enableAddButton() {
-        addButton?.enabled = true
-        addButton?.alpha = 1.0
+    private func enableFormSubmitButton() {
+        formSubmitButton?.enabled = true
+        formSubmitButton?.alpha = 1.0
     }
     
-    private func disableAddButton() {
-        addButton?.enabled = false
-        addButton?.alpha = 0.4
+    private func disableFormSubmitButton() {
+        formSubmitButton?.enabled = false
+        formSubmitButton?.alpha = 0.4
     }
 }

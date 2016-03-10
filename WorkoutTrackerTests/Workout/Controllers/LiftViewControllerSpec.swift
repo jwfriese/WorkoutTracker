@@ -47,7 +47,7 @@ class LiftViewControllerSpec: QuickSpec {
                 
                 TestAppDelegate.setAsRootViewController(navigationController)
             }
-
+            
             describe("After the view has loaded") {
                 beforeEach {
                     subject.view
@@ -107,57 +107,106 @@ class LiftViewControllerSpec: QuickSpec {
                             expect(subject.tableView?.dequeueReusableCellWithIdentifier(LiftSetTableViewCell.name, forIndexPath: NSIndexPath(forRow: 0, inSection: 0))).toNot(throwError())
                         }
                     }
+                }
+                
+                describe("Its data table") {
+                    beforeEach {
+                        subject.lift.addSet(LiftSet(withWeight: 100, reps: 1))
+                        subject.lift.addSet(LiftSet(withWeight: 200, reps: 2))
+                        subject.lift.addSet(LiftSet(withWeight: 300, reps: 3))
+                        subject.tableView?.reloadData()
+                    }
                     
-                    describe("Its data table") {
+                    it("has one section") {
+                        expect(subject.numberOfSectionsInTableView(subject.tableView!)).to(equal(1))
+                    }
+                    
+                    it("has a header view") {
+                        let headerView = subject.tableView(subject.tableView!,
+                            viewForHeaderInSection: 0) as? LiftTableViewHeaderView
+                        expect(headerView).toNot(beNil())
+                    }
+                    
+                    it("has a number of rows equal to the number of sets in its lift model") {
+                        expect(subject.tableView(subject.tableView!, numberOfRowsInSection: 0)).to(equal(3))
+                    }
+                    
+                    describe("Its cells") {
+                        let firstIndexPath = NSIndexPath(forRow: 0, inSection: 0)
+                        let secondIndexPath = NSIndexPath(forRow: 1, inSection: 0)
+                        let thirdIndexPath = NSIndexPath(forRow: 2, inSection: 0)
+                        
+                        var firstCell: LiftSetTableViewCell!
+                        var secondCell: LiftSetTableViewCell!
+                        var thirdCell: LiftSetTableViewCell!
+                        
                         beforeEach {
-                            subject.lift.addSet(LiftSet(withWeight: 100, reps: 1))
-                            subject.lift.addSet(LiftSet(withWeight: 200, reps: 2))
-                            subject.lift.addSet(LiftSet(withWeight: 300, reps: 3))
-                            subject.tableView?.reloadData()
+                            firstCell = subject.tableView(subject.tableView!,
+                                cellForRowAtIndexPath: firstIndexPath) as! LiftSetTableViewCell
+                            secondCell = subject.tableView(subject.tableView!,
+                                cellForRowAtIndexPath: secondIndexPath) as! LiftSetTableViewCell
+                            thirdCell = subject.tableView(subject.tableView!,
+                                cellForRowAtIndexPath: thirdIndexPath) as! LiftSetTableViewCell
                         }
                         
-                        it("has one section") {
-                            expect(subject.numberOfSectionsInTableView(subject.tableView!)).to(equal(1))
+                        it("uses the sets as models on the cells") {
+                            expect(firstCell.set).to(beIdenticalTo(subject.lift.sets[0]))
+                            expect(secondCell.set).to(beIdenticalTo(subject.lift.sets[1]))
+                            expect(thirdCell.set).to(beIdenticalTo(subject.lift.sets[2]))
                         }
                         
-                        it("has a header view") {
-                            let headerView = subject.tableView(subject.tableView!,
-                                viewForHeaderInSection: 0) as? LiftTableViewHeaderView
-                            expect(headerView).toNot(beNil())
+                        it("numbers the sets correctly in the cell list") {
+                            expect(firstCell.setNumberLabel?.text).to(equal("1"))
+                            expect(secondCell.setNumberLabel?.text).to(equal("2"))
+                            expect(thirdCell.setNumberLabel?.text).to(equal("3"))
                         }
                         
-                        it("has a number of rows equal to the number of sets in its lift model") {
-                            expect(subject.tableView(subject.tableView!, numberOfRowsInSection: 0)).to(equal(3))
-                        }
-                        
-                        describe("The configuration of cells") {
-                            let firstIndexPath = NSIndexPath(forRow: 0, inSection: 0)
-                            let secondIndexPath = NSIndexPath(forRow: 1, inSection: 0)
-                            let thirdIndexPath = NSIndexPath(forRow: 2, inSection: 0)
-                            
-                            var firstCell: LiftSetTableViewCell!
-                            var secondCell: LiftSetTableViewCell!
-                            var thirdCell: LiftSetTableViewCell!
+                        describe("Selection") {
+                            var setEditForm: SetEditFormViewController?
                             
                             beforeEach {
-                                firstCell = subject.tableView(subject.tableView!,
-                                    cellForRowAtIndexPath: firstIndexPath) as! LiftSetTableViewCell
-                                secondCell = subject.tableView(subject.tableView!,
-                                    cellForRowAtIndexPath: secondIndexPath) as! LiftSetTableViewCell
-                                thirdCell = subject.tableView(subject.tableView!,
-                                    cellForRowAtIndexPath: thirdIndexPath) as! LiftSetTableViewCell
+                                subject.tableView(subject.tableView!, didSelectRowAtIndexPath: firstIndexPath)
+                                
+                                setEditForm = subject.presentedViewController as? SetEditFormViewController
                             }
                             
-                            it("uses the sets as models on the cells") {
-                                expect(firstCell.set).to(beIdenticalTo(subject.lift.sets[0]))
-                                expect(secondCell.set).to(beIdenticalTo(subject.lift.sets[1]))
-                                expect(thirdCell.set).to(beIdenticalTo(subject.lift.sets[2]))
+                            it("should present the set edit form for that set") {
+                                expect(setEditForm).toNot(beNil())
+                                expect(setEditForm?.delegate as? LiftViewController).to(beIdenticalTo(subject))
                             }
                             
-                            it("numbers the sets correctly in the cell list") {
-                                expect(firstCell.setNumberLabel?.text).to(equal("1"))
-                                expect(secondCell.setNumberLabel?.text).to(equal("2"))
-                                expect(thirdCell.setNumberLabel?.text).to(equal("3"))
+                            it("sets the selected cell's set on the presented set edit modal") {
+                                expect(setEditForm?.set).to(beIdenticalTo(firstCell.set))
+                            }
+                            
+                            describe("When the set entry form modal finishes") {
+                                beforeEach {
+                                    subject.setEnteredWithWeight(235, reps: 8)
+                                }
+                                
+                                it("will have the same number of sets as before the modal opened") {
+                                    expect(subject.lift.sets.count).to(equal(3))
+                                }
+                                
+                                it("will have updated the selected cell's set with the values from the modal") {
+                                    expect(subject.lift.sets[0].weight).to(equal(235))
+                                    expect(subject.lift.sets[0].reps).to(equal(8))
+                                }
+                                
+                                it("saves the workout with the updated set on it") {
+                                    let savedWorkout = mockWorkoutSaveAgent.savedWorkout
+                                    expect(savedWorkout).toNot(beNil())
+                                    let setWorkout = subject.lift.sets[0].lift?.workout
+                                    expect(savedWorkout?.name).to(equal(setWorkout?.name))
+                                }
+                                
+                                it("dismisses the set entry form modal") {
+                                    expect(subject.presentedViewController).toEventually(beNil(), timeout:2.0)
+                                }
+                                
+                                it("reloads the table view's data") {
+                                    expect(subject.tableView?.dequeueReusableCellWithIdentifier(LiftSetTableViewCell.name, forIndexPath: NSIndexPath(forRow: 0, inSection: 0))).toNot(throwError())
+                                }
                             }
                         }
                     }

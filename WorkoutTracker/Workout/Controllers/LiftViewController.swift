@@ -8,6 +8,8 @@ public class LiftViewController: UIViewController {
     public var lift: Lift!
     public var workoutSaveAgent: WorkoutSaveAgent!
     
+    private var setInEditing: LiftSet?
+    
     override public func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,7 +21,7 @@ public class LiftViewController: UIViewController {
     }
     
     @IBAction public func addSet() {
-        self.performSegueWithIdentifier("PresentModalSetEditForm", sender: self)
+        self.performSegueWithIdentifier("PresentModalSetEditForm", sender: nil)
     }
     
     override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -27,6 +29,10 @@ public class LiftViewController: UIViewController {
             if let setEditFormViewController = segue.destinationViewController as? SetEditFormViewController {
                 
                 setEditFormViewController.delegate = self
+                if let sentSet = sender as? LiftSet {
+                    setInEditing = sentSet
+                    setEditFormViewController.set = sentSet
+                }
             }
         }
     }
@@ -34,7 +40,14 @@ public class LiftViewController: UIViewController {
 
 extension LiftViewController: SetEditFormDelegate {
     public func setEnteredWithWeight(weight: Double, reps: Int) {
-        lift.addSet(LiftSet(withWeight: weight, reps: reps))
+        if let editedSet = setInEditing {
+            editedSet.weight = weight
+            editedSet.reps = reps
+            setInEditing = nil
+        } else {
+            lift.addSet(LiftSet(withWeight: weight, reps: reps))
+        }
+        
         workoutSaveAgent.save(lift.workout!)
         self.dismissViewControllerAnimated(true, completion: nil)
         tableView?.reloadData()
@@ -55,6 +68,11 @@ extension LiftViewController: UITableViewDataSource {
         cell.configureWithSet(lift.sets[indexPath.row], setNumber: (indexPath.row + 1))
         
         return cell
+    }
+    
+    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let set = lift.sets[indexPath.row]
+        self.performSegueWithIdentifier("PresentModalSetEditForm", sender: set)
     }
 }
 
