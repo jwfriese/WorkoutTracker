@@ -179,7 +179,7 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jU0-V9-QIB" userLabel="Weight Text Field">
                                         <rect key="frame" x="70" y="45" width="334" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                                         <connections>
                                             <action selector="textFieldEdited" destination="Bn4-7w-fxI" eventType="editingChanged" id="RTV-kp-G1P"/>
                                         </connections>
@@ -207,7 +207,7 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6eJ-dT-pFd" userLabel="Reps Text Field">
                                         <rect key="frame" x="70" y="90" width="334" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                                         <connections>
                                             <action selector="textFieldEdited" destination="Bn4-7w-fxI" eventType="editingChanged" id="97i-ET-wQe"/>
                                         </connections>
