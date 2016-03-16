@@ -4,6 +4,7 @@ public class LiftTableViewHeaderView: UIView { }
 
 public class LiftViewController: UIViewController {
     @IBOutlet public weak var tableView: UITableView?
+    @IBOutlet public weak var addLiftButton: UIButton?
     
     public var lift: Lift!
     public var workoutSaveAgent: WorkoutSaveAgent!

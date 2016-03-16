@@ -46,7 +46,7 @@ task :trim do
    AWK
 
    awk_statement.gsub!(%r{\s+}, " ")
-   success = system(%Q[git status --porcelain | awk '#{awk_statement}' | sed 's/\"//g' | grep -e '.*\.[cmh]$' | xargs sed -i '' -e 's/  /    /g;s/ *$//g;'])
+   success = system(%Q[git status --porcelain | awk '#{awk_statement}' | sed 's/\"//g' | grep -e '.*\.[swift]$' | xargs sed -i '' -e 's/  /    /g;s/ *$//g;'])
    unless success
     exit 1
    end

@@ -89,7 +89,7 @@ class WorkoutViewControllerSpec: QuickSpec {
                         }
                         
                         it("dismisses the lift entry form modal") {
-                            expect(subject.presentedViewController).toEventually(beNil(), timeout:2.0)
+                            expect(subject.presentedViewController).toEventually(beNil(), timeout:5.0)
                         }
                         
                         it("saves the workout with the new lift on it") {
