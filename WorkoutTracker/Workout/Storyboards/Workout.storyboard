@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10072.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -128,13 +129,37 @@
         <scene sceneID="pkK-6j-XN6">
             <objects>
                 <viewController storyboardIdentifier="LiftViewController" id="QUf-Sc-KAl" customClass="LiftViewController" customModule="WorkoutTracker" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ugo-92-vXo">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Lt3-hA-xHB"/>
+                        <viewControllerLayoutGuide type="bottom" id="o5Z-eD-63w"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Gle-C9-EHS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BmZ-cc-qwr">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="sectionIndexTrackingBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zmb-Up-d4i">
+                                <rect key="frame" x="534" y="554" width="22" height="22"/>
+                                <connections>
+                                    <action selector="addSet" destination="QUf-Sc-KAl" eventType="touchUpInside" id="qg0-fm-czv"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="sectionIndexBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="sectionIndexTrackingBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    </tableView>
+                        <constraints>
+                            <constraint firstItem="BmZ-cc-qwr" firstAttribute="centerY" secondItem="Gle-C9-EHS" secondAttribute="centerY" id="Em5-tg-a6x"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="zmb-Up-d4i" secondAttribute="trailing" constant="24" id="Jgv-mU-6tV"/>
+                            <constraint firstItem="BmZ-cc-qwr" firstAttribute="height" secondItem="Gle-C9-EHS" secondAttribute="height" id="W0W-IZ-Qah"/>
+                            <constraint firstItem="BmZ-cc-qwr" firstAttribute="centerX" secondItem="Gle-C9-EHS" secondAttribute="centerX" id="eh2-Yb-Jy0"/>
+                            <constraint firstItem="o5Z-eD-63w" firstAttribute="top" secondItem="zmb-Up-d4i" secondAttribute="bottom" constant="24" id="qV7-lh-P0J"/>
+                            <constraint firstItem="BmZ-cc-qwr" firstAttribute="width" secondItem="Gle-C9-EHS" secondAttribute="width" id="yJZ-YJ-frA"/>
+                        </constraints>
+                    </view>
                     <navigationItem key="navigationItem" id="CSV-2T-sYS">
                         <barButtonItem key="rightBarButtonItem" title="Add Set" id="G0l-7i-YGk">
                             <connections>
@@ -143,7 +168,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="tableView" destination="Ugo-92-vXo" id="0ec-jX-4cS"/>
+                        <outlet property="addLiftButton" destination="zmb-Up-d4i" id="pRY-HU-U5q"/>
+                        <outlet property="tableView" destination="BmZ-cc-qwr" id="fTz-o4-j4B"/>
+                        <outlet property="view" destination="Gle-C9-EHS" id="jEC-sI-QIU"/>
                         <segue destination="Bn4-7w-fxI" kind="presentation" identifier="PresentModalSetEditForm" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="DS8-JY-SV5"/>
                     </connections>
                 </viewController>

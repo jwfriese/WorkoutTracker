@@ -109,6 +109,46 @@ class LiftViewControllerSpec: QuickSpec {
                     }
                 }
                 
+                describe("Tapping the add lift button") {
+                    beforeEach {
+                        subject.addLiftButton?.sendActionsForControlEvents(.TouchUpInside)
+                    }
+                    
+                    it("presents a modal allowing the user to enter set information") {
+                        let modalSetEditForm = subject.presentedViewController as? SetEditFormViewController
+                        
+                        expect(modalSetEditForm).toNot(beNil())
+                        expect(modalSetEditForm?.delegate as? LiftViewController).to(beIdenticalTo(subject))
+                    }
+                    
+                    describe("When the set entry form modal finishes") {
+                        beforeEach {
+                            subject.setEnteredWithWeight(135, reps: 10)
+                        }
+                        
+                        it("adds a new set with the given weight and reps") {
+                            expect(subject.lift.sets.count).to(equal(1))
+                            expect(subject.lift.sets[0].weight).to(equal(135))
+                            expect(subject.lift.sets[0].reps).to(equal(10))
+                        }
+                        
+                        it("saves the workout with the new lift set on it") {
+                            let savedWorkout = mockWorkoutSaveAgent.savedWorkout
+                            expect(savedWorkout).toNot(beNil())
+                            let setWorkout = subject.lift.sets[0].lift?.workout
+                            expect(savedWorkout?.name).to(equal(setWorkout?.name))
+                        }
+                        
+                        it("dismisses the set entry form modal") {
+                            expect(subject.presentedViewController).toEventually(beNil(), timeout:2.0)
+                        }
+                        
+                        it("reloads the table view's data") {
+                            expect(subject.tableView?.dequeueReusableCellWithIdentifier(LiftSetTableViewCell.name, forIndexPath: NSIndexPath(forRow: 0, inSection: 0))).toNot(throwError())
+                        }
+                    }
+                }
+                
                 describe("Its data table") {
                     beforeEach {
                         subject.lift.addSet(LiftSet(withWeight: 100, reps: 1))
