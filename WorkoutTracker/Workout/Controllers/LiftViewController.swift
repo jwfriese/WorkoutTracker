@@ -14,7 +14,7 @@ public class LiftViewController: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         
-        title = lift.name + " sheet"
+        title = lift.name
         tableView?.delegate = self
         tableView?.dataSource = self
         

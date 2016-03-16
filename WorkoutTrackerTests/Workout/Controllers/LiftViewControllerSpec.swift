@@ -54,7 +54,7 @@ class LiftViewControllerSpec: QuickSpec {
                 }
                 
                 it("should have set its title") {
-                    expect(subject.title).to(equal("turtle deadlift sheet"))
+                    expect(subject.title).to(equal("turtle deadlift"))
                 }
                 
                 it("should have set itself as its table view's delegate") {
