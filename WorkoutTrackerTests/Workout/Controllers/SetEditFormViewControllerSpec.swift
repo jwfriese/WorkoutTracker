@@ -121,32 +121,82 @@ class SetEditFormViewControllerSpec: QuickSpec {
                         expect(subject.formSubmitButton?.enabled).to(beTrue())
                     }
                     
+                    it("hides the 'Add Previous' button") {
+                        expect(subject.addPreviousButton?.hidden).to(beTrue())
+                    }
+                    
                     itBehavesLike("Editing and committing changes to the set")
                 }
                 
                 context("A set has not been set on the controller") {
                     beforeEach {
                         subject.set = nil
-                        TestAppDelegate.setAsRootViewController(subject)
                     }
                     
-                    it("sets the form submit button's text to 'Add'") {
-                        expect(subject.formSubmitButton?.titleLabel?.text).to(equal("Add"))
+                    sharedExamples("A set is not yet on the controller") {
+                        it("sets the form submit button's text to 'Add'") {
+                            expect(subject.formSubmitButton?.titleLabel?.text).to(equal("Add"))
+                        }
+                        
+                        it("focuses the cursor in the weight entry input field") {
+                            expect(subject.weightEntryInputField?.isFirstResponder()).to(beTrue())
+                        }
+                        
+                        it("creates an empty set for the controller") {
+                            expect(subject.set).toNot(beNil())
+                        }
+                        
+                        it("disables the form submit button") {
+                            expect(subject.formSubmitButton?.enabled).to(beFalse())
+                        }
+                        
+                        itBehavesLike("Editing and committing changes to the set")
                     }
                     
-                    it("focuses the cursor in the weight entry input field") {
-                        expect(subject.weightEntryInputField?.isFirstResponder()).to(beTrue())
+                    context("The delegate has a previous set") {
+                        beforeEach {
+                            mockSetEditFormDelegate.internalLastSetEntered = LiftSet(withWeight: 100, reps: 10)
+                            TestAppDelegate.setAsRootViewController(subject)
+                        }
+                        
+                        it("shows the 'Add Previous' button") {
+                            expect(subject.addPreviousButton?.hidden).to(beFalse())
+                        }
+                        
+                        describe("Tapping the 'Add Previous' button") {
+                            beforeEach {
+                                subject.addPreviousButton?.sendActionsForControlEvents(.TouchUpInside)
+                            }
+                            
+                            it("populates the weight form field with the last set's weight") {
+                                expect(subject.weightEntryInputField?.text).to(equal("100.0"))
+                            }
+                            
+                            it("populates the reps form field with the last set's reps") {
+                                expect(subject.repsEntryInputField?.text).to(equal("10"))
+                            }
+                            
+                            it("passes the form data along to its delegate") {
+                                expect(mockSetEditFormDelegate.enteredWeight).to(equal(100))
+                                expect(mockSetEditFormDelegate.enteredReps).to(equal(10))
+                            }
+                        }
+                        
+                        itBehavesLike("A set is not yet on the controller")
                     }
                     
-                    it("creates an empty set for the controller") {
-                        expect(subject.set).toNot(beNil())
+                    context("The delegate does not have a previous set") {
+                        beforeEach {
+                            mockSetEditFormDelegate.internalLastSetEntered = nil
+                            TestAppDelegate.setAsRootViewController(subject)
+                        }
+                        
+                        it("hides the 'Add Previous' button") {
+                            expect(subject.addPreviousButton?.hidden).to(beTrue())
+                        }
+                        
+                        itBehavesLike("A set is not yet on the controller")
                     }
-                    
-                    it("disables the form submit button") {
-                        expect(subject.formSubmitButton?.enabled).to(beFalse())
-                    }
-                    
-                    itBehavesLike("Editing and committing changes to the set")
                 }
             }
         }
@@ -156,6 +206,16 @@ class SetEditFormViewControllerSpec: QuickSpec {
 class MockSetEditFormDelegate: SetEditFormDelegate {
     var enteredWeight: Double?
     var enteredReps: Int?
+    var internalLastSetEntered: LiftSet?
+    
+    var lastSetEntered: LiftSet? {
+        get {
+            return internalLastSetEntered
+        }
+        set {
+            internalLastSetEntered = newValue
+        }
+    }
     
     func setEnteredWithWeight(weight: Double, reps: Int) {
         enteredWeight = weight

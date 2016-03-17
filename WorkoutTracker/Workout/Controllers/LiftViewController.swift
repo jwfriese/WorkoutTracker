@@ -40,6 +40,12 @@ public class LiftViewController: UIViewController {
 }
 
 extension LiftViewController: SetEditFormDelegate {
+    public var lastSetEntered: LiftSet? {
+        get {
+            return lift.sets.last
+        }
+    }
+    
     public func setEnteredWithWeight(weight: Double, reps: Int) {
         if let editedSet = setInEditing {
             editedSet.weight = weight

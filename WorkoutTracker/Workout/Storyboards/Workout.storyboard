@@ -217,8 +217,31 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="253" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6eJ-dT-pFd" userLabel="Reps Text Field">
+                                        <rect key="frame" x="70" y="90" width="334" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        <connections>
+                                            <action selector="textFieldEdited" destination="Bn4-7w-fxI" eventType="editingChanged" id="97i-ET-wQe"/>
+                                        </connections>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z1h-La-Cs1">
+                                        <rect key="frame" x="84" y="138" width="252" height="41"/>
+                                        <color key="backgroundColor" red="0.0" green="0.61249224410000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="24"/>
+                                        <state key="normal" title="Add Previous"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="addPreviousButtonTapped" destination="Bn4-7w-fxI" eventType="touchUpInside" id="UMk-p4-5Fn"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iki-Bp-few">
-                                        <rect key="frame" x="126" y="151" width="168" height="41"/>
+                                        <rect key="frame" x="84" y="187" width="252" height="41"/>
                                         <color key="backgroundColor" red="0.0" green="0.61249224410000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="24"/>
                                         <userDefinedRuntimeAttributes>
@@ -231,25 +254,20 @@
                                             <action selector="formSubmitButtonTapped" destination="Bn4-7w-fxI" eventType="touchUpInside" id="wNN-ti-SZU"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6eJ-dT-pFd" userLabel="Reps Text Field">
-                                        <rect key="frame" x="70" y="90" width="334" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
-                                        <connections>
-                                            <action selector="textFieldEdited" destination="Bn4-7w-fxI" eventType="editingChanged" id="97i-ET-wQe"/>
-                                        </connections>
-                                    </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="jU0-V9-QIB" firstAttribute="baseline" secondItem="8Cj-Uc-V8W" secondAttribute="baseline" id="02z-wZ-8m8"/>
                                     <constraint firstItem="iki-Bp-few" firstAttribute="centerX" secondItem="xi6-N9-soR" secondAttribute="centerX" id="FMG-7L-cwn"/>
-                                    <constraint firstItem="iki-Bp-few" firstAttribute="width" secondItem="xi6-N9-soR" secondAttribute="width" multiplier="0.4" id="LcU-Mk-0p0"/>
-                                    <constraint firstAttribute="bottom" secondItem="iki-Bp-few" secondAttribute="bottom" constant="48" id="Uvh-ma-AyI"/>
+                                    <constraint firstItem="iki-Bp-few" firstAttribute="width" secondItem="xi6-N9-soR" secondAttribute="width" multiplier="0.6" id="LcU-Mk-0p0"/>
+                                    <constraint firstItem="z1h-La-Cs1" firstAttribute="centerX" secondItem="xi6-N9-soR" secondAttribute="centerX" id="MT3-F0-Zf4"/>
+                                    <constraint firstAttribute="bottom" secondItem="iki-Bp-few" secondAttribute="bottom" constant="12" id="Uvh-ma-AyI"/>
                                     <constraint firstAttribute="trailing" secondItem="jU0-V9-QIB" secondAttribute="trailing" constant="16" id="WbA-ym-mPM"/>
                                     <constraint firstItem="8Cj-Uc-V8W" firstAttribute="leading" secondItem="xi6-N9-soR" secondAttribute="leading" constant="8" id="Whp-qw-b33"/>
                                     <constraint firstItem="Djk-jC-E80" firstAttribute="leading" secondItem="8Cj-Uc-V8W" secondAttribute="leading" id="aQd-Kq-gVZ"/>
                                     <constraint firstItem="jU0-V9-QIB" firstAttribute="leading" secondItem="8Cj-Uc-V8W" secondAttribute="trailing" constant="8" id="c7a-3A-Mon"/>
+                                    <constraint firstItem="z1h-La-Cs1" firstAttribute="width" secondItem="xi6-N9-soR" secondAttribute="width" multiplier="0.6" id="hiR-x8-bB4"/>
+                                    <constraint firstItem="iki-Bp-few" firstAttribute="top" secondItem="z1h-La-Cs1" secondAttribute="bottom" constant="8" id="ikz-16-d1y"/>
                                     <constraint firstItem="6eJ-dT-pFd" firstAttribute="leading" secondItem="jU0-V9-QIB" secondAttribute="leading" id="oVb-Nt-frD"/>
                                     <constraint firstItem="8Cj-Uc-V8W" firstAttribute="top" secondItem="xi6-N9-soR" secondAttribute="top" constant="48" id="sJA-I2-Y8t"/>
                                     <constraint firstItem="6eJ-dT-pFd" firstAttribute="width" secondItem="jU0-V9-QIB" secondAttribute="width" id="xIn-lf-3TE"/>
@@ -279,8 +297,11 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addPreviousButton" destination="z1h-La-Cs1" id="wrr-jc-yO4"/>
                         <outlet property="formContentView" destination="xi6-N9-soR" id="KXZ-Kb-FYW"/>
                         <outlet property="formSubmitButton" destination="iki-Bp-few" id="xJP-ps-421"/>
+                        <outlet property="formSubmitButtonAddPreviousConstraint" destination="ikz-16-d1y" id="3B3-h1-kTl"/>
+                        <outlet property="formSubmitButtonModalBottomConstraint" destination="Uvh-ma-AyI" id="qSb-gR-CaY"/>
                         <outlet property="repsEntryInputField" destination="6eJ-dT-pFd" id="ycJ-2O-jaH"/>
                         <outlet property="weightEntryInputField" destination="jU0-V9-QIB" id="K8q-vN-IzC"/>
                     </connections>

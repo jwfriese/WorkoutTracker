@@ -121,30 +121,64 @@ class LiftViewControllerSpec: QuickSpec {
                         expect(modalSetEditForm?.delegate as? LiftViewController).to(beIdenticalTo(subject))
                     }
                     
-                    describe("When the set entry form modal finishes") {
-                        beforeEach {
-                            subject.setEnteredWithWeight(135, reps: 10)
+                    describe("Behavior as delegate of set entry form modal") {
+                        describe("When queried for the last set entered") {
+                            var lastEnteredSet: LiftSet?
+                            
+                            context("When a previous set does not exist") {
+                                beforeEach {
+                                    lastEnteredSet = subject.lastSetEntered
+                                }
+                                
+                                it("returns nil") {
+                                    expect(lastEnteredSet).to(beNil())
+                                }
+                            }
+                            
+                            context("When a previous set exists") {
+                                var firstSetAdded: LiftSet!
+                                var secondSetAdded: LiftSet!
+                                
+                                beforeEach {
+                                    firstSetAdded = LiftSet(withWeight: 100, reps: 10)
+                                    secondSetAdded = LiftSet(withWeight: 200, reps: 5)
+                                    
+                                    lift.addSet(firstSetAdded)
+                                    lift.addSet(secondSetAdded)
+                                    lastEnteredSet = subject.lastSetEntered
+                                }
+                                
+                                it("returns the last set entered") {
+                                    expect(lastEnteredSet).to(beIdenticalTo(secondSetAdded))
+                                }
+                            }
                         }
                         
-                        it("adds a new set with the given weight and reps") {
-                            expect(subject.lift.sets.count).to(equal(1))
-                            expect(subject.lift.sets[0].weight).to(equal(135))
-                            expect(subject.lift.sets[0].reps).to(equal(10))
-                        }
-                        
-                        it("saves the workout with the new lift set on it") {
-                            let savedWorkout = mockWorkoutSaveAgent.savedWorkout
-                            expect(savedWorkout).toNot(beNil())
-                            let setWorkout = subject.lift.sets[0].lift?.workout
-                            expect(savedWorkout?.name).to(equal(setWorkout?.name))
-                        }
-                        
-                        it("dismisses the set entry form modal") {
-                            expect(subject.presentedViewController).toEventually(beNil(), timeout:2.0)
-                        }
-                        
-                        it("reloads the table view's data") {
-                            expect(subject.tableView?.dequeueReusableCellWithIdentifier(LiftSetTableViewCell.name, forIndexPath: NSIndexPath(forRow: 0, inSection: 0))).toNot(throwError())
+                        describe("When the set entry form modal finishes") {
+                            beforeEach {
+                                subject.setEnteredWithWeight(135, reps: 10)
+                            }
+                            
+                            it("adds a new set with the given weight and reps") {
+                                expect(subject.lift.sets.count).to(equal(1))
+                                expect(subject.lift.sets[0].weight).to(equal(135))
+                                expect(subject.lift.sets[0].reps).to(equal(10))
+                            }
+                            
+                            it("saves the workout with the new lift set on it") {
+                                let savedWorkout = mockWorkoutSaveAgent.savedWorkout
+                                expect(savedWorkout).toNot(beNil())
+                                let setWorkout = subject.lift.sets[0].lift?.workout
+                                expect(savedWorkout?.name).to(equal(setWorkout?.name))
+                            }
+                            
+                            it("dismisses the set entry form modal") {
+                                expect(subject.presentedViewController).toEventually(beNil(), timeout:2.0)
+                            }
+                            
+                            it("reloads the table view's data") {
+                                expect(subject.tableView?.dequeueReusableCellWithIdentifier(LiftSetTableViewCell.name, forIndexPath: NSIndexPath(forRow: 0, inSection: 0))).toNot(throwError())
+                            }
                         }
                     }
                 }
