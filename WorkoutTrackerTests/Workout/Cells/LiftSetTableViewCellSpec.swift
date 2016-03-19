@@ -16,7 +16,8 @@ class LiftSetTableViewCellSpec: QuickSpec {
             
             describe("Configuring with a set") {
                 beforeEach {
-                    let set = LiftSet(withWeight: 400, reps: 15)
+                    let set = LiftSet(withTargetWeight: nil, performedWeight: 400,
+                        targetReps: nil, performedReps: 15)
                     subject.configureWithSet(set, setNumber: 2)
                 }
                 

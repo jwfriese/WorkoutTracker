@@ -95,7 +95,8 @@ class SetEditFormViewControllerSpec: QuickSpec {
                     var set: LiftSet!
                     
                     beforeEach {
-                        set = LiftSet(withWeight: 100, reps: 10)
+                        set = LiftSet(withTargetWeight: nil, performedWeight: 100,
+                            targetReps: nil, performedReps: 10)
                         subject.set = set
                         TestAppDelegate.setAsRootViewController(subject)
                     }
@@ -155,7 +156,9 @@ class SetEditFormViewControllerSpec: QuickSpec {
                     
                     context("The delegate has a previous set") {
                         beforeEach {
-                            mockSetEditFormDelegate.internalLastSetEntered = LiftSet(withWeight: 100, reps: 10)
+                            let previousSet = LiftSet(withTargetWeight: nil, performedWeight: 100,
+                                targetReps: nil, performedReps: 10)
+                            mockSetEditFormDelegate.internalLastSetEntered = previousSet
                             TestAppDelegate.setAsRootViewController(subject)
                         }
                         

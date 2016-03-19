@@ -69,11 +69,12 @@ extension LiftViewController: SetEditFormDelegate {
     
     public func setEnteredWithWeight(weight: Double, reps: Int) {
         if let editedSet = setInEditing {
-            editedSet.weight = weight
-            editedSet.reps = reps
+            editedSet.performedWeight = weight
+            editedSet.performedReps = reps
             setInEditing = nil
         } else {
-            lift.addSet(LiftSet(withWeight: weight, reps: reps))
+            lift.addSet(LiftSet(withTargetWeight: nil, performedWeight: weight,
+                targetReps: nil, performedReps: reps))
         }
         
         workoutSaveAgent.save(lift.workout!)

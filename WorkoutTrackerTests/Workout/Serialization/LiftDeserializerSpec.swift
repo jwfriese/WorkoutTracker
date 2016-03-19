@@ -7,7 +7,9 @@ class LiftDeserializerSpec: QuickSpec {
         
         class MockLiftSetDeserializer: LiftSetDeserializer {
             override func deserialize(liftSetDictionary: [String : AnyObject]) -> LiftSet {
-                return LiftSet(withWeight: liftSetDictionary["weight"] as! Double, reps: 0)
+                let weight = liftSetDictionary["weight"] as! Double
+                return LiftSet(withTargetWeight: nil, performedWeight: weight,
+                    targetReps: nil, performedReps: 0)
             }
         }
         
@@ -48,9 +50,9 @@ class LiftDeserializerSpec: QuickSpec {
                 it("uses its lift set deserializer to deserialize its list of sets") {
                     expect(lift?.sets.count).to(equal(3))
                     if lift?.sets.count == 3 {
-                        expect(lift?.sets[0].weight).to(equal(100))
-                        expect(lift?.sets[1].weight).to(equal(200))
-                        expect(lift?.sets[2].weight).to(equal(300))
+                        expect(lift?.sets[0].performedWeight).to(equal(100))
+                        expect(lift?.sets[1].performedWeight).to(equal(200))
+                        expect(lift?.sets[2].performedWeight).to(equal(300))
                     } else {
                         fail("Failed to deserialize the lift's list of sets")
                     }

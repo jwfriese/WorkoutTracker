@@ -21,9 +21,12 @@ class LiftSerializerSpec: QuickSpec {
                 subject = LiftSerializer(withLiftSetSerializer: liftSetSerializer)
                 
                 lift = Lift(withName: "turtle lift")
-                lift.addSet(LiftSet(withWeight: 100, reps: 10))
-                lift.addSet(LiftSet(withWeight: 200, reps: 5))
-                lift.addSet(LiftSet(withWeight: 300, reps: 1))
+                lift.addSet(LiftSet(withTargetWeight: nil, performedWeight: 100,
+                    targetReps: nil, performedReps: 10))
+                lift.addSet(LiftSet(withTargetWeight: nil, performedWeight: 200,
+                    targetReps: nil, performedReps: 5))
+                lift.addSet(LiftSet(withTargetWeight: nil, performedWeight: 300,
+                    targetReps: nil, performedReps: 1))
                 
                 resultJSONDictionary = subject.serialize(lift)
             }

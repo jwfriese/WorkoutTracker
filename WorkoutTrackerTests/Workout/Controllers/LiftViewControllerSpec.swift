@@ -89,7 +89,9 @@ class LiftViewControllerSpec: QuickSpec {
                         var setEditForm: SetEditFormViewController?
                         
                         beforeEach {
-                            subject.lift.addSet(LiftSet(withWeight: 100, reps: 1))
+                            let set = LiftSet(withTargetWeight: nil, performedWeight: 100,
+                                targetReps: nil, performedReps: 1)
+                            subject.lift.addSet(set)
                             subject.tableView?.reloadData()
                             
                             let firstIndexPath = NSIndexPath(forRow: 0, inSection: 0)
@@ -181,8 +183,10 @@ class LiftViewControllerSpec: QuickSpec {
                                     var secondSetAdded: LiftSet!
                                     
                                     beforeEach {
-                                        firstSetAdded = LiftSet(withWeight: 100, reps: 10)
-                                        secondSetAdded = LiftSet(withWeight: 200, reps: 5)
+                                        firstSetAdded = LiftSet(withTargetWeight: nil, performedWeight: 100,
+                                            targetReps: nil, performedReps: 10)
+                                        secondSetAdded = LiftSet(withTargetWeight: nil, performedWeight: 200,
+                                            targetReps: nil, performedReps: 5)
                                         
                                         lift.addSet(firstSetAdded)
                                         lift.addSet(secondSetAdded)
@@ -202,8 +206,8 @@ class LiftViewControllerSpec: QuickSpec {
                                 
                                 it("adds a new set with the given weight and reps") {
                                     expect(subject.lift.sets.count).to(equal(1))
-                                    expect(subject.lift.sets[0].weight).to(equal(135))
-                                    expect(subject.lift.sets[0].reps).to(equal(10))
+                                    expect(subject.lift.sets[0].performedWeight).to(equal(135))
+                                    expect(subject.lift.sets[0].performedReps).to(equal(10))
                                 }
                                 
                                 it("saves the workout with the new lift set on it") {
@@ -226,9 +230,12 @@ class LiftViewControllerSpec: QuickSpec {
                     
                     describe("Its data table") {
                         beforeEach {
-                            subject.lift.addSet(LiftSet(withWeight: 100, reps: 1))
-                            subject.lift.addSet(LiftSet(withWeight: 200, reps: 2))
-                            subject.lift.addSet(LiftSet(withWeight: 300, reps: 3))
+                            subject.lift.addSet(LiftSet(withTargetWeight: nil, performedWeight: 100,
+                                targetReps: nil, performedReps: 1))
+                            subject.lift.addSet(LiftSet(withTargetWeight: nil, performedWeight: 200,
+                                targetReps: nil, performedReps: 2))
+                            subject.lift.addSet(LiftSet(withTargetWeight: nil, performedWeight: 300,
+                                targetReps: nil, performedReps: 3))
                             subject.tableView?.reloadData()
                         }
                         
@@ -304,8 +311,8 @@ class LiftViewControllerSpec: QuickSpec {
                                     }
                                     
                                     it("will have updated the selected cell's set with the values from the modal") {
-                                        expect(subject.lift.sets[0].weight).to(equal(235))
-                                        expect(subject.lift.sets[0].reps).to(equal(8))
+                                        expect(subject.lift.sets[0].performedWeight).to(equal(235))
+                                        expect(subject.lift.sets[0].performedReps).to(equal(8))
                                     }
                                     
                                     it("saves the workout with the updated set on it") {

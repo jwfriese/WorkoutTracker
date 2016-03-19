@@ -21,15 +21,15 @@ public class SetEditFormViewController: UIViewController {
         super.viewDidLoad()
         
         if set == nil {
-            set = LiftSet(withWeight: 0, reps: 0)
+            set = LiftSet(withTargetWeight: nil, performedWeight: 0, targetReps: nil, performedReps: 0)
             weightEntryInputField?.becomeFirstResponder()
             formSubmitButton?.setTitle("Add", forState: .Normal)
             disableFormSubmitButton()
         } else {
             formSubmitButton?.setTitle("Save", forState: .Normal)
             
-            weightEntryInputField?.text = String(set!.weight)
-            repsEntryInputField?.text = String(set!.reps)
+            weightEntryInputField?.text = String(set!.performedWeight)
+            repsEntryInputField?.text = String(set!.performedReps)
         }
         
         if delegate?.lastSetEntered == nil {
@@ -48,8 +48,8 @@ public class SetEditFormViewController: UIViewController {
     
     @IBAction public func addPreviousButtonTapped() {
         if let lastSetEntered = delegate?.lastSetEntered {
-            weightEntryInputField?.text = String(lastSetEntered.weight)
-            repsEntryInputField?.text = String(lastSetEntered.reps)
+            weightEntryInputField?.text = String(lastSetEntered.performedWeight)
+            repsEntryInputField?.text = String(lastSetEntered.performedReps)
             formSubmitButtonTapped()
         }
     }

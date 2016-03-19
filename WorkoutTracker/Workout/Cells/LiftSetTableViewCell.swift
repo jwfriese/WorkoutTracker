@@ -13,7 +13,7 @@ public class LiftSetTableViewCell: UITableViewCell {
         self.set = set
         
         setNumberLabel?.text = String(setNumber)
-        weightLabel?.text = String(set.weight)
-        repsLabel?.text = String(set.reps)
+        weightLabel?.text = String(set.performedWeight)
+        repsLabel?.text = String(set.performedReps)
     }
 }

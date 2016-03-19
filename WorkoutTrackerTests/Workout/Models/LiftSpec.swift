@@ -21,7 +21,8 @@ class LiftSpec: QuickSpec {
                 var set: LiftSet!
                 
                 beforeEach {
-                    set = LiftSet(withWeight: 235, reps: 5)
+                    set = LiftSet(withTargetWeight: nil, performedWeight: 235,
+                        targetReps: nil, performedReps: 5)
                     subject.addSet(set)
                 }
                 
