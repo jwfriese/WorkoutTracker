@@ -125,6 +125,14 @@
             </objects>
             <point key="canvasLocation" x="2001" y="687"/>
         </scene>
+        <!--View Last Lift-->
+        <scene sceneID="zma-nT-ImH">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Workout" referencedIdentifier="LiftViewController" id="EhT-1I-OhP" userLabel="View Last Lift" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wUf-jn-oF8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2299.5" y="-707"/>
+        </scene>
         <!--Lift View Controller-->
         <scene sceneID="pkK-6j-XN6">
             <objects>
@@ -161,9 +169,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="CSV-2T-sYS">
-                        <barButtonItem key="rightBarButtonItem" title="Add Set" id="G0l-7i-YGk">
+                        <barButtonItem key="rightBarButtonItem" title="View Last" id="G0l-7i-YGk">
                             <connections>
-                                <action selector="addSet" destination="QUf-Sc-KAl" id="1gE-t1-2xF"/>
+                                <action selector="viewLastLift" destination="QUf-Sc-KAl" id="UBw-LU-Rku"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -172,6 +180,7 @@
                         <outlet property="tableView" destination="BmZ-cc-qwr" id="fTz-o4-j4B"/>
                         <outlet property="view" destination="Gle-C9-EHS" id="jEC-sI-QIU"/>
                         <segue destination="Bn4-7w-fxI" kind="presentation" identifier="PresentModalSetEditForm" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="DS8-JY-SV5"/>
+                        <segue destination="EhT-1I-OhP" kind="show" identifier="ShowViewLastLift" id="b5h-WD-jjj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HUr-7e-Tqo" userLabel="First Responder" sceneMemberID="firstResponder"/>

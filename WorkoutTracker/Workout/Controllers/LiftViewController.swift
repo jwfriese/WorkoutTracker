@@ -9,6 +9,13 @@ public class LiftViewController: UIViewController {
     public var lift: Lift!
     public var workoutSaveAgent: WorkoutSaveAgent!
     
+    public var isReadonly: Bool = false {
+        didSet {
+            navigationItem.rightBarButtonItem = nil
+            addLiftButton?.hidden = true
+        }
+    }
+    
     private var setInEditing: LiftSet?
     
     override public func viewDidLoad() {
@@ -25,6 +32,12 @@ public class LiftViewController: UIViewController {
         self.performSegueWithIdentifier("PresentModalSetEditForm", sender: nil)
     }
     
+    @IBAction public func viewLastLift() {
+        if let lastLift = lift.previousInstance {
+            self.performSegueWithIdentifier("ShowViewLastLift", sender: lastLift)
+        }
+    }
+    
     override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "PresentModalSetEditForm" {
             if let setEditFormViewController = segue.destinationViewController as? SetEditFormViewController {
@@ -33,6 +46,14 @@ public class LiftViewController: UIViewController {
                 if let sentSet = sender as? LiftSet {
                     setInEditing = sentSet
                     setEditFormViewController.set = sentSet
+                }
+            }
+        } else if segue.identifier == "ShowViewLastLift" {
+            if let viewLastLiftViewController = segue.destinationViewController as? LiftViewController {
+                viewLastLiftViewController.isReadonly = true
+                
+                if let sentPreviousLiftInstance = sender as? Lift {
+                    viewLastLiftViewController.lift = sentPreviousLiftInstance
                 }
             }
         }
@@ -73,13 +94,18 @@ extension LiftViewController: UITableViewDataSource {
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(LiftSetTableViewCell.name, forIndexPath: indexPath) as! LiftSetTableViewCell
         cell.configureWithSet(lift.sets[indexPath.row], setNumber: (indexPath.row + 1))
+        if isReadonly {
+            cell.selectionStyle = .None
+        }
         
         return cell
     }
     
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let set = lift.sets[indexPath.row]
-        self.performSegueWithIdentifier("PresentModalSetEditForm", sender: set)
+        if !isReadonly {
+            let set = lift.sets[indexPath.row]
+            self.performSegueWithIdentifier("PresentModalSetEditForm", sender: set)
+        }
     }
 }
 
