@@ -19,7 +19,9 @@ class LiftEntryFormViewControllerSpec: QuickSpec {
             var mockLiftEntryFormDelegate: MockLiftEntryFormDelegate!
             
             beforeEach {
-                let storyboard = SwinjectStoryboard.create(name: WorkoutStoryboardMetadata.name, bundle: nil, container: WorkoutStoryboardMetadata.container)
+                let storyboardMetadata = WorkoutStoryboardMetadata()
+                let storyboard = SwinjectStoryboard.create(name: storyboardMetadata.name, bundle: nil,
+                    container: storyboardMetadata.container)
                 subject = storyboard.instantiateViewControllerWithIdentifier("LiftEntryFormViewController")
                     as! LiftEntryFormViewController
                 mockLiftEntryFormDelegate = MockLiftEntryFormDelegate()

@@ -15,4 +15,8 @@ public class Lift {
         sets.append(set)
         set.lift = self
     }
+    
+    public func isSame(otherLift: Lift) -> Bool {
+        return self.name == otherLift.name
+    }
 }

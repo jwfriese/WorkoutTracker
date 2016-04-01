@@ -1,14 +1,23 @@
-import Foundation
 import Swinject
 
 public class WorkoutListStoryboardMetadata: SwinjectStoryboardMetadata {
-    public static var name: String {
+    public init() { }
+    
+    public var name: String {
         get {
             return "WorkoutList"
         }
     }
     
-    public static var container: Container {
+    public var initialViewController: UIViewController {
+        get {
+            let storyboard = SwinjectStoryboard.create(name: name, bundle: nil,
+                container: container)
+            return storyboard.instantiateInitialViewController()!
+        }
+    }
+    
+    public var container: Container {
         get {
             let container = Container()
             
@@ -51,8 +60,9 @@ public class WorkoutListStoryboardMetadata: SwinjectStoryboardMetadata {
             
             container.register(LiftDeserializer.self) { resolver in
                 let liftSetDeserializer = resolver.resolve(LiftSetDeserializer.self)
-                
                 return LiftDeserializer(withLiftSetDeserializer: liftSetDeserializer)
+            }.initCompleted { resolver, instance in
+                instance.workoutLoadAgent = resolver.resolve(WorkoutLoadAgent.self)
             }
             
             container.register(LiftSetDeserializer.self) { resolver in
@@ -72,12 +82,17 @@ public class WorkoutListStoryboardMetadata: SwinjectStoryboardMetadata {
                 
                 return WorkoutDeleteAgent(withLocalStorageWorker: localStorageWorker)
             }
+            
+            container.register(WorkoutStoryboardMetadata.self) { resolver in
+                return WorkoutStoryboardMetadata()
+            }
     
             container.registerForStoryboard(WorkoutListViewController.self) { resolver, instance in
                 instance.timestamper = resolver.resolve(Timestamper.self)
                 instance.workoutSaveAgent = resolver.resolve(WorkoutSaveAgent.self)
                 instance.workoutLoadAgent = resolver.resolve(WorkoutLoadAgent.self)
                 instance.workoutDeleteAgent = resolver.resolve(WorkoutDeleteAgent.self)
+                instance.workoutStoryboardMetadata = resolver.resolve(WorkoutStoryboardMetadata.self)
             }
             
             return container

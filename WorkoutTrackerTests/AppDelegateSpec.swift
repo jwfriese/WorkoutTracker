@@ -10,7 +10,7 @@ class AppDelegateSpec: QuickSpec {
             subject = AppDelegate()
         }
         
-        describe("Startup") {
+        describe("Startup behavior") {
             beforeEach {
                 subject.application(UIApplication.sharedApplication(), didFinishLaunchingWithOptions: nil)
             }
@@ -22,15 +22,21 @@ class AppDelegateSpec: QuickSpec {
             
             describe("Initial navigation controller content") {
                 var navigationController: UINavigationController!
-                var topViewController: UIViewController!
+                var startupViewController: StartupViewController?
                 
                 beforeEach {
                     navigationController = subject.window?.rootViewController as? UINavigationController
-                    topViewController = navigationController.topViewController
+                    startupViewController = navigationController.topViewController as? StartupViewController
                 }
                 
-                it("should set the top view controller of the navigation controller to be a WorkoutListViewController") {
-                    expect(topViewController).to(beAnInstanceOf(WorkoutListViewController.self))
+                it("should set the top view controller of the navigation controller to be a StartupViewController") {
+                    expect(startupViewController).toNot(beNil())
+                }
+                
+                describe("The instantiated StartupViewController") {
+                    it("has an instance of a MigrationAgent") {
+                        expect(startupViewController?.migrationAgent).toNot(beNil())
+                    }
                 }
             }
             

@@ -1,8 +1,9 @@
-import Foundation
+import UIKit
 import Swinject
 
 public protocol SwinjectStoryboardMetadata {
-    static var name: String { get }
-    static var container: Container { get }
+    var name: String { get }
+    var initialViewController: UIViewController { get }
+    var container: Container { get }
 }
 

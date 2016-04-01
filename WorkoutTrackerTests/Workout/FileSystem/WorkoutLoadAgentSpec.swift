@@ -66,11 +66,11 @@ class WorkoutLoadAgentSpec: QuickSpec {
                 var workout: Workout!
                 
                 beforeEach {
-                    workout = subject.load("storedWorkout.json")
+                    workout = subject.loadWorkout(withIdentifier: 10000)
                 }
                 
                 it("uses the local storage worker to load the data from disk and deserializes the workout") {
-                    if mockLocalStorageWorker.fileRead == "storedWorkout.json" {
+                    if mockLocalStorageWorker.fileRead == "Workouts/10000_.json" {
                         expect(mockWorkoutDeserializer.deserializedWorkout).to(beIdenticalTo(workout))
                     } else {
                         fail("Failed to load the workout from disk")

@@ -19,20 +19,37 @@ class WorkoutViewControllerSpec: QuickSpec {
             }
         }
         
+        class MockLiftCreator: LiftCreator {
+            init() {
+                super.init(withLiftHistoryIndexLoader: nil, workoutLoadAgent: nil)
+            }
+            
+            override private func createWithName(name: String) -> Lift {
+                return Lift(withName: name)
+            }
+        }
+        
         describe("WorkoutViewController") {
             var subject: WorkoutViewController!
             var mockWorkoutSaveAgent: MockWorkoutSaveAgent!
+            var mockLiftCreator: MockLiftCreator!
             var navigationController: TestNavigationController!
             
             beforeEach {
                 mockWorkoutSaveAgent = MockWorkoutSaveAgent()
+                mockLiftCreator = MockLiftCreator()
                 
-                let container = WorkoutStoryboardMetadata.container
+                let storyboardMetadata = WorkoutStoryboardMetadata()
+                let container = storyboardMetadata.container
                 container.register(WorkoutSaveAgent.self) { resolver in
                     return mockWorkoutSaveAgent
                 }
                 
-                let storyboard = SwinjectStoryboard.create(name: WorkoutStoryboardMetadata.name, bundle: nil, container: container)
+                container.register(LiftCreator.self) { resolver in
+                    return mockLiftCreator
+                }
+                
+                let storyboard = SwinjectStoryboard.create(name: storyboardMetadata.name, bundle: nil, container: container)
                 
                 subject = storyboard.instantiateViewControllerWithIdentifier("WorkoutViewController")
                     as! WorkoutViewController
@@ -81,6 +98,7 @@ class WorkoutViewControllerSpec: QuickSpec {
                     describe("When the lift entry form modal finishes") {
                         beforeEach {
                             subject.liftEnteredWithName("turtle lift")
+                            TestAppDelegate.layoutWindow()
                         }
                         
                         it("adds a new lift with the given name") {

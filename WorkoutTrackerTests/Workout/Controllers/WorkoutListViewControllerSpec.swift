@@ -43,6 +43,26 @@ class WorkoutListViewControllerSpec: QuickSpec {
         }
     }
     
+    class MockWorkoutStoryboardMetadata: WorkoutStoryboardMetadata {
+        var workoutViewController: WorkoutViewController = WorkoutViewController()
+        
+        override init() { }
+        
+        override var container: Container {
+            let container = Container()
+            
+            container.registerForStoryboard(WorkoutViewController.self) { resolver, instance in
+                return self.workoutViewController
+            }
+            
+            return container
+        }
+        
+        override var initialViewController: UIViewController {
+            return workoutViewController
+        }
+    }
+    
     class MockWorkoutDeleteAgent: WorkoutDeleteAgent {
         var deletedWorkout: Workout?
         
@@ -62,6 +82,7 @@ class WorkoutListViewControllerSpec: QuickSpec {
             var mockWorkoutSaveAgent: MockWorkoutSaveAgent!
             var mockWorkoutLoadAgent: MockWorkoutLoadAgent!
             var mockWorkoutDeleteAgent: MockWorkoutDeleteAgent!
+            var mockWorkoutStoryboardMetadata: MockWorkoutStoryboardMetadata!
             
             var navigationController: TestNavigationController!
             
@@ -72,17 +93,20 @@ class WorkoutListViewControllerSpec: QuickSpec {
                 mockWorkoutSaveAgent = MockWorkoutSaveAgent()
                 mockWorkoutLoadAgent = MockWorkoutLoadAgent()
                 mockWorkoutDeleteAgent = MockWorkoutDeleteAgent()
+                mockWorkoutStoryboardMetadata = MockWorkoutStoryboardMetadata()
                 
                 container.register(Timestamper.self) { _ in mockTimestamper }
                 container.register(WorkoutSaveAgent.self) { _ in mockWorkoutSaveAgent }
                 container.register(WorkoutLoadAgent.self) { _ in mockWorkoutLoadAgent }
                 container.register(WorkoutDeleteAgent.self) { _ in mockWorkoutDeleteAgent }
+                container.register(WorkoutStoryboardMetadata.self) { _ in mockWorkoutStoryboardMetadata }
                 
                 container.registerForStoryboard(WorkoutListViewController.self) { resolver, instance in
                     instance.timestamper = resolver.resolve(Timestamper.self)
                     instance.workoutSaveAgent = resolver.resolve(WorkoutSaveAgent.self)
                     instance.workoutLoadAgent = resolver.resolve(WorkoutLoadAgent.self)
                     instance.workoutDeleteAgent = resolver.resolve(WorkoutDeleteAgent.self)
+                    instance.workoutStoryboardMetadata = resolver.resolve(WorkoutStoryboardMetadata.self)
                 }
                 
                 let storyboard = SwinjectStoryboard.create(name: "WorkoutList", bundle: nil, container: container)
@@ -187,6 +211,9 @@ class WorkoutListViewControllerSpec: QuickSpec {
                             
                             it("should present the page for that workout") {
                                 expect(navigationController.topViewController).to(beAnInstanceOf(WorkoutViewController.self))
+                                expect(navigationController.topViewController).to(
+                                    beIdenticalTo(mockWorkoutStoryboardMetadata.workoutViewController)
+                                )
                             }
                             
                             it("sets the selected cell's lift on the presented lift page") {

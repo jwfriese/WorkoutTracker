@@ -14,4 +14,14 @@ public class Workout {
         lifts.append(lift)
         lift.workout = self
     }
+    
+    public func liftByName(name: String) -> Lift? {
+        for lift in lifts {
+            if lift.name == name {
+                return lift
+            }
+        }
+        
+        return nil
+    }
 }

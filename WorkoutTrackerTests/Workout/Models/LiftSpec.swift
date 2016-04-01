@@ -35,6 +35,23 @@ class LiftSpec: QuickSpec {
                     expect(subject.sets[0].lift).to(beIdenticalTo(subject))
                 }
             }
+            
+            describe("Identity of a lift") {
+                var liftOne: Lift!
+                var liftTwo: Lift!
+                var liftThree: Lift!
+                
+                beforeEach {
+                    liftOne = Lift(withName: "turtle lift")
+                    liftTwo = Lift(withName: "super turtle lift")
+                    liftThree = Lift(withName: "turtle lift")
+                }
+                
+                it("is only the same as another lift if the two have the same name") {
+                    expect(liftOne.isSame(liftTwo)).to(beFalse())
+                    expect(liftOne.isSame(liftThree)).to(beTrue())
+                }
+            }
         }
     }
 }

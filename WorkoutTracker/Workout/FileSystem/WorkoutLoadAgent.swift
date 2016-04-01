@@ -10,9 +10,8 @@ public class WorkoutLoadAgent {
         self.localStorageWorker = localStorageWorker
     }
     
-    public func load(workoutFileName: String) -> Workout? {
-        let workoutDictionary = localStorageWorker.readJSONDictionaryFromFile(workoutFileName)
-        return workoutDeserializer.deserialize(workoutDictionary!)
+    public func loadWorkout(withIdentifier workoutIdentifier: UInt) -> Workout? {
+        return loadFromFile("Workouts/\(workoutIdentifier)_.json")
     }
     
     public func loadAllWorkouts() -> [Workout] {
@@ -26,5 +25,10 @@ public class WorkoutLoadAgent {
         }
         
         return workouts
+    }
+    
+    private func loadFromFile(workoutFileName: String) -> Workout? {
+        let workoutDictionary = localStorageWorker.readJSONDictionaryFromFile(workoutFileName)
+        return workoutDeserializer.deserialize(workoutDictionary!)
     }
 }

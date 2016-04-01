@@ -5,10 +5,12 @@ public class WorkoutListViewController: UIViewController {
     @IBOutlet public private(set) weak var tableView: UITableView?
     
     public private(set) var workouts: [Workout] = []
+    
     public var timestamper: Timestamper!
     public var workoutSaveAgent: WorkoutSaveAgent!
     public var workoutLoadAgent: WorkoutLoadAgent!
     public var workoutDeleteAgent: WorkoutDeleteAgent!
+    public var workoutStoryboardMetadata: WorkoutStoryboardMetadata!
     
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -54,10 +56,8 @@ extension WorkoutListViewController: UITableViewDataSource {
 
 extension WorkoutListViewController: UITableViewDelegate {
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let workoutStoryboard = SwinjectStoryboard.create(name: WorkoutStoryboardMetadata.name,
-            bundle: nil, container: WorkoutStoryboardMetadata.container)
-        let workoutViewController = workoutStoryboard.instantiateInitialViewController() as!
-            WorkoutViewController
+        let workoutViewController = workoutStoryboardMetadata.initialViewController as!
+                WorkoutViewController
         workoutViewController.workout = workouts[indexPath.row]
         
         self.navigationController?.pushViewController(workoutViewController, animated: true)

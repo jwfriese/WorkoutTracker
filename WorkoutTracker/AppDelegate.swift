@@ -7,11 +7,14 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
     public func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
 
-        let storyboard = SwinjectStoryboard.create(name:WorkoutListStoryboardMetadata.name, bundle:nil,
-            container:WorkoutListStoryboardMetadata.container)
-        let rootController = storyboard.instantiateInitialViewController()
+        let startupMetadata = StartupStoryboardMetadata()
         
-        window!.rootViewController = rootController
+        let storyboard = SwinjectStoryboard.create(name: startupMetadata.name, bundle: nil,
+            container: startupMetadata.container)
+        let rootController = storyboard.instantiateInitialViewController() as! StartupViewController
+        let rootNavigationController = UINavigationController(rootViewController: rootController)
+        
+        window!.rootViewController = rootNavigationController
         window!.makeKeyAndVisible()
         
         return true

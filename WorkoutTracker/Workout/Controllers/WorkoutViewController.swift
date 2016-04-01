@@ -5,6 +5,7 @@ public class WorkoutViewController: UIViewController {
     
     public var workout: Workout!
     public var workoutSaveAgent: WorkoutSaveAgent!
+    public var liftCreator: LiftCreator!
     
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +37,8 @@ public class WorkoutViewController: UIViewController {
 
 extension WorkoutViewController: LiftEntryFormDelegate {
     public func liftEnteredWithName(name: String) {
-        workout.addLift(Lift(withName: name))
+        let lift = liftCreator.createWithName(name)
+        workout.addLift(lift)
         workoutSaveAgent.save(workout)
         tableView?.reloadData()
         self.dismissViewControllerAnimated(true, completion: nil)

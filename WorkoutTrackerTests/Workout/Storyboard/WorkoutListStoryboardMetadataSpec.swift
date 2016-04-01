@@ -6,8 +6,14 @@ import WorkoutTracker
 class WorkoutListStoryboardMetadataSpec: QuickSpec {
     override func spec() {
         describe("WorkoutListStoryboardMetadata") {
+            var subject: WorkoutListStoryboardMetadata!
+            
+            beforeEach {
+                subject = WorkoutListStoryboardMetadata()
+            }
+            
             it("has the correct name") {
-                expect(WorkoutListStoryboardMetadata.name).to(equal("WorkoutList"))
+                expect(subject.name).to(equal("WorkoutList"))
             }
             
             describe("The storyboard created using the metadata") {
@@ -15,8 +21,8 @@ class WorkoutListStoryboardMetadataSpec: QuickSpec {
                 var container: Container!
                 
                 beforeEach {
-                    container = WorkoutListStoryboardMetadata.container
-                    storyboard = SwinjectStoryboard.create(name: WorkoutListStoryboardMetadata.name, bundle: nil, container: container)
+                    container = subject.container
+                    storyboard = SwinjectStoryboard.create(name: subject.name, bundle: nil, container: container)
                 }
                 
                 describe("The container") {
@@ -32,6 +38,7 @@ class WorkoutListStoryboardMetadataSpec: QuickSpec {
                     var liftSetDeserializer: LiftSetDeserializer?
                     var workoutListViewController: WorkoutListViewController?
                     var workoutDeleteAgent: WorkoutDeleteAgent?
+                    var workoutStoryboardMetadata: WorkoutStoryboardMetadata?
                     
                     beforeEach {
                         timestamper = container.resolve(Timestamper.self)
@@ -46,6 +53,7 @@ class WorkoutListStoryboardMetadataSpec: QuickSpec {
                         liftSetDeserializer = container.resolve(LiftSetDeserializer.self)
                         workoutListViewController = storyboard.instantiateViewControllerWithIdentifier("WorkoutListViewController") as? WorkoutListViewController
                         workoutDeleteAgent = container.resolve(WorkoutDeleteAgent.self)
+                        workoutStoryboardMetadata = container.resolve(WorkoutStoryboardMetadata.self)
                     }
                     
                     it("can produce a Timestamper") {
@@ -92,6 +100,10 @@ class WorkoutListStoryboardMetadataSpec: QuickSpec {
                         expect(workoutDeleteAgent).toNot(beNil())
                     }
                     
+                    it("can produce a WorkoutStoryboardMetadata") {
+                        expect(workoutStoryboardMetadata).toNot(beNil())
+                    }
+                    
                     describe("Its WorkoutListViewController") {
                         it("can be created") {
                             expect(workoutListViewController).toNot(beNil())
@@ -111,6 +123,10 @@ class WorkoutListStoryboardMetadataSpec: QuickSpec {
                         
                         it("is created with a WorkoutDeleteAgent") {
                             expect(workoutListViewController?.workoutDeleteAgent).toNot(beNil())
+                        }
+                        
+                        it("is created with a WorkoutStoryboardMetadata") {
+                            expect(workoutListViewController?.workoutStoryboardMetadata).toNot(beNil())
                         }
                     }
                     
@@ -162,6 +178,38 @@ class WorkoutListStoryboardMetadataSpec: QuickSpec {
                         it("is created with a LocalStorageWorker") {
                             expect(workoutDeleteAgent?.localStorageWorker).toNot(beNil())
                         }
+                    }
+                }
+                
+                describe("The initial view controller") {
+                    var initialViewController: WorkoutListViewController?
+                    
+                    beforeEach {
+                        initialViewController = subject.initialViewController as? WorkoutListViewController
+                    }
+                    
+                    it("is a WorkoutListViewController") {
+                        expect(initialViewController).toNot(beNil())
+                    }
+                    
+                    it("is created with a Timestamper") {
+                        expect(initialViewController?.timestamper).toNot(beNil())
+                    }
+                    
+                    it("is created with a WorkoutSaveAgent") {
+                        expect(initialViewController?.workoutSaveAgent).toNot(beNil())
+                    }
+                    
+                    it("is created with a WorkoutLoadAgent") {
+                        expect(initialViewController?.workoutLoadAgent).toNot(beNil())
+                    }
+                    
+                    it("is created with a WorkoutDeleteAgent") {
+                        expect(initialViewController?.workoutDeleteAgent).toNot(beNil())
+                    }
+                    
+                    it("is created with a WorkoutStoryboardMetadata") {
+                        expect(initialViewController?.workoutStoryboardMetadata).toNot(beNil())
                     }
                 }
             }

@@ -28,12 +28,13 @@ class LiftViewControllerSpec: QuickSpec {
             beforeEach {
                 mockWorkoutSaveAgent = MockWorkoutSaveAgent()
                 
-                let container = WorkoutStoryboardMetadata.container
+                let storyboardMetadata = WorkoutStoryboardMetadata()
+                let container = storyboardMetadata.container
                 container.register(WorkoutSaveAgent.self) { resolver in
                     return mockWorkoutSaveAgent
                 }
                 
-                let storyboard = SwinjectStoryboard.create(name: WorkoutStoryboardMetadata.name, bundle: nil, container: container)
+                let storyboard = SwinjectStoryboard.create(name: storyboardMetadata.name, bundle: nil, container: container)
                 
                 subject = storyboard.instantiateViewControllerWithIdentifier("LiftViewController")
                     as! LiftViewController

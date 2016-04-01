@@ -38,6 +38,38 @@ class WorkoutSpec: QuickSpec {
                     expect(subject.lifts[0].workout).to(beIdenticalTo(subject))
                 }
             }
+            
+            describe("Querying for a lift by name") {
+                let liftOne = Lift(withName: "turtle lift")
+                let liftTwo = Lift(withName: "turtle press")
+                
+                var resultLift: Lift?
+                
+                beforeEach {
+                    subject.addLift(liftOne)
+                    subject.addLift(liftTwo)
+                }
+                
+                context("When a lift with that name exists") {
+                    beforeEach {
+                        resultLift = subject.liftByName("turtle press")
+                    }
+                    
+                    it("returns that lift") {
+                        expect(resultLift).to(beIdenticalTo(liftTwo))
+                    }
+                }
+                
+                context("When a lift with that name does not exist") {
+                    beforeEach {
+                        resultLift = subject.liftByName("turtle clean")
+                    }
+                    
+                    it("returns that lift") {
+                        expect(resultLift).to(beNil())
+                    }
+                }
+            }
         }
     }
 }
