@@ -26,8 +26,7 @@ public class WorkoutStoryboardMetadata: SwinjectStoryboardMetadata {
             }
             
             container.register(WorkoutSerializer.self) { resolver in
-                let liftSerializer = resolver.resolve(LiftSerializer.self)
-                return WorkoutSerializer(withLiftSerializer: liftSerializer!)
+                return WorkoutSerializer()
             }
             
             container.register(LiftSerializer.self) { resolver in
@@ -52,12 +51,19 @@ public class WorkoutStoryboardMetadata: SwinjectStoryboardMetadata {
                 return LiftHistoryIndexLoader(withLocalStorageWorker: localStorageWorker)
             }
             
-            container.register(WorkoutSaveAgent.self) { resolver in
-                let workoutSerializer = resolver.resolve(WorkoutSerializer.self)
+            container.register(LiftSaveAgent.self) { resolver in
+                let liftSerializer = resolver.resolve(LiftSerializer.self)
                 let localStorageWorker = resolver.resolve(LocalStorageWorker.self)
                 
-                return WorkoutSaveAgent(withWorkoutSerializer: workoutSerializer!,
-                    localStorageWorker: localStorageWorker!)
+                return LiftSaveAgent(withLiftSerializer: liftSerializer, localStorageWorker: localStorageWorker)
+            }
+            
+            container.register(WorkoutSaveAgent.self) { resolver in
+                let workoutSerializer = resolver.resolve(WorkoutSerializer.self)
+                let liftSaveAgent = resolver.resolve(LiftSaveAgent.self)
+                let localStorageWorker = resolver.resolve(LocalStorageWorker.self)
+                
+                return WorkoutSaveAgent(withWorkoutSerializer: workoutSerializer!, liftSaveAgent: liftSaveAgent, localStorageWorker: localStorageWorker!)
             }
             
             container.register(WorkoutLoadAgent.self) { resolver in

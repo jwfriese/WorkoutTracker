@@ -27,6 +27,7 @@ class WorkoutStoryboardMetadataSpec: QuickSpec {
                 
                 describe("The container") {
                     var workoutSaveAgent: WorkoutSaveAgent?
+                    var liftSaveAgent: LiftSaveAgent?
                     var localStorageWorker: LocalStorageWorker?
                     var workoutSerializer: WorkoutSerializer?
                     var liftSerializer: LiftSerializer?
@@ -42,6 +43,7 @@ class WorkoutStoryboardMetadataSpec: QuickSpec {
                     
                     beforeEach {
                         workoutSaveAgent = container.resolve(WorkoutSaveAgent.self)
+                        liftSaveAgent = container.resolve(LiftSaveAgent.self)
                         localStorageWorker = container.resolve(LocalStorageWorker.self)
                         workoutSerializer = container.resolve(WorkoutSerializer.self)
                         liftSerializer = container.resolve(LiftSerializer.self)
@@ -58,6 +60,10 @@ class WorkoutStoryboardMetadataSpec: QuickSpec {
                     
                     it("can produce a WorkoutSaveAgent") {
                         expect(workoutSaveAgent).toNot(beNil())
+                    }
+                    
+                    it("can produce a LiftSaveAgent") {
+                        expect(liftSaveAgent).toNot(beNil())
                     }
                     
                     it("can produce a LocalStorageWorker") {
@@ -125,18 +131,26 @@ class WorkoutStoryboardMetadataSpec: QuickSpec {
                     }
                     
                     describe("Its WorkoutSaveAgent") {
-                        it("is created with a LocalStorageWorker") {
-                            expect(workoutSaveAgent?.localStorageWorker).toNot(beNil())
-                        }
-                        
                         it("is created with a WorkoutSerializer") {
                             expect(workoutSaveAgent?.workoutSerializer).toNot(beNil())
                         }
+                        
+                        it("is created with a LiftSaveAgent") {
+                            expect(workoutSaveAgent?.liftSaveAgent).toNot(beNil())
+                        }
+                        
+                        it("is created with a LocalStorageWorker") {
+                            expect(workoutSaveAgent?.localStorageWorker).toNot(beNil())
+                        }
                     }
                     
-                    describe("Its WorkoutSerializer") {
+                    describe("Its LiftSaveAgent") {
                         it("is created with a LiftSerializer") {
-                            expect(workoutSerializer?.liftSerializer).toNot(beNil())
+                            expect(liftSaveAgent?.liftSerializer).toNot(beNil())
+                        }
+                        
+                        it("is created with a LocalStorageWorker") {
+                            expect(liftSaveAgent?.localStorageWorker).toNot(beNil())
                         }
                     }
                     

@@ -2,14 +2,21 @@ import Foundation
 
 public class WorkoutSaveAgent {
     public private(set) var workoutSerializer: WorkoutSerializer!
+    public private(set) var liftSaveAgent: LiftSaveAgent!
     public private(set) var localStorageWorker: LocalStorageWorker!
     
-    public init(withWorkoutSerializer workoutSerializer: WorkoutSerializer?, localStorageWorker: LocalStorageWorker?) {
+    public init(withWorkoutSerializer workoutSerializer: WorkoutSerializer?, liftSaveAgent: LiftSaveAgent?,
+                    localStorageWorker: LocalStorageWorker?) {
         self.workoutSerializer = workoutSerializer
+        self.liftSaveAgent = liftSaveAgent
         self.localStorageWorker = localStorageWorker
     }
     
     public func save(workout: Workout) -> String {
+        for lift in workout.lifts {
+            liftSaveAgent.save(lift)
+        }
+        
         let workoutDictionary = workoutSerializer.serialize(workout)
         let workoutNameWithoutWhitespace = workout.name.stringByReplacingOccurrencesOfString(" ", withString: "")
         

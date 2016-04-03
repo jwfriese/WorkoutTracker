@@ -10,6 +10,7 @@ public class LiftSerializer {
     public func serialize(lift: Lift) -> [String : AnyObject] {
         var result = [String : AnyObject]()
         result["name"] = lift.name
+        result["workout"] = lift.workout.timestamp
         var liftSets = Array<[String :  AnyObject]>()
         for set in lift.sets {
             liftSets.append(liftSetSerializer.serialize(set))

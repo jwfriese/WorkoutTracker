@@ -8,12 +8,20 @@ class WorkoutSaveAgentSpec: QuickSpec {
         class MockWorkoutSerializer: WorkoutSerializer {
             var serializedWorkout: [String : AnyObject] = ["key" : "value"]
             
-            init() {
-                super.init(withLiftSerializer: LiftSerializer(withLiftSetSerializer: LiftSetSerializer()))
-            }
-            
             override func serialize(workout: Workout) -> [String : AnyObject] {
                 return serializedWorkout
+            }
+        }
+        
+        class MockLiftSaveAgent: LiftSaveAgent {
+            var savedLifts: [Lift] = []
+            
+            init() {
+                super.init(withLiftSerializer: nil, localStorageWorker: nil)
+            }
+            
+            override func save(lift: Lift) {
+                savedLifts.append(lift)
             }
         }
         
@@ -29,32 +37,45 @@ class WorkoutSaveAgentSpec: QuickSpec {
         describe("WorkoutSaveAgent") {
             var subject: WorkoutSaveAgent!
             var mockWorkoutSerializer: MockWorkoutSerializer!
+            var mockLiftSaveAgent: MockLiftSaveAgent!
             var mockLocalStorageWorker: MockLocalStorageWorker!
             
             beforeEach {
                 mockWorkoutSerializer = MockWorkoutSerializer()
+                mockLiftSaveAgent = MockLiftSaveAgent()
                 mockLocalStorageWorker = MockLocalStorageWorker()
                 
                 subject = WorkoutSaveAgent(withWorkoutSerializer: mockWorkoutSerializer,
-                    localStorageWorker: mockLocalStorageWorker)
+                    liftSaveAgent: mockLiftSaveAgent, localStorageWorker: mockLocalStorageWorker)
             }
             
             describe("Its initializer") {
-                it("sets a workout serializer") {
+                it("sets its workout serializer") {
                     expect(subject.workoutSerializer).toNot(beNil())
                 }
                 
-                it("sets a local storage worker") {
+                it("sets its lift save agent") {
+                    expect(subject.liftSaveAgent).toNot(beNil())
+                }
+                
+                it("sets its local storage worker") {
                     expect(subject.localStorageWorker).toNot(beNil())
                 }
             }
             
             describe("Saving a workout") {
                 var workout: Workout!
+                var liftOne: Lift!
+                var liftTwo: Lift!
                 var savedFileName: String?
                 
                 beforeEach {
+                    liftOne = Lift(withName: "turtle lift")
+                    liftTwo = Lift(withName: "turtle press")
+                    
                     workout = Workout(withName: "turtle workout", timestamp: 1000)
+                    workout.addLift(liftOne)
+                    workout.addLift(liftTwo)
                     
                     savedFileName = subject.save(workout)
                 }
@@ -66,6 +87,11 @@ class WorkoutSaveAgentSpec: QuickSpec {
                     } else {
                         fail("Failed to save the workout to disk")
                     }
+                }
+                
+                it("passes each of its lifts to the lift save agent") {
+                    expect(mockLiftSaveAgent.savedLifts).to(contain(liftOne))
+                    expect(mockLiftSaveAgent.savedLifts).to(contain(liftTwo))
                 }
             }
         }

@@ -10,7 +10,7 @@ class WorkoutViewControllerSpec: QuickSpec {
             var savedWorkout: Workout?
             
             init() {
-                super.init(withWorkoutSerializer: nil, localStorageWorker: nil)
+                super.init(withWorkoutSerializer: nil, liftSaveAgent: nil, localStorageWorker: nil)
             }
             
             override func save(workout: Workout) -> String {
@@ -107,7 +107,7 @@ class WorkoutViewControllerSpec: QuickSpec {
                         }
                         
                         it("dismisses the lift entry form modal") {
-                            expect(subject.presentedViewController).toEventually(beNil(), timeout:5.0)
+                            expect(subject.presentedViewController).toEventually(beNil(), timeout:10.0)
                         }
                         
                         it("saves the workout with the new lift on it") {

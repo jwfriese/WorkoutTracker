@@ -20,7 +20,7 @@ class WorkoutListViewControllerSpec: QuickSpec {
         var savedWorkout: Workout?
         
         init() {
-            super.init(withWorkoutSerializer:nil, localStorageWorker:nil)
+            super.init(withWorkoutSerializer: nil, liftSaveAgent: nil, localStorageWorker: nil)
         }
         
         override func save(workout: Workout) -> String {
