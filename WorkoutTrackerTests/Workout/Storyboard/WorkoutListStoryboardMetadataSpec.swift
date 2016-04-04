@@ -200,34 +200,18 @@ class WorkoutListStoryboardMetadataSpec: QuickSpec {
                 }
                 
                 describe("The initial view controller") {
-                    var initialViewController: WorkoutListViewController?
+                    var initialViewController: UINavigationController?
                     
                     beforeEach {
-                        initialViewController = subject.initialViewController as? WorkoutListViewController
+                        initialViewController = subject.initialViewController as? UINavigationController
                     }
                     
-                    it("is a WorkoutListViewController") {
+                    it("is a UINavigationController") {
                         expect(initialViewController).toNot(beNil())
                     }
                     
-                    it("is created with a Timestamper") {
-                        expect(initialViewController?.timestamper).toNot(beNil())
-                    }
-                    
-                    it("is created with a WorkoutSaveAgent") {
-                        expect(initialViewController?.workoutSaveAgent).toNot(beNil())
-                    }
-                    
-                    it("is created with a WorkoutLoadAgent") {
-                        expect(initialViewController?.workoutLoadAgent).toNot(beNil())
-                    }
-                    
-                    it("is created with a WorkoutDeleteAgent") {
-                        expect(initialViewController?.workoutDeleteAgent).toNot(beNil())
-                    }
-                    
-                    it("is created with a WorkoutStoryboardMetadata") {
-                        expect(initialViewController?.workoutStoryboardMetadata).toNot(beNil())
+                    it("contains a WorkoutListViewController") {
+                        expect(initialViewController?.topViewController).to(beAnInstanceOf(WorkoutListViewController.self))
                     }
                 }
             }

@@ -27,15 +27,11 @@ class StartupViewControllerSpec: QuickSpec {
             }
         }
         
-        class MockLiftHistoryIndexBuilder: LiftHistoryIndexBuilder {
-            
-        }
-        
         class MockWorkoutListStoryboardMetadata: WorkoutListStoryboardMetadata {
-            var workoutListViewController = WorkoutListViewController()
+            var workoutListInitialController = UINavigationController()
             
             override var initialViewController: UIViewController {
-                return workoutListViewController
+                return workoutListInitialController
             }
         }
         
@@ -84,10 +80,8 @@ class StartupViewControllerSpec: QuickSpec {
                         mockMigrationAgent.finishMigrationWork()
                     }
                     
-                    it("should present the workout list page") {
-                        expect(navigationController.topViewController).to(
-                            beIdenticalTo(mockWorkoutListStoryboardMetadata.workoutListViewController)
-                        )
+                    it("should replace the window's root view controller with the workout list page") {
+                        expect(UIApplication.sharedApplication().keyWindow?.rootViewController).toEventually(beIdenticalTo(mockWorkoutListStoryboardMetadata.workoutListInitialController))
                     }
                 }
             }

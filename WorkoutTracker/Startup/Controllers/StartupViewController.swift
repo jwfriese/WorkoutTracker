@@ -8,8 +8,8 @@ public class StartupViewController : UIViewController {
         super.viewDidLoad()
         
         migrationAgent.performMigrationWork() {
-            let workoutListViewController = self.workoutListStoryboardMetadata.initialViewController
-            self.navigationController?.pushViewController(workoutListViewController, animated: true)
+            let workoutListNavigationController = self.workoutListStoryboardMetadata.initialViewController
+            UIApplication.sharedApplication().keyWindow?.rootViewController = workoutListNavigationController
         }
     }
 }
