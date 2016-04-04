@@ -73,16 +73,16 @@ public class WorkoutStoryboardMetadata: SwinjectStoryboardMetadata {
                             localStorageWorker: localStorageWorker)
             }
             
-            container.register(WorkoutDeserializer.self) { resolver in
-                let liftDeserializer = resolver.resolve(LiftDeserializer.self)
-                return WorkoutDeserializer(withLiftDeserializer: liftDeserializer)
+            container.register(LiftLoadAgent.self) { resolver in
+                let liftSetDeserializer = resolver.resolve(LiftSetDeserializer.self)
+                let localStorageWorker = resolver.resolve(LocalStorageWorker.self)
+                
+                return LiftLoadAgent(withLiftSetDeserializer: liftSetDeserializer, localStorageWorker: localStorageWorker)
             }
             
-            container.register(LiftDeserializer.self) { resolver in
-                let liftSetDeserializer = resolver.resolve(LiftSetDeserializer.self)
-                return LiftDeserializer(withLiftSetDeserializer: liftSetDeserializer)
-            }.initCompleted { resolver, instance in
-                instance.workoutLoadAgent = resolver.resolve(WorkoutLoadAgent.self)
+            container.register(WorkoutDeserializer.self) { resolver in
+                let liftLoadAgent = resolver.resolve(LiftLoadAgent.self)
+                return WorkoutDeserializer(withLiftLoadAgent: liftLoadAgent)
             }
             
             container.register(LiftSetDeserializer.self) { resolver in

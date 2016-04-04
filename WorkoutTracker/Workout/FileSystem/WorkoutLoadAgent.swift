@@ -5,7 +5,7 @@ public class WorkoutLoadAgent {
     public private(set) var localStorageWorker: LocalStorageWorker!
     
     public init(withWorkoutDeserializer workoutDeserializer: WorkoutDeserializer?,
-        localStorageWorker: LocalStorageWorker?) {
+                                        localStorageWorker: LocalStorageWorker?) {
         self.workoutDeserializer = workoutDeserializer
         self.localStorageWorker = localStorageWorker
     }

@@ -1,10 +1,10 @@
 import Foundation
 
 public class WorkoutDeserializer {
-    public private(set) var liftDeserializer: LiftDeserializer?
+    public private(set) var liftLoadAgent: LiftLoadAgent!
     
-    public init(withLiftDeserializer liftDeserializer: LiftDeserializer?) {
-        self.liftDeserializer = liftDeserializer
+    public init(withLiftLoadAgent liftLoadAgent: LiftLoadAgent?) {
+        self.liftLoadAgent = liftLoadAgent
     }
     
     public func deserialize(workoutDictionary: [String : AnyObject]) -> Workout {
@@ -12,9 +12,11 @@ public class WorkoutDeserializer {
         let timestamp = workoutDictionary["timestamp"] as! UInt
         
         let workout = Workout(withName: name, timestamp: timestamp)
-        let liftsArray = workoutDictionary["lifts"] as! Array<[String : AnyObject]>
-        for lift in liftsArray {
-            workout.addLift((liftDeserializer?.deserialize(lift))!)
+        if let liftsArray = workoutDictionary["lifts"] as? Array<String> {
+            for lift in liftsArray {
+                let lift = liftLoadAgent.loadLift(withName: lift, fromWorkoutWithIdentifier: workout.timestamp)
+                workout.addLift(lift!)
+            }
         }
         
         return workout

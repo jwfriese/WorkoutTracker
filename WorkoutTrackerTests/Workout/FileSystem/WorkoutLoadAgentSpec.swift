@@ -5,6 +5,21 @@ import WorkoutTracker
 class WorkoutLoadAgentSpec: QuickSpec {
     override func spec() {
         
+        class MockWorkoutDeserializer: WorkoutDeserializer {
+            var deserializedWorkout: Workout?
+            
+            init() {
+                super.init(withLiftLoadAgent: nil)
+            }
+            
+            override func deserialize(workoutDictionary: [String : AnyObject]) -> Workout {
+                deserializedWorkout = Workout(withName: workoutDictionary["name"] as! String,
+                                              timestamp: 0)
+                
+                return deserializedWorkout!
+            }
+        }
+        
         class MockLocalStorageWorker: LocalStorageWorker {
             var fileRead: String?
             
@@ -25,20 +40,6 @@ class WorkoutLoadAgentSpec: QuickSpec {
             }
         }
         
-        class MockWorkoutDeserializer: WorkoutDeserializer {
-            var deserializedWorkout: Workout?
-            
-            init() {
-                super.init(withLiftDeserializer: nil)
-            }
-            
-            override func deserialize(workoutDictionary: [String : AnyObject]) -> Workout {
-                deserializedWorkout = Workout(withName: workoutDictionary["name"] as! String,
-                    timestamp: 0)
-                return deserializedWorkout!
-            }
-        }
-        
         describe("WorkoutLoadAgent") {
             var subject: WorkoutLoadAgent!
             var mockWorkoutDeserializer: MockWorkoutDeserializer!
@@ -48,16 +49,15 @@ class WorkoutLoadAgentSpec: QuickSpec {
                 mockWorkoutDeserializer = MockWorkoutDeserializer()
                 mockLocalStorageWorker = MockLocalStorageWorker()
                 
-                subject = WorkoutLoadAgent(withWorkoutDeserializer: mockWorkoutDeserializer,
-                    localStorageWorker: mockLocalStorageWorker)
+                subject = WorkoutLoadAgent(withWorkoutDeserializer: mockWorkoutDeserializer, localStorageWorker: mockLocalStorageWorker)
             }
             
             describe("Its initializer") {
-                it("sets its workout deserializer") {
+                it("sets its WorkoutDeserializer") {
                     expect(subject.workoutDeserializer).to(beIdenticalTo(mockWorkoutDeserializer))
                 }
                 
-                it("sets its local storage worker") {
+                it("sets its LocalStorageWorker") {
                     expect(subject.localStorageWorker).to(beIdenticalTo(mockLocalStorageWorker))
                 }
             }

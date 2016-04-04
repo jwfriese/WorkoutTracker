@@ -34,8 +34,8 @@ class WorkoutListStoryboardMetadataSpec: QuickSpec {
                     var liftSerializer: LiftSerializer?
                     var liftSetSerializer: LiftSetSerializer?
                     var workoutLoadAgent: WorkoutLoadAgent?
+                    var liftLoadAgent: LiftLoadAgent?
                     var workoutDeserializer: WorkoutDeserializer?
-                    var liftDeserializer: LiftDeserializer?
                     var liftSetDeserializer: LiftSetDeserializer?
                     var workoutListViewController: WorkoutListViewController?
                     var workoutDeleteAgent: WorkoutDeleteAgent?
@@ -50,8 +50,8 @@ class WorkoutListStoryboardMetadataSpec: QuickSpec {
                         liftSerializer = container.resolve(LiftSerializer.self)
                         liftSetSerializer = container.resolve(LiftSetSerializer.self)
                         workoutLoadAgent = container.resolve(WorkoutLoadAgent.self)
+                        liftLoadAgent = container.resolve(LiftLoadAgent.self)
                         workoutDeserializer = container.resolve(WorkoutDeserializer.self)
-                        liftDeserializer = container.resolve(LiftDeserializer.self)
                         liftSetDeserializer = container.resolve(LiftSetDeserializer.self)
                         workoutListViewController = storyboard.instantiateViewControllerWithIdentifier("WorkoutListViewController") as? WorkoutListViewController
                         workoutDeleteAgent = container.resolve(WorkoutDeleteAgent.self)
@@ -90,12 +90,12 @@ class WorkoutListStoryboardMetadataSpec: QuickSpec {
                         expect(workoutLoadAgent).toNot(beNil())
                     }
                     
-                    it("can produce a WorkoutDeserializer") {
-                        expect(workoutDeserializer).toNot(beNil())
+                    it("can produce a LiftLoadAgent") {
+                        expect(liftLoadAgent).toNot(beNil())
                     }
                     
-                    it("can produce a LiftDeserializer") {
-                        expect(liftDeserializer).toNot(beNil())
+                    it("can produce a WorkoutDeserializer") {
+                        expect(workoutDeserializer).toNot(beNil())
                     }
                     
                     it("can produce a LiftSetDeserializer") {
@@ -176,15 +176,19 @@ class WorkoutListStoryboardMetadataSpec: QuickSpec {
                         }
                     }
                     
-                    describe("Its WorkoutDeserializer") {
-                        it("is created with a LiftDeserializer") {
-                            expect(workoutDeserializer?.liftDeserializer).toNot(beNil())
+                    describe("Its LiftLoadAgent") {
+                        it("is created with a LiftSetDeserializer") {
+                            expect(liftLoadAgent?.liftSetDeserializer).toNot(beNil())
+                        }
+                        
+                        it("is created with a LocalStorageWorker") {
+                            expect(liftLoadAgent?.localStorageWorker).toNot(beNil())
                         }
                     }
                     
-                    describe("Its LiftDeserializer") {
-                        it("is created with a LiftSetDeserializer") {
-                            expect(liftDeserializer?.liftSetDeserializer).toNot(beNil())
+                    describe("Its WorkoutDeserializer") {
+                        it("is created with a LiftLoadAgent") {
+                            expect(workoutDeserializer?.liftLoadAgent).toNot(beNil())
                         }
                     }
                     

@@ -33,6 +33,8 @@
 		7BA92C331C9F1343009A81E3 /* Startup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BA92C321C9F1343009A81E3 /* Startup.storyboard */; };
 		7BB01A301CB1984000A511FE /* LiftSaveAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB01A2F1CB1984000A511FE /* LiftSaveAgent.swift */; };
 		7BB01A321CB1986800A511FE /* LiftSaveAgentSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB01A311CB1986800A511FE /* LiftSaveAgentSpec.swift */; };
+		7BB01A341CB1B36400A511FE /* LiftLoadAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB01A331CB1B36400A511FE /* LiftLoadAgent.swift */; };
+		7BB01A361CB1B38600A511FE /* LiftLoadAgentSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB01A351CB1B38600A511FE /* LiftLoadAgentSpec.swift */; };
 		7BB118A51CAB145D005CC1AF /* LiftCreatorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB118A41CAB145D005CC1AF /* LiftCreatorSpec.swift */; };
 		7BB118A81CAB148A005CC1AF /* LiftCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB118A71CAB148A005CC1AF /* LiftCreator.swift */; };
 		7BB118AA1CAB19F2005CC1AF /* LiftHistoryIndexLoaderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB118A91CAB19F2005CC1AF /* LiftHistoryIndexLoaderSpec.swift */; };
@@ -81,8 +83,6 @@
 		7BB90DD41C8B2374007D365E /* WorkoutLoadAgentSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB90DD31C8B2374007D365E /* WorkoutLoadAgentSpec.swift */; };
 		7BB90DD61C8B24E1007D365E /* WorkoutDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB90DD51C8B24E1007D365E /* WorkoutDeserializer.swift */; };
 		7BB90DD81C8B2509007D365E /* WorkoutDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB90DD71C8B2509007D365E /* WorkoutDeserializerSpec.swift */; };
-		7BB90DDA1C8B83FF007D365E /* LiftDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB90DD91C8B83FF007D365E /* LiftDeserializer.swift */; };
-		7BB90DDC1C8B841D007D365E /* LiftDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB90DDB1C8B841D007D365E /* LiftDeserializerSpec.swift */; };
 		7BB90DDE1C8B8DF6007D365E /* LiftSetDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB90DDD1C8B8DF6007D365E /* LiftSetDeserializer.swift */; };
 		7BB90DE01C8B8E50007D365E /* LiftSetDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB90DDF1C8B8E50007D365E /* LiftSetDeserializerSpec.swift */; };
 		7BB90DE21C8D41AB007D365E /* WorkoutDeleteAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB90DE11C8D41AB007D365E /* WorkoutDeleteAgent.swift */; };
@@ -132,6 +132,8 @@
 		7BA92C321C9F1343009A81E3 /* Startup.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Startup.storyboard; sourceTree = "<group>"; };
 		7BB01A2F1CB1984000A511FE /* LiftSaveAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftSaveAgent.swift; sourceTree = "<group>"; };
 		7BB01A311CB1986800A511FE /* LiftSaveAgentSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftSaveAgentSpec.swift; sourceTree = "<group>"; };
+		7BB01A331CB1B36400A511FE /* LiftLoadAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftLoadAgent.swift; sourceTree = "<group>"; };
+		7BB01A351CB1B38600A511FE /* LiftLoadAgentSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftLoadAgentSpec.swift; sourceTree = "<group>"; };
 		7BB118A41CAB145D005CC1AF /* LiftCreatorSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftCreatorSpec.swift; sourceTree = "<group>"; };
 		7BB118A71CAB148A005CC1AF /* LiftCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftCreator.swift; sourceTree = "<group>"; };
 		7BB118A91CAB19F2005CC1AF /* LiftHistoryIndexLoaderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftHistoryIndexLoaderSpec.swift; sourceTree = "<group>"; };
@@ -180,8 +182,6 @@
 		7BB90DD31C8B2374007D365E /* WorkoutLoadAgentSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutLoadAgentSpec.swift; sourceTree = "<group>"; };
 		7BB90DD51C8B24E1007D365E /* WorkoutDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutDeserializer.swift; sourceTree = "<group>"; };
 		7BB90DD71C8B2509007D365E /* WorkoutDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutDeserializerSpec.swift; sourceTree = "<group>"; };
-		7BB90DD91C8B83FF007D365E /* LiftDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftDeserializer.swift; sourceTree = "<group>"; };
-		7BB90DDB1C8B841D007D365E /* LiftDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftDeserializerSpec.swift; sourceTree = "<group>"; };
 		7BB90DDD1C8B8DF6007D365E /* LiftSetDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftSetDeserializer.swift; sourceTree = "<group>"; };
 		7BB90DDF1C8B8E50007D365E /* LiftSetDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftSetDeserializerSpec.swift; sourceTree = "<group>"; };
 		7BB90DE11C8D41AB007D365E /* WorkoutDeleteAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutDeleteAgent.swift; sourceTree = "<group>"; };
@@ -512,7 +512,6 @@
 				7BB90DBC1C8950AD007D365E /* LiftSerializer.swift */,
 				7BB90DC01C89538E007D365E /* LiftSetSerializer.swift */,
 				7BB90DD51C8B24E1007D365E /* WorkoutDeserializer.swift */,
-				7BB90DD91C8B83FF007D365E /* LiftDeserializer.swift */,
 				7BB90DDD1C8B8DF6007D365E /* LiftSetDeserializer.swift */,
 			);
 			path = Serialization;
@@ -525,7 +524,6 @@
 				7BB90DBE1C8950DB007D365E /* LiftSerializerSpec.swift */,
 				7BB90DC21C8953EA007D365E /* LiftSetSerializerSpec.swift */,
 				7BB90DD71C8B2509007D365E /* WorkoutDeserializerSpec.swift */,
-				7BB90DDB1C8B841D007D365E /* LiftDeserializerSpec.swift */,
 				7BB90DDF1C8B8E50007D365E /* LiftSetDeserializerSpec.swift */,
 			);
 			path = Serialization;
@@ -541,6 +539,7 @@
 				7B8E7ECF1C9E0324008BF7B0 /* MigrationAgent.swift */,
 				7BB118AB1CAB1A89005CC1AF /* LiftHistoryIndexLoader.swift */,
 				7BB01A2F1CB1984000A511FE /* LiftSaveAgent.swift */,
+				7BB01A331CB1B36400A511FE /* LiftLoadAgent.swift */,
 			);
 			path = FileSystem;
 			sourceTree = "<group>";
@@ -555,6 +554,7 @@
 				7B8E7ED71C9E04C3008BF7B0 /* LiftHistoryIndexBuilderSpec.swift */,
 				7BB118A91CAB19F2005CC1AF /* LiftHistoryIndexLoaderSpec.swift */,
 				7BB01A311CB1986800A511FE /* LiftSaveAgentSpec.swift */,
+				7BB01A351CB1B38600A511FE /* LiftLoadAgentSpec.swift */,
 			);
 			path = FileSystem;
 			sourceTree = "<group>";
@@ -716,7 +716,6 @@
 				7BB90DD61C8B24E1007D365E /* WorkoutDeserializer.swift in Sources */,
 				7BB90DCD1C8B22E9007D365E /* WorkoutSaveAgent.swift in Sources */,
 				7BB90DBD1C8950AD007D365E /* LiftSerializer.swift in Sources */,
-				7BB90DDA1C8B83FF007D365E /* LiftDeserializer.swift in Sources */,
 				7BB90D871C890A9D007D365E /* LiftSet.swift in Sources */,
 				7BB90DDE1C8B8DF6007D365E /* LiftSetDeserializer.swift in Sources */,
 				7BB90D881C890A9D007D365E /* Workout.swift in Sources */,
@@ -734,6 +733,7 @@
 				7BB90D8D1C890A9D007D365E /* WorkoutViewController.swift in Sources */,
 				7BB90D891C890A9D007D365E /* LiftEntryFormViewController.swift in Sources */,
 				7BB01A301CB1984000A511FE /* LiftSaveAgent.swift in Sources */,
+				7BB01A341CB1B36400A511FE /* LiftLoadAgent.swift in Sources */,
 				7BA92C2F1C9F0F6D009A81E3 /* StartupStoryboardMetadata.swift in Sources */,
 				7B41503D1C6B9D380032333F /* AppDelegate.swift in Sources */,
 			);
@@ -746,13 +746,13 @@
 				7BB90DB11C890AAA007D365E /* WorkoutListTableViewCellSpec.swift in Sources */,
 				7BB90DE01C8B8E50007D365E /* LiftSetDeserializerSpec.swift in Sources */,
 				7BB90DB71C890C55007D365E /* WorkoutSerializerSpec.swift in Sources */,
-				7BB90DDC1C8B841D007D365E /* LiftDeserializerSpec.swift in Sources */,
 				7BB90DBF1C8950DB007D365E /* LiftSerializerSpec.swift in Sources */,
 				7BB90DD81C8B2509007D365E /* WorkoutDeserializerSpec.swift in Sources */,
 				7BB01A321CB1986800A511FE /* LiftSaveAgentSpec.swift in Sources */,
 				7BB90DAB1C890AAA007D365E /* LiftViewControllerSpec.swift in Sources */,
 				7BB90DA51C890AAA007D365E /* WorkoutListStoryboardMetadataSpec.swift in Sources */,
 				7BB118A51CAB145D005CC1AF /* LiftCreatorSpec.swift in Sources */,
+				7BB01A361CB1B38600A511FE /* LiftLoadAgentSpec.swift in Sources */,
 				7BB90DAF1C890AAA007D365E /* LiftSetTableViewCellSpec.swift in Sources */,
 				7B6AC0A61C712AAB0063F667 /* AppDelegateSpec.swift in Sources */,
 				7BB90DC31C8953EA007D365E /* LiftSetSerializerSpec.swift in Sources */,
