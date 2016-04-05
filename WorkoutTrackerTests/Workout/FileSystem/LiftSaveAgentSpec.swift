@@ -53,19 +53,35 @@ class LiftSaveAgentSpec: QuickSpec {
             describe("Saving a lift") {
                 var lift: Lift!
                 
-                beforeEach {
-                    lift = Lift(withName: "turtle lift")
-                    lift.workout = Workout(withName: "does not matter", timestamp: 12345)
+                context("When the given lift belongs to a workout") {
+                    var workout: Workout!
                     
-                    subject.save(lift)
+                    beforeEach {
+                        workout = Workout(withName: "turtle workout", timestamp: 12345)
+                        lift = Lift(withName: "turtle lift")
+                        workout.addLift(lift)
+                        
+                        subject.save(lift)
+                    }
+                    
+                    it("serializes the lift and uses the local storage worker to save the data to disk") {
+                        if let savedDictionary = mockLocalStorageWorker.savedDictionary {
+                            expect(unsafeAddressOf(savedDictionary)).to(equal(unsafeAddressOf(mockLiftSerializer.serializedLift)))
+                            expect(mockLocalStorageWorker.savedFileName).to(equal("Lifts/turtle_lift/12345.json"))
+                        } else {
+                            fail("Failed to save the workout to disk")
+                        }
+                    }
                 }
                 
-                it("serializes the lift and uses the local storage worker to save the data to disk") {
-                    if let savedDictionary = mockLocalStorageWorker.savedDictionary {
-                        expect(unsafeAddressOf(savedDictionary)).to(equal(unsafeAddressOf(mockLiftSerializer.serializedLift)))
-                        expect(mockLocalStorageWorker.savedFileName).to(equal("Lifts/turtle_lift/12345.json"))
-                    } else {
-                        fail("Failed to save the workout to disk")
+                context("When the given lift does not belong to a workout") {
+                    beforeEach {
+                        lift = Lift(withName: "turtle lift")
+                        subject.save(lift)
+                    }
+                    
+                    it("does not attempt to delete anything from disk") {
+                        expect(mockLocalStorageWorker.savedFileName).to(beNil())
                     }
                 }
             }

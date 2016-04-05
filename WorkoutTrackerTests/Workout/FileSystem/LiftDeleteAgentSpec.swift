@@ -46,6 +46,17 @@ class LiftDeleteAgentSpec: QuickSpec {
                         expect(mockLocalStorageWorker.deletedFileName).to(equal("Lifts/turtle_lift/123456789.json"))
                     }
                 }
+                
+                context("When the given lift does not belong to a workout") {
+                    beforeEach {
+                        lift = Lift(withName: "turtle lift")
+                        subject.delete(lift)
+                    }
+                    
+                    it("does not attempt to delete anything from disk") {
+                        expect(mockLocalStorageWorker.deletedFileName).to(beNil())
+                    }
+                }
             }
         }
     }

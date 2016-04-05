@@ -10,11 +10,12 @@ public class LiftSerializer {
     public func serialize(lift: Lift) -> [String : AnyObject] {
         var result = [String : AnyObject]()
         result["name"] = lift.name
-        result["workout"] = lift.workout.timestamp
         var liftSets = Array<[String :  AnyObject]>()
         for set in lift.sets {
             liftSets.append(liftSetSerializer.serialize(set))
         }
+        
+        result["sets"] = liftSets
         
         if let previousInstance = lift.previousInstance {
             if let owningWorkout = previousInstance.workout {
@@ -22,7 +23,10 @@ public class LiftSerializer {
             }
         }
         
-        result["sets"] = liftSets
+        if let workoutIdentifier = lift.workout?.timestamp {
+            result["workout"] = workoutIdentifier
+        }
+        
         return result
     }
 }

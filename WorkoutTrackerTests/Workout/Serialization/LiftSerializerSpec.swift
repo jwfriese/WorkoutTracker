@@ -15,7 +15,6 @@ class LiftSerializerSpec: QuickSpec {
             var liftSetSerializer: LiftSetSerializer!
             var lift: Lift!
             var resultJSONDictionary: [String : AnyObject]!
-            var owningWorkout: Workout!
             
             beforeEach {
                 liftSetSerializer = MockLiftSetSerializer()
@@ -28,9 +27,6 @@ class LiftSerializerSpec: QuickSpec {
                     targetReps: nil, performedReps: 5))
                 lift.addSet(LiftSet(withTargetWeight: nil, performedWeight: 300,
                     targetReps: nil, performedReps: 1))
-                
-                owningWorkout = Workout(withName: "turtle workout", timestamp: 1111)
-                lift.workout = owningWorkout
             }
             
             sharedExamples("A lift serializer in all contexts") {
@@ -43,14 +39,6 @@ class LiftSerializerSpec: QuickSpec {
                         expect(name).to(equal("turtle lift"))
                     } else {
                         fail("Expected the lift to have its name serialized")
-                    }
-                }
-                
-                it("serializes the identifier of the lift's workout") {
-                    if let workoutIdentifier = resultJSONDictionary["workout"] as? UInt {
-                        expect(workoutIdentifier).to(equal(1111))
-                    } else {
-                        fail("Expected the lift to have its workout's identifier serialized")
                     }
                 }
                 
@@ -68,6 +56,39 @@ class LiftSerializerSpec: QuickSpec {
                 it("sets the lift set serializer") {
                     expect(subject.liftSetSerializer).to(beIdenticalTo(liftSetSerializer))
                 }
+            }
+            
+            context("When the lift has a workout") {
+                var owningWorkout: Workout!
+                
+                beforeEach {
+                    owningWorkout = Workout(withName: "turtle workout", timestamp: 1111)
+                    lift.workout = owningWorkout
+                    
+                    resultJSONDictionary = subject.serialize(lift)
+                }
+                
+                it("serializes the identifier of the lift's workout") {
+                    if let workoutIdentifier = resultJSONDictionary["workout"] as? UInt {
+                        expect(workoutIdentifier).to(equal(1111))
+                    } else {
+                        fail("Expected the lift to have its workout's identifier serialized")
+                    }
+                }
+                
+                itBehavesLike("A lift serializer in all contexts")
+            }
+            
+            context("When the lift does not have a workout") {
+                beforeEach {
+                    resultJSONDictionary = subject.serialize(lift)
+                }
+                
+                it("does not serialize the identifier of the lift's workout") {
+                    expect(resultJSONDictionary["workout"] as? UInt).to(beNil())
+                }
+                
+                itBehavesLike("A lift serializer in all contexts")
             }
             
             context("When the lift has a previous instance with a workout") {

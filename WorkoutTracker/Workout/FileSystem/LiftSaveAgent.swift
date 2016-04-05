@@ -10,15 +10,17 @@ public class LiftSaveAgent {
     }
     
     public func save(lift: Lift) {
-        let liftDictionary = liftSerializer.serialize(lift)
-        let liftNameSnakeCase = lift.name.stringByReplacingOccurrencesOfString(" ", withString: "_")
-        
-        let fileName = "Lifts/\(liftNameSnakeCase)/\(String(lift.workout.timestamp)).json"
-        do {
-            try localStorageWorker.writeJSONDictionary(liftDictionary, toFileWithName: fileName,
-                                                       createSubdirectories: true)
-        } catch {
-            print("Failed to write to \(fileName)")
+        if let liftWorkout = lift.workout {
+            let liftDictionary = liftSerializer.serialize(lift)
+            let liftNameSnakeCase = lift.name.stringByReplacingOccurrencesOfString(" ", withString: "_")
+            
+            let fileName = "Lifts/\(liftNameSnakeCase)/\(String(liftWorkout.timestamp)).json"
+            do {
+                try localStorageWorker.writeJSONDictionary(liftDictionary, toFileWithName: fileName,
+                                                           createSubdirectories: true)
+            } catch {
+                print("Failed to write to \(fileName)")
+            }
         }
     }
 }
