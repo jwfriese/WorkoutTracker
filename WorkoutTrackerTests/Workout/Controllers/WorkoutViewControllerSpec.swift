@@ -141,10 +141,14 @@ class WorkoutViewControllerSpec: QuickSpec {
                 }
                 
                 describe("Its data table") {
+                    let firstLift = Lift(withName: "turtle press")
+                    let secondLift = Lift(withName: "turtle squat")
+                    let thirdLift = Lift(withName: "turtle deadlift")
+                    
                     beforeEach {
-                        subject.workout.addLift(Lift(withName: "turtle press"))
-                        subject.workout.addLift(Lift(withName: "turtle squat"))
-                        subject.workout.addLift(Lift(withName: "turtle deadlift"))
+                        subject.workout.addLift(firstLift)
+                        subject.workout.addLift(secondLift)
+                        subject.workout.addLift(thirdLift)
                         subject.tableView?.reloadData()
                     }
                     
@@ -215,6 +219,13 @@ class WorkoutViewControllerSpec: QuickSpec {
                             
                             it("deletes the lift from disk") {
                                 expect(liftToDelete).to(beIdenticalTo(mockLiftDeleteAgent.deletedLift))
+                            }
+                            
+                            it("saves the workout with the updated lift information") {
+                                let savedWorkout = mockWorkoutSaveAgent.savedWorkout
+                                expect(savedWorkout).toNot(beNil())
+                                expect(savedWorkout?.lifts[0]).to(beIdenticalTo(secondLift))
+                                expect(savedWorkout?.lifts[1]).to(beIdenticalTo(thirdLift))
                             }
                         }
                     }

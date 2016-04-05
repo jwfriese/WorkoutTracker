@@ -75,6 +75,7 @@ extension WorkoutViewController: UITableViewDataSource {
             workout.removeLiftWithName(liftToDelete.name)
             self.tableView?.reloadData()
             liftDeleteAgent.delete(liftToDelete)
+            workoutSaveAgent.save(workout)
         }
     }
 }
