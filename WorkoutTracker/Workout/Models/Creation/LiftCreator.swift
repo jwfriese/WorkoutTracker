@@ -16,7 +16,7 @@ public class LiftCreator {
         let index = liftHistoryIndexLoader.load()
         if let workoutIndices = index[name] {
             if let workout = workoutLoadAgent.loadWorkout(withIdentifier: workoutIndices.last!) {
-                lift.previousInstance = workout.liftByName(name)
+                lift.previousInstance = workout.liftWithName(name)
             }
         }
         

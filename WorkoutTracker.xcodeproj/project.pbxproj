@@ -35,6 +35,8 @@
 		7BB01A321CB1986800A511FE /* LiftSaveAgentSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB01A311CB1986800A511FE /* LiftSaveAgentSpec.swift */; };
 		7BB01A341CB1B36400A511FE /* LiftLoadAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB01A331CB1B36400A511FE /* LiftLoadAgent.swift */; };
 		7BB01A361CB1B38600A511FE /* LiftLoadAgentSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB01A351CB1B38600A511FE /* LiftLoadAgentSpec.swift */; };
+		7BB01A381CB2BAB100A511FE /* LiftDeleteAgentSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB01A371CB2BAB100A511FE /* LiftDeleteAgentSpec.swift */; };
+		7BB01A3A1CB2BAF500A511FE /* LiftDeleteAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB01A391CB2BAF500A511FE /* LiftDeleteAgent.swift */; };
 		7BB118A51CAB145D005CC1AF /* LiftCreatorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB118A41CAB145D005CC1AF /* LiftCreatorSpec.swift */; };
 		7BB118A81CAB148A005CC1AF /* LiftCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB118A71CAB148A005CC1AF /* LiftCreator.swift */; };
 		7BB118AA1CAB19F2005CC1AF /* LiftHistoryIndexLoaderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB118A91CAB19F2005CC1AF /* LiftHistoryIndexLoaderSpec.swift */; };
@@ -134,6 +136,8 @@
 		7BB01A311CB1986800A511FE /* LiftSaveAgentSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftSaveAgentSpec.swift; sourceTree = "<group>"; };
 		7BB01A331CB1B36400A511FE /* LiftLoadAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftLoadAgent.swift; sourceTree = "<group>"; };
 		7BB01A351CB1B38600A511FE /* LiftLoadAgentSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftLoadAgentSpec.swift; sourceTree = "<group>"; };
+		7BB01A371CB2BAB100A511FE /* LiftDeleteAgentSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftDeleteAgentSpec.swift; sourceTree = "<group>"; };
+		7BB01A391CB2BAF500A511FE /* LiftDeleteAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftDeleteAgent.swift; sourceTree = "<group>"; };
 		7BB118A41CAB145D005CC1AF /* LiftCreatorSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftCreatorSpec.swift; sourceTree = "<group>"; };
 		7BB118A71CAB148A005CC1AF /* LiftCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftCreator.swift; sourceTree = "<group>"; };
 		7BB118A91CAB19F2005CC1AF /* LiftHistoryIndexLoaderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftHistoryIndexLoaderSpec.swift; sourceTree = "<group>"; };
@@ -540,6 +544,7 @@
 				7BB118AB1CAB1A89005CC1AF /* LiftHistoryIndexLoader.swift */,
 				7BB01A2F1CB1984000A511FE /* LiftSaveAgent.swift */,
 				7BB01A331CB1B36400A511FE /* LiftLoadAgent.swift */,
+				7BB01A391CB2BAF500A511FE /* LiftDeleteAgent.swift */,
 			);
 			path = FileSystem;
 			sourceTree = "<group>";
@@ -555,6 +560,7 @@
 				7BB118A91CAB19F2005CC1AF /* LiftHistoryIndexLoaderSpec.swift */,
 				7BB01A311CB1986800A511FE /* LiftSaveAgentSpec.swift */,
 				7BB01A351CB1B38600A511FE /* LiftLoadAgentSpec.swift */,
+				7BB01A371CB2BAB100A511FE /* LiftDeleteAgentSpec.swift */,
 			);
 			path = FileSystem;
 			sourceTree = "<group>";
@@ -722,6 +728,7 @@
 				7BB90DE61C908330007D365E /* SetEditFormViewController.swift in Sources */,
 				7BB90DB41C890B57007D365E /* WorkoutSerializer.swift in Sources */,
 				7B6AC0C81C7A30040063F667 /* LocalStorageWorker.swift in Sources */,
+				7BB01A3A1CB2BAF500A511FE /* LiftDeleteAgent.swift in Sources */,
 				7BB90D8A1C890A9D007D365E /* LiftViewController.swift in Sources */,
 				7B8E7ED01C9E0324008BF7B0 /* MigrationAgent.swift in Sources */,
 				7B6AC0C71C7A30040063F667 /* Timestamper.swift in Sources */,
@@ -760,6 +767,7 @@
 				7BB90DD41C8B2374007D365E /* WorkoutLoadAgentSpec.swift in Sources */,
 				7BB90DAA1C890AAA007D365E /* LiftEntryFormViewControllerSpec.swift in Sources */,
 				7BB90DE81C908338007D365E /* SetEditFormViewControllerSpec.swift in Sources */,
+				7BB01A381CB2BAB100A511FE /* LiftDeleteAgentSpec.swift in Sources */,
 				7BB90DA71C890AAA007D365E /* LiftSetSpec.swift in Sources */,
 				7B8E7ED81C9E04C3008BF7B0 /* LiftHistoryIndexBuilderSpec.swift in Sources */,
 				7B8E7ED61C9E0495008BF7B0 /* MigrationAgentSpec.swift in Sources */,

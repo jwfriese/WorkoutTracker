@@ -52,7 +52,7 @@ class WorkoutSpec: QuickSpec {
                 
                 context("When a lift with that name exists") {
                     beforeEach {
-                        resultLift = subject.liftByName("turtle press")
+                        resultLift = subject.liftWithName("turtle press")
                     }
                     
                     it("returns that lift") {
@@ -62,11 +62,44 @@ class WorkoutSpec: QuickSpec {
                 
                 context("When a lift with that name does not exist") {
                     beforeEach {
-                        resultLift = subject.liftByName("turtle clean")
+                        resultLift = subject.liftWithName("turtle clean")
                     }
                     
                     it("returns that lift") {
                         expect(resultLift).to(beNil())
+                    }
+                }
+            }
+            
+            describe("Removing a lift by name"){
+                let liftOne = Lift(withName: "turtle lift")
+                let liftTwo = Lift(withName: "turtle press")
+                
+                beforeEach {
+                    subject.addLift(liftOne)
+                    subject.addLift(liftTwo)
+                }
+                
+                context("When a lift with the requested name exists") {
+                    beforeEach {
+                        subject.removeLiftWithName("turtle lift")
+                    }
+                    
+                    it("removes the lift with the requested name") {
+                        expect(subject.lifts.count).to(equal(1))
+                        expect(subject.lifts).to(contain(liftTwo))
+                    }
+                }
+                
+                context("When a lift with the requested name does not exist") {
+                    beforeEach {
+                        subject.removeLiftWithName("rabbit lift")
+                    }
+                    
+                    it("does nothing to the list of lifts") {
+                        expect(subject.lifts.count).to(equal(2))
+                        expect(subject.lifts).to(contain(liftOne))
+                        expect(subject.lifts).to(contain(liftTwo))
                     }
                 }
             }

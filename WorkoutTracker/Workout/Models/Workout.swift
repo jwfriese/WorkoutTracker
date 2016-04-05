@@ -15,7 +15,7 @@ public class Workout {
         lift.workout = self
     }
     
-    public func liftByName(name: String) -> Lift? {
+    public func liftWithName(name: String) -> Lift? {
         for lift in lifts {
             if lift.name == name {
                 return lift
@@ -23,5 +23,9 @@ public class Workout {
         }
         
         return nil
+    }
+    
+    public func removeLiftWithName(name: String) {
+        lifts = lifts.filter { $0.name != name }
     }
 }

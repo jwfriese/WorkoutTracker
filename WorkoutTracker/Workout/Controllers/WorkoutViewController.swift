@@ -6,6 +6,7 @@ public class WorkoutViewController: UIViewController {
     public var workout: Workout!
     public var workoutSaveAgent: WorkoutSaveAgent!
     public var liftCreator: LiftCreator!
+    public var liftDeleteAgent: LiftDeleteAgent!
     
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -65,5 +66,15 @@ extension WorkoutViewController: UITableViewDataSource {
         cell.lift = workout.lifts[indexPath.row]
         
         return cell
+    }
+    
+    public func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if editingStyle == .Delete {
+            let liftToDelete = workout.lifts[indexPath.row]
+            workout.removeLiftWithName(liftToDelete.name)
+            self.tableView?.reloadData()
+            liftDeleteAgent.delete(liftToDelete)
+        }
     }
 }

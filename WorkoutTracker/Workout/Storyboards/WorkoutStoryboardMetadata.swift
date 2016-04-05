@@ -89,9 +89,15 @@ public class WorkoutStoryboardMetadata: SwinjectStoryboardMetadata {
                 return LiftSetDeserializer()
             }
             
+            container.register(LiftDeleteAgent.self) { resolver in
+                let localStorageWorker = resolver.resolve(LocalStorageWorker.self)
+                return LiftDeleteAgent(withLocalStorageWorker: localStorageWorker)
+            }
+            
             container.registerForStoryboard(WorkoutViewController.self) { resolver, instance in
                 instance.workoutSaveAgent = resolver.resolve(WorkoutSaveAgent.self)
                 instance.liftCreator = resolver.resolve(LiftCreator.self)
+                instance.liftDeleteAgent = resolver.resolve(LiftDeleteAgent.self)
             }
             
             container.registerForStoryboard(LiftViewController.self) { resolver, instance in

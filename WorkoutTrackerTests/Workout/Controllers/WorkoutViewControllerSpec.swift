@@ -29,15 +29,29 @@ class WorkoutViewControllerSpec: QuickSpec {
             }
         }
         
+        class MockLiftDeleteAgent: LiftDeleteAgent {
+            var deletedLift: Lift?
+            
+            init() {
+                super.init(withLocalStorageWorker: nil)
+            }
+            
+            override func delete(lift: Lift) {
+                deletedLift = lift
+            }
+        }
+        
         describe("WorkoutViewController") {
             var subject: WorkoutViewController!
             var mockWorkoutSaveAgent: MockWorkoutSaveAgent!
             var mockLiftCreator: MockLiftCreator!
+            var mockLiftDeleteAgent: MockLiftDeleteAgent!
             var navigationController: TestNavigationController!
             
             beforeEach {
                 mockWorkoutSaveAgent = MockWorkoutSaveAgent()
                 mockLiftCreator = MockLiftCreator()
+                mockLiftDeleteAgent = MockLiftDeleteAgent()
                 
                 let storyboardMetadata = WorkoutStoryboardMetadata()
                 let container = storyboardMetadata.container
@@ -47,6 +61,10 @@ class WorkoutViewControllerSpec: QuickSpec {
                 
                 container.register(LiftCreator.self) { resolver in
                     return mockLiftCreator
+                }
+                
+                container.register(LiftDeleteAgent.self) { resolver in
+                    return mockLiftDeleteAgent
                 }
                 
                 let storyboard = SwinjectStoryboard.create(name: storyboardMetadata.name, bundle: nil, container: container)
@@ -174,6 +192,29 @@ class WorkoutViewControllerSpec: QuickSpec {
                             it("sets the selected cell's lift on the presented lift page") {
                                 let liftViewController = navigationController.topViewController as? LiftViewController
                                 expect(liftViewController?.lift).to(beIdenticalTo(firstCell.lift))
+                            }
+                        }
+                        
+                        describe("Swiping right on a cell and tapping the revealed delete button") {
+                            var liftToDelete: Lift!
+                            
+                            beforeEach {
+                                liftToDelete = firstCell.lift
+                                
+                                subject.tableView(subject.tableView!, commitEditingStyle: .Delete,
+                                    forRowAtIndexPath: firstIndexPath)
+                            }
+                            
+                            it("deletes the cell") {
+                                expect(subject.tableView(subject.tableView!, numberOfRowsInSection: 0)).to(equal(2))
+                            }
+                            
+                            it("removes the associated workout from the list of workouts") {
+                                expect(subject.workout.lifts).toNot(contain(liftToDelete))
+                            }
+                            
+                            it("deletes the lift from disk") {
+                                expect(liftToDelete).to(beIdenticalTo(mockLiftDeleteAgent.deletedLift))
                             }
                         }
                     }
