@@ -31,6 +31,7 @@ class StartupStoryboardMetadataSpec: QuickSpec {
                     var workoutLoadAgent: WorkoutLoadAgent?
                     var liftLoadAgent: LiftLoadAgent?
                     var localStorageWorker: LocalStorageWorker?
+                    var liftHistoryIndexLoader: LiftHistoryIndexLoader?
                     var workoutDeserializer: WorkoutDeserializer?
                     var liftSetDeserializer: LiftSetDeserializer?
                     var workoutListStoryboardMetadata: WorkoutListStoryboardMetadata?
@@ -42,6 +43,7 @@ class StartupStoryboardMetadataSpec: QuickSpec {
                         workoutLoadAgent = container.resolve(WorkoutLoadAgent.self)
                         liftLoadAgent = container.resolve(LiftLoadAgent.self)
                         localStorageWorker = container.resolve(LocalStorageWorker.self)
+                        liftHistoryIndexLoader = container.resolve(LiftHistoryIndexLoader.self)
                         workoutDeserializer = container.resolve(WorkoutDeserializer.self)
                         liftSetDeserializer = container.resolve(LiftSetDeserializer.self)
                         workoutListStoryboardMetadata = container.resolve(WorkoutListStoryboardMetadata.self)
@@ -67,6 +69,10 @@ class StartupStoryboardMetadataSpec: QuickSpec {
                     
                     it("can produce a LocalStorageWorker") {
                         expect(localStorageWorker).toNot(beNil())
+                    }
+                    
+                    it("can produce a LiftHistoryIndexLoader") {
+                        expect(liftHistoryIndexLoader).toNot(beNil())
                     }
                     
                     it("can produce a WorkoutDeserializer") {
@@ -116,6 +122,16 @@ class StartupStoryboardMetadataSpec: QuickSpec {
                         
                         it("is created with a LocalStorageWorker") {
                             expect(liftLoadAgent?.localStorageWorker).toNot(beNil())
+                        }
+                        
+                        it("is created with a LiftHistoryIndexBuilder") {
+                            expect(liftLoadAgent?.liftHistoryIndexLoader).toNot(beNil())
+                        }
+                    }
+                    
+                    describe("Its LiftHistoryIndexLoader") {
+                        it("is created with a LocalStorageWorker") {
+                            expect(liftHistoryIndexLoader?.localStorageWorker).toNot(beNil())
                         }
                     }
                     

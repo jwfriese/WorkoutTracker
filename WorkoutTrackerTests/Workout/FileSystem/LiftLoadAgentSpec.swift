@@ -14,25 +14,42 @@ class LiftLoadAgentSpec: QuickSpec {
         }
         
         class MockLocalStorageWorker: LocalStorageWorker {
-            var liftFileRead: String?
-            var liftDictionary: Dictionary<String, AnyObject>?
+            var liftFilesRead: [String] = []
             
-            var previousLiftInstanceFileRead: String?
+            var liftDictionary: Dictionary<String, AnyObject>?
             var previousLiftInstanceDictionary: Dictionary<String, AnyObject> = [
                 "name": "turtle lift",
-                "sets": []
+                "sets": [],
+                "previousLiftWorkoutIdentifier": 12
             ]
             
             override func readJSONDictionaryFromFile(fileName: String!) -> Dictionary<String, AnyObject>? {
+                liftFilesRead.append(fileName)
+                
                 if fileName == "Lifts/turtle_lift/123456.json" {
-                    liftFileRead = fileName
                     return liftDictionary
                 } else if fileName == "Lifts/turtle_lift/1234.json" {
-                    previousLiftInstanceFileRead = fileName
                     return previousLiftInstanceDictionary
+                } else if fileName == "Lifts/turtle_lift/12.json" {
+                    return [
+                        "name": "turtle lift",
+                        "sets": []
+                    ]
                 }
                 
                 return nil
+            }
+        }
+        
+        class MockLiftHistoryIndexLoader: LiftHistoryIndexLoader {
+            var index: [String : [UInt]] = ["turtle lift" : [12, 1234]]
+            
+            init() {
+                super.init(withLocalStorageWorker: nil)
+            }
+            
+            override private func load() -> [String : [UInt]] {
+                return index
             }
         }
         
@@ -40,12 +57,14 @@ class LiftLoadAgentSpec: QuickSpec {
             var subject: LiftLoadAgent!
             var mockLiftSetDeserializer: MockLiftSetDeserializer!
             var mockLocalStorageWorker: MockLocalStorageWorker!
+            var mockLiftHistoryIndexLoader: MockLiftHistoryIndexLoader!
             
             beforeEach {
                 mockLiftSetDeserializer = MockLiftSetDeserializer()
                 mockLocalStorageWorker = MockLocalStorageWorker()
+                mockLiftHistoryIndexLoader = MockLiftHistoryIndexLoader()
                 
-                subject = LiftLoadAgent(withLiftSetDeserializer: mockLiftSetDeserializer, localStorageWorker: mockLocalStorageWorker)
+                subject = LiftLoadAgent(withLiftSetDeserializer: mockLiftSetDeserializer, localStorageWorker: mockLocalStorageWorker, liftHistoryIndexLoader: mockLiftHistoryIndexLoader)
             }
             
             describe("Its initializer") {
@@ -56,23 +75,20 @@ class LiftLoadAgentSpec: QuickSpec {
                 it("sets its LocalStorageWorker") {
                     expect(subject.localStorageWorker).to(beIdenticalTo(mockLocalStorageWorker))
                 }
+                
+                it("sets its LiftHistoryIndexLoader") {
+                    expect(subject.liftHistoryIndexLoader).to(beIdenticalTo(mockLiftHistoryIndexLoader))
+                }
             }
             
-            describe("Loading a single lift from disk") {
+            describe("Loading a lift from disk") {
                 var lift: Lift?
                 
                 beforeEach {
-                    mockLocalStorageWorker.liftDictionary = [
-                        "name" : "turtle lift",
-                        "sets" : [
-                            ["weight": 100],
-                            ["weight": 200],
-                            ["weight": 300]
-                        ]
-                    ]
+                    mockLocalStorageWorker.liftFilesRead.removeAll()
                 }
                 
-                sharedExamples("A lift deserializer in all contexts") {
+                sharedExamples("A lift load agent in all contexts") {
                     it("deserializes the lift's name") {
                         expect(lift?.name).to(equal("turtle lift"))
                     }
@@ -89,15 +105,13 @@ class LiftLoadAgentSpec: QuickSpec {
                     }
                     
                     it("uses the local storage worker to load the data from disk") {
-                        expect(mockLocalStorageWorker.liftFileRead).to(equal("Lifts/turtle_lift/123456.json"))
+                        expect(mockLocalStorageWorker.liftFilesRead).to(contain("Lifts/turtle_lift/123456.json"))
                     }
                 }
                 
-                context("The serialized lift includes data about a previous instance's workout") {
-                    beforeEach {
-                        mockLocalStorageWorker.liftDictionary?["previousLiftWorkoutIdentifier"] = 1234
-                        
-                        lift = subject.loadLift(withName: "turtle lift", fromWorkoutWithIdentifier: 123456)
+                sharedExamples("A lift load agent that loaded a previous lift") {
+                    it("populates the loaded lift with a previous instance") {
+                        expect(lift?.previousInstance).toNot(beNil())
                     }
                     
                     it("sets the matching previous lift on the deserialized lift") {
@@ -105,17 +119,93 @@ class LiftLoadAgentSpec: QuickSpec {
                     }
                     
                     it("uses the local storage worker to load the data from disk") {
-                        expect(mockLocalStorageWorker.previousLiftInstanceFileRead).to(equal("Lifts/turtle_lift/1234.json"))
+                        expect(mockLocalStorageWorker.liftFilesRead).to(contain("Lifts/turtle_lift/1234.json"))
                     }
                 }
                 
-                context("The serialized lift has no data about a previous instance") {
-                    beforeEach {
-                        lift = subject.loadLift(withName: "turtle lift", fromWorkoutWithIdentifier: 123456)
-                    }
-                    
+                sharedExamples("A lift load agent that did not load a previous lift") {
                     it("does not set a previous instance on the deserialized lift") {
                         expect(lift?.previousInstance).to(beNil())
+                    }
+                    
+                    it("did not attempt to load the previous instance from disk") {
+                        expect(mockLocalStorageWorker.liftFilesRead).toNot(contain("Lifts/turtle_lift/1234.json"))
+                    }
+                }
+                
+                beforeEach {
+                    mockLocalStorageWorker.liftDictionary = [
+                        "name" : "turtle lift",
+                        "sets" : [
+                            ["weight": 100],
+                            ["weight": 200],
+                            ["weight": 300]
+                        ]
+                    ]
+                }
+                
+                context("When told to also load a previous instance") {
+                    context("The serialized lift includes data about a previous instance's workout") {
+                        beforeEach {
+                            mockLocalStorageWorker.liftDictionary?["previousLiftWorkoutIdentifier"] = 1234
+                            
+                            lift = subject.loadLift(withName: "turtle lift", fromWorkoutWithIdentifier: 123456, shouldLoadPreviousLift: true)
+                        }
+                        
+                        itBehavesLike("A lift load agent in all contexts")
+                        itBehavesLike("A lift load agent that loaded a previous lift")
+                    }
+                    
+                    context("The serialized lift has no data about a previous instance") {
+                        beforeEach {
+                            lift = subject.loadLift(withName: "turtle lift", fromWorkoutWithIdentifier: 123456, shouldLoadPreviousLift: true)
+                        }
+
+                        itBehavesLike("A lift load agent in all contexts")
+                        itBehavesLike("A lift load agent that did not load a previous lift")
+                    }
+                }
+                
+                context("When not told to load previous instance") {
+                    beforeEach {
+                        lift = subject.loadLift(withName: "turtle lift", fromWorkoutWithIdentifier: 123456, shouldLoadPreviousLift: false)
+                    }
+                    
+                    itBehavesLike("A lift load agent in all contexts")
+                    itBehavesLike("A lift load agent that did not load a previous lift")
+                }
+            }
+            
+            describe("Loading the latest lift with a certain name from disk") {
+                var lift: Lift?
+                
+                context("When there is no lift with the given name on disk") {
+                    beforeEach {
+                        lift = subject.loadLatestLiftWithName("turtle press")
+                    }
+                    
+                    it("returns nil") {
+                        expect(lift).to(beNil())
+                    }
+                }
+                
+                context("When there are lifts with the given name on disk") {
+                    beforeEach {
+                        lift = subject.loadLatestLiftWithName("turtle lift")
+                    }
+                    
+                    it("loads the latest such lift") {
+                        expect(lift).toNot(beNil())
+                        expect(lift?.name).to(equal("turtle lift"))
+                    }
+                    
+                    it("loads the lift from disk") {
+                        expect(mockLocalStorageWorker.liftFilesRead).to(contain("Lifts/turtle_lift/1234.json"))
+                    }
+                    
+                    it("loads the previous instance from disk") {
+                        expect(lift?.previousInstance).toNot(beNil())
+                        expect(mockLocalStorageWorker.liftFilesRead).to(contain("Lifts/turtle_lift/12.json"))
                     }
                 }
             }

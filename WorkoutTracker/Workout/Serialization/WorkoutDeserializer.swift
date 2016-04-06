@@ -14,7 +14,7 @@ public class WorkoutDeserializer {
         let workout = Workout(withName: name, timestamp: timestamp)
         if let liftsArray = workoutDictionary["lifts"] as? Array<String> {
             for lift in liftsArray {
-                let lift = liftLoadAgent.loadLift(withName: lift, fromWorkoutWithIdentifier: workout.timestamp)
+                let lift = liftLoadAgent.loadLift(withName: lift, fromWorkoutWithIdentifier: workout.timestamp, shouldLoadPreviousLift: true)
                 workout.addLift(lift!)
             }
         }

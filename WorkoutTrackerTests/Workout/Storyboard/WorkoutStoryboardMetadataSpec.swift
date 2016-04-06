@@ -171,12 +171,8 @@ class WorkoutStoryboardMetadataSpec: QuickSpec {
                     }
                     
                     describe("Its LiftCreator") {
-                        it("is created with a LiftHistoryIndexLoader") {
-                            expect(liftCreator?.liftHistoryIndexLoader).toNot(beNil())
-                        }
-                        
-                        it("is created with a WorkoutLoadAgent") {
-                            expect(liftCreator?.workoutLoadAgent).toNot(beNil())
+                        it("is created with a LiftLoadAgent") {
+                            expect(liftCreator?.liftLoadAgent).toNot(beNil())
                         }
                     }
                     
@@ -203,6 +199,10 @@ class WorkoutStoryboardMetadataSpec: QuickSpec {
                         
                         it("is created with a LocalStorageWorker") {
                             expect(liftLoadAgent?.localStorageWorker).toNot(beNil())
+                        }
+                        
+                        it("is created with a LiftHistoryIndexLoader") {
+                            expect(liftLoadAgent?.liftHistoryIndexLoader).toNot(beNil())
                         }
                     }
                     

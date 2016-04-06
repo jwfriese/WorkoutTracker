@@ -21,7 +21,7 @@ class WorkoutViewControllerSpec: QuickSpec {
         
         class MockLiftCreator: LiftCreator {
             init() {
-                super.init(withLiftHistoryIndexLoader: nil, workoutLoadAgent: nil)
+                super.init(liftLoadAgent: nil)
             }
             
             override private func createWithName(name: String) -> Lift {

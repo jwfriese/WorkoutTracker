@@ -7,10 +7,11 @@ class WorkoutDeserializerSpec: QuickSpec {
         
         class MockLiftLoadAgent: LiftLoadAgent {
             init() {
-                super.init(withLiftSetDeserializer: nil, localStorageWorker: nil)
+                super.init(withLiftSetDeserializer: nil, localStorageWorker: nil, liftHistoryIndexLoader: nil)
             }
             
-            override func loadLift(withName name: String, fromWorkoutWithIdentifier workoutIdentifier: UInt) -> Lift? {
+            override func loadLift(withName name: String, fromWorkoutWithIdentifier workoutIdentifier: UInt,
+                                            shouldLoadPreviousLift: Bool) -> Lift? {
                 return Lift(withName: name)
             }
         }

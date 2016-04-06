@@ -4,62 +4,33 @@ import WorkoutTracker
 
 class LiftCreatorSpec: QuickSpec {
     override func spec() {
-        class MockLiftHistoryIndexLoader: LiftHistoryIndexLoader {
-            var index: [String : [UInt]] = ["turtle lift" : [1000, 2000, 10000]]
-            
-            init() {
-                super.init(withLocalStorageWorker: nil)
-            }
-            
-            override private func load() -> [String : [UInt]] {
-                return index
-            }
-        }
         
-        class MockWorkoutLoadAgent: WorkoutLoadAgent {
-            var workout: Workout?
-            var rabbitLift = Lift(withName: "rabbit lift")
-            var turtleLift = Lift(withName: "turtle lift")
-            var mongooseLift = Lift(withName: "mongoose lift")
+        class MockLiftLoadAgent: LiftLoadAgent {
+            var loadedLift: Lift?
             
             init() {
-                super.init(withWorkoutDeserializer: nil, localStorageWorker: nil)
-                
-                workout = Workout(withName: "turtle workout", timestamp: 10000)
-                workout!.addLift(rabbitLift)
-                workout!.addLift(turtleLift)
-                workout!.addLift(mongooseLift)
+                super.init(withLiftSetDeserializer: nil, localStorageWorker: nil, liftHistoryIndexLoader: nil)
             }
             
-            override private func loadWorkout(withIdentifier workoutIdentifier: UInt) -> Workout? {
-                if workoutIdentifier == 10000 {
-                    return workout
-                }
-                
-                return nil
+            override private func loadLatestLiftWithName(name: String) -> Lift? {
+                loadedLift = Lift(withName: name)
+                return loadedLift
             }
         }
         
         describe("LiftCreator") {
             var subject: LiftCreator!
-            var mockLiftHistoryIndexLoader: MockLiftHistoryIndexLoader!
-            var mockWorkoutLoadAgent: MockWorkoutLoadAgent!
+            var mockLiftLoadAgent: MockLiftLoadAgent!
             
             beforeEach {
-                mockLiftHistoryIndexLoader = MockLiftHistoryIndexLoader()
-                mockWorkoutLoadAgent = MockWorkoutLoadAgent()
+                mockLiftLoadAgent = MockLiftLoadAgent()
                 
-                subject = LiftCreator(withLiftHistoryIndexLoader: mockLiftHistoryIndexLoader,
-                    workoutLoadAgent: mockWorkoutLoadAgent)
+                subject = LiftCreator(liftLoadAgent: mockLiftLoadAgent)
             }
             
-            describe("Its initializer") {
-                it("sets its LiftHistoryIndexLoader") {
-                    expect(subject.liftHistoryIndexLoader).to(beIdenticalTo(mockLiftHistoryIndexLoader))
-                }
-                
-                it("sets its WorkoutLoadAgent") {
-                    expect(subject.workoutLoadAgent).to(beIdenticalTo(mockWorkoutLoadAgent))
+            describe("Its initializer") {                
+                it("sets its LiftLoadAgent") {
+                    expect(subject.liftLoadAgent).to(beIdenticalTo(mockLiftLoadAgent))
                 }
             }
             
@@ -71,11 +42,11 @@ class LiftCreatorSpec: QuickSpec {
                 }
                 
                 it("produces a lift with the given name") {
-                    expect(lift!.name).to(equal("turtle lift"))
+                    expect(lift?.name).to(equal("turtle lift"))
                 }
                 
-                it("sets the lift's previous lift on it") {
-                    expect(lift?.previousInstance).to(beIdenticalTo(mockWorkoutLoadAgent.turtleLift))
+                it("tries to load the latest lift with the given name as the previous instance") {
+                    expect(lift?.previousInstance).to(beIdenticalTo(mockLiftLoadAgent.loadedLift))
                 }
             }
         }

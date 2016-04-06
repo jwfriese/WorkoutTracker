@@ -44,7 +44,15 @@ public class StartupStoryboardMetadata: SwinjectStoryboardMetadata {
         container.register(LiftLoadAgent.self) { resolver in
             let liftSetDeserializer = resolver.resolve(LiftSetDeserializer.self)
             let localStorageWorker = resolver.resolve(LocalStorageWorker.self)
-            return LiftLoadAgent(withLiftSetDeserializer: liftSetDeserializer, localStorageWorker: localStorageWorker)
+            let liftHistoryIndexLoader = resolver.resolve(LiftHistoryIndexLoader.self)
+            
+            return LiftLoadAgent(withLiftSetDeserializer: liftSetDeserializer, localStorageWorker: localStorageWorker, liftHistoryIndexLoader: liftHistoryIndexLoader)
+        }
+        
+        container.register(LiftHistoryIndexLoader.self) { resolver in
+            let localStorageWorker = resolver.resolve(LocalStorageWorker.self)
+            
+            return LiftHistoryIndexLoader(withLocalStorageWorker: localStorageWorker)
         }
         
         container.register(LocalStorageWorker.self) { resolver in
