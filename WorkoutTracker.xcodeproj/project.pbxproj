@@ -26,6 +26,8 @@
 		7B8E7ED01C9E0324008BF7B0 /* MigrationAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8E7ECF1C9E0324008BF7B0 /* MigrationAgent.swift */; };
 		7B8E7ED61C9E0495008BF7B0 /* MigrationAgentSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8E7ED51C9E0495008BF7B0 /* MigrationAgentSpec.swift */; };
 		7B8E7ED81C9E04C3008BF7B0 /* LiftHistoryIndexBuilderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8E7ED71C9E04C3008BF7B0 /* LiftHistoryIndexBuilderSpec.swift */; };
+		7BA90A7A1CB6977B0040B031 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA90A791CB6977B0040B031 /* ArrayExtension.swift */; };
+		7BA90A7D1CB697A50040B031 /* ArrayExtensionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA90A7C1CB697A50040B031 /* ArrayExtensionSpec.swift */; };
 		7BA92C281C9F0F18009A81E3 /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA92C271C9F0F18009A81E3 /* StartupViewController.swift */; };
 		7BA92C2D1C9F0F24009A81E3 /* StartupViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA92C2B1C9F0F24009A81E3 /* StartupViewControllerSpec.swift */; };
 		7BA92C2F1C9F0F6D009A81E3 /* StartupStoryboardMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA92C2E1C9F0F6D009A81E3 /* StartupStoryboardMetadata.swift */; };
@@ -127,6 +129,8 @@
 		7B8E7ECF1C9E0324008BF7B0 /* MigrationAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MigrationAgent.swift; sourceTree = "<group>"; };
 		7B8E7ED51C9E0495008BF7B0 /* MigrationAgentSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MigrationAgentSpec.swift; sourceTree = "<group>"; };
 		7B8E7ED71C9E04C3008BF7B0 /* LiftHistoryIndexBuilderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftHistoryIndexBuilderSpec.swift; sourceTree = "<group>"; };
+		7BA90A791CB6977B0040B031 /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
+		7BA90A7C1CB697A50040B031 /* ArrayExtensionSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensionSpec.swift; sourceTree = "<group>"; };
 		7BA92C271C9F0F18009A81E3 /* StartupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
 		7BA92C2B1C9F0F24009A81E3 /* StartupViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartupViewControllerSpec.swift; sourceTree = "<group>"; };
 		7BA92C2E1C9F0F6D009A81E3 /* StartupStoryboardMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartupStoryboardMetadata.swift; sourceTree = "<group>"; };
@@ -237,6 +241,7 @@
 		7B41503B1C6B9D380032333F /* WorkoutTracker */ = {
 			isa = PBXGroup;
 			children = (
+				7BA90A781CB6975D0040B031 /* CoreExtension */,
 				7BA92C241C9F0D83009A81E3 /* Startup */,
 				7B6AC0C31C7A30040063F667 /* Time */,
 				7B6AC0C51C7A30040063F667 /* Storage */,
@@ -254,6 +259,7 @@
 		7B4150501C6B9D380032333F /* WorkoutTrackerTests */ = {
 			isa = PBXGroup;
 			children = (
+				7BA90A7B1CB697860040B031 /* CoreExtension */,
 				7BB90D3B1C7E10BC007D365E /* TestAppDelegate.swift */,
 				7BA92C291C9F0F24009A81E3 /* Startup */,
 				7B6AC0CC1C7A312E0063F667 /* Resources */,
@@ -351,6 +357,22 @@
 				7B6AC0CE1C7A312E0063F667 /* testImage.png */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		7BA90A781CB6975D0040B031 /* CoreExtension */ = {
+			isa = PBXGroup;
+			children = (
+				7BA90A791CB6977B0040B031 /* ArrayExtension.swift */,
+			);
+			path = CoreExtension;
+			sourceTree = "<group>";
+		};
+		7BA90A7B1CB697860040B031 /* CoreExtension */ = {
+			isa = PBXGroup;
+			children = (
+				7BA90A7C1CB697A50040B031 /* ArrayExtensionSpec.swift */,
+			);
+			path = CoreExtension;
 			sourceTree = "<group>";
 		};
 		7BA92C241C9F0D83009A81E3 /* Startup */ = {
@@ -711,6 +733,7 @@
 				7B6AC0D61C7A5F9A0063F667 /* SwinjectStoryboardMetadata.swift in Sources */,
 				7B8E7ECE1C9E0225008BF7B0 /* LiftHistoryIndexBuilder.swift in Sources */,
 				7BB90D841C890A9D007D365E /* WorkoutListStoryboardMetadata.swift in Sources */,
+				7BA90A7A1CB6977B0040B031 /* ArrayExtension.swift in Sources */,
 				7BB90DC11C89538E007D365E /* LiftSetSerializer.swift in Sources */,
 				7BB90D8E1C890A9D007D365E /* LiftSetTableViewCell.swift in Sources */,
 				7BB118AC1CAB1A89005CC1AF /* LiftHistoryIndexLoader.swift in Sources */,
@@ -780,6 +803,7 @@
 				7BB90DD01C8B231E007D365E /* WorkoutSaveAgentSpec.swift in Sources */,
 				7B6AC0B91C76253F0063F667 /* VisualTreeWalker.swift in Sources */,
 				7BB90DA81C890AAA007D365E /* LiftSpec.swift in Sources */,
+				7BA90A7D1CB697A50040B031 /* ArrayExtensionSpec.swift in Sources */,
 				7BB90DB01C890AAA007D365E /* WorkoutLiftTableViewCellSpec.swift in Sources */,
 				7BB118AA1CAB19F2005CC1AF /* LiftHistoryIndexLoaderSpec.swift in Sources */,
 				7BB90DAD1C890AAA007D365E /* WorkoutListViewControllerSpec.swift in Sources */,

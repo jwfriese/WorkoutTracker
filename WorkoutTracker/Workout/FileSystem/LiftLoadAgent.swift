@@ -27,9 +27,15 @@ public class LiftLoadAgent {
         }
         
         if shouldLoadPreviousLift {
-            if let previousLiftInstanceWorkoutIdentifier = liftDictionary!["previousLiftWorkoutIdentifier"] as? UInt {
-                lift.previousInstance = loadLift(withName: name, fromWorkoutWithIdentifier: previousLiftInstanceWorkoutIdentifier,
-                                                 shouldLoadPreviousLift: false)
+            let liftHistory = liftHistoryIndexLoader.load()
+            if let lifts = liftHistory[name] {
+                if lifts.count > 0 {
+                    if let previousLiftWorkoutIdentifier = lifts.lastSatisfyingPredicate({ workout in workout < workoutIdentifier }) {
+                        lift.previousInstance = loadLift(withName: name,
+                                                         fromWorkoutWithIdentifier: previousLiftWorkoutIdentifier,
+                                                         shouldLoadPreviousLift: false)
+                    }
+                }
             }
         }
         

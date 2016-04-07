@@ -17,12 +17,6 @@ public class LiftSerializer {
         
         result["sets"] = liftSets
         
-        if let previousInstance = lift.previousInstance {
-            if let owningWorkout = previousInstance.workout {
-                result["previousLiftWorkoutIdentifier"] = owningWorkout.timestamp
-            }
-        }
-        
         if let workoutIdentifier = lift.workout?.timestamp {
             result["workout"] = workoutIdentifier
         }

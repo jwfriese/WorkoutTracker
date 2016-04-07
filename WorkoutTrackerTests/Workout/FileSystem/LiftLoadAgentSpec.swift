@@ -20,7 +20,6 @@ class LiftLoadAgentSpec: QuickSpec {
             var previousLiftInstanceDictionary: Dictionary<String, AnyObject> = [
                 "name": "turtle lift",
                 "sets": [],
-                "previousLiftWorkoutIdentifier": 12
             ]
             
             override func readJSONDictionaryFromFile(fileName: String!) -> Dictionary<String, AnyObject>? {
@@ -42,7 +41,7 @@ class LiftLoadAgentSpec: QuickSpec {
         }
         
         class MockLiftHistoryIndexLoader: LiftHistoryIndexLoader {
-            var index: [String : [UInt]] = ["turtle lift" : [12, 1234]]
+            var index: [String : [UInt]] = [String : [UInt]]()
             
             init() {
                 super.init(withLocalStorageWorker: nil)
@@ -145,9 +144,9 @@ class LiftLoadAgentSpec: QuickSpec {
                 }
                 
                 context("When told to also load a previous instance") {
-                    context("The serialized lift includes data about a previous instance's workout") {
+                    context("When the lift history index contains data about a previous instance") {
                         beforeEach {
-                            mockLocalStorageWorker.liftDictionary?["previousLiftWorkoutIdentifier"] = 1234
+                            mockLiftHistoryIndexLoader.index = ["turtle lift" : [12, 1234]]
                             
                             lift = subject.loadLift(withName: "turtle lift", fromWorkoutWithIdentifier: 123456, shouldLoadPreviousLift: true)
                         }
@@ -156,8 +155,10 @@ class LiftLoadAgentSpec: QuickSpec {
                         itBehavesLike("A lift load agent that loaded a previous lift")
                     }
                     
-                    context("The serialized lift has no data about a previous instance") {
+                    context("When the lift history index does not contain data about a previous instance") {
                         beforeEach {
+                            mockLiftHistoryIndexLoader.index = [String : [UInt]]()
+                            
                             lift = subject.loadLift(withName: "turtle lift", fromWorkoutWithIdentifier: 123456, shouldLoadPreviousLift: true)
                         }
 
@@ -191,6 +192,7 @@ class LiftLoadAgentSpec: QuickSpec {
                 
                 context("When there are lifts with the given name on disk") {
                     beforeEach {
+                        mockLiftHistoryIndexLoader.index = ["turtle lift" : [12, 1234]]
                         lift = subject.loadLatestLiftWithName("turtle lift")
                     }
                     

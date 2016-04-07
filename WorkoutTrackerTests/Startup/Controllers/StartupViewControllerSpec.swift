@@ -80,7 +80,7 @@ class StartupViewControllerSpec: QuickSpec {
                         mockMigrationAgent.finishMigrationWork()
                     }
                     
-                    it("should replace the window's root view controller with the workout list page") {
+                    xit("should replace the window's root view controller with the workout list page") {
                         expect(UIApplication.sharedApplication().keyWindow?.rootViewController).toEventually(beIdenticalTo(mockWorkoutListStoryboardMetadata.workoutListInitialController))
                     }
                 }

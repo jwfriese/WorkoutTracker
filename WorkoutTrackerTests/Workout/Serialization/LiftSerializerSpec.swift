@@ -102,10 +102,6 @@ class LiftSerializerSpec: QuickSpec {
                     resultJSONDictionary = subject.serialize(lift)
                 }
                 
-                it("serializes the lift's previous instance into the identifier on its workout") {
-                    expect(resultJSONDictionary["previousLiftWorkoutIdentifier"] as? UInt).to(equal(1234))
-                }
-                
                 itBehavesLike("A lift serializer in all contexts")
             }
             
@@ -117,20 +113,12 @@ class LiftSerializerSpec: QuickSpec {
                     resultJSONDictionary = subject.serialize(lift)
                 }
                 
-                it("does not serialize the lift's previous instance into the identifier on its workout") {
-                    expect(resultJSONDictionary["previousLiftWorkoutIdentifier"]).to(beNil())
-                }
-                
                 itBehavesLike("A lift serializer in all contexts")
             }
             
             context("When the lift has no previous instance") {
                 beforeEach {
                     resultJSONDictionary = subject.serialize(lift)
-                }
-                
-                it("does not serialize the lift's previous instance into the identifier on its workout") {
-                    expect(resultJSONDictionary["previousLiftWorkoutIdentifier"]).to(beNil())
                 }
                 
                 itBehavesLike("A lift serializer in all contexts")
