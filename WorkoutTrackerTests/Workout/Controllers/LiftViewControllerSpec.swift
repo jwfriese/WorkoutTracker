@@ -45,38 +45,38 @@ class LiftViewControllerSpec: QuickSpec {
                 
                 navigationController = TestNavigationController()
                 navigationController.pushViewController(subject, animated: false)
-                
-                TestAppDelegate.setAsRootViewController(navigationController)
             }
             
             describe("After the view has loaded") {
-                beforeEach {
-                    subject.view
+                sharedExamples("The view controller's loading behavior in all contexts") {
+                    it("should have set its title") {
+                        expect(subject.title).to(equal("turtle deadlift"))
+                    }
+                    
+                    it("should have set itself as its table view's delegate") {
+                        let delegate = subject.tableView?.delegate
+                        expect(delegate === subject).to(beTrue())
+                    }
+                    
+                    it("should have set itself as its table view's data source") {
+                        let delegate = subject.tableView?.dataSource
+                        expect(delegate === subject).to(beTrue())
+                    }
                 }
                 
-                it("should have set its title") {
-                    expect(subject.title).to(equal("turtle deadlift"))
-                }
-                
-                it("should have set itself as its table view's delegate") {
-                    let delegate = subject.tableView?.delegate
-                    expect(delegate === subject).to(beTrue())
-                }
-                
-                it("should have set itself as its table view's data source") {
-                    let delegate = subject.tableView?.dataSource
-                    expect(delegate === subject).to(beTrue())
-                }
-                
-                describe("When the view controller is readonly") {
+                context("When the view controller is readonly") {
                     var rightNavBarButton: UIBarButtonItem?
                     
                     beforeEach {
                         subject.isReadonly = true
                         
+                        TestAppDelegate.setAsRootViewController(navigationController)
+                        
                         let navigationItem = subject.navigationItem
                         rightNavBarButton = navigationItem.rightBarButtonItem
                     }
+                    
+                    itBehavesLike("The view controller's loading behavior in all contexts")
                     
                     it("does not have a right nav bar button") {
                         expect(rightNavBarButton).to(beNil())
@@ -84,6 +84,7 @@ class LiftViewControllerSpec: QuickSpec {
                     
                     it("does not have the button to add a set") {
                         expect(subject.addLiftButton?.hidden).to(beTrue())
+                        expect(subject.addLiftButton?.alpha).to(beCloseTo(0.0))
                     }
                     
                     describe("Selecting a cell on the data table") {
@@ -106,7 +107,15 @@ class LiftViewControllerSpec: QuickSpec {
                     }
                 }
                 
-                describe("When the view controller is not readonly") {
+                context("When the view controller is not readonly") {
+                    beforeEach {
+                        subject.isReadonly = false
+                        
+                        TestAppDelegate.setAsRootViewController(navigationController)
+                    }
+                    
+                    itBehavesLike("The view controller's loading behavior in all contexts")
+                    
                     describe("Tapping the right nav bar item") {
                         func action() {
                             let navigationItem = subject.navigationItem

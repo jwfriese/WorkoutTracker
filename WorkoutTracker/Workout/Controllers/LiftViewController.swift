@@ -9,12 +9,7 @@ public class LiftViewController: UIViewController {
     public var lift: Lift!
     public var workoutSaveAgent: WorkoutSaveAgent!
     
-    public var isReadonly: Bool = false {
-        didSet {
-            navigationItem.rightBarButtonItem = nil
-            addLiftButton?.hidden = true
-        }
-    }
+    public var isReadonly: Bool = false
     
     private var setInEditing: LiftSet?
     
@@ -24,6 +19,12 @@ public class LiftViewController: UIViewController {
         title = lift.name
         tableView?.delegate = self
         tableView?.dataSource = self
+        
+        if isReadonly {
+            navigationItem.rightBarButtonItem = nil
+            addLiftButton?.hidden = true
+            addLiftButton?.alpha = 0.0
+        }
         
         tableView?.registerNib(UINib(nibName: LiftSetTableViewCell.name, bundle: nil), forCellReuseIdentifier: LiftSetTableViewCell.name)
     }
