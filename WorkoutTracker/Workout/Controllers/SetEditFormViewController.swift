@@ -3,9 +3,12 @@ import UIKit
 public protocol SetEditFormDelegate {
     var lastSetEntered: LiftSet? { get }
     func setEnteredWithWeight(weight: Double, reps: Int)
+    func editCanceled()
 }
 
 public class SetEditFormViewController: UIViewController {
+    @IBOutlet public weak var backgroundView: UIView?
+    @IBOutlet public weak var tapGestureRecognizer: UITapGestureRecognizer?
     @IBOutlet public weak var formContentView: UIView?
     @IBOutlet public weak var weightEntryInputField: UITextField?
     @IBOutlet public weak var repsEntryInputField: UITextField?
@@ -38,6 +41,10 @@ public class SetEditFormViewController: UIViewController {
         
         formContentView?.layer.borderWidth = 2.0
         formContentView?.layer.borderColor = UIColor.grayColor().CGColor
+    }
+    
+    @IBAction public func handleTapOutsideModal() {
+        delegate?.editCanceled()
     }
     
     @IBAction public func formSubmitButtonTapped() {

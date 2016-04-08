@@ -82,6 +82,10 @@ extension LiftViewController: SetEditFormDelegate {
         self.dismissViewControllerAnimated(true, completion: nil)
         tableView?.reloadData()
     }
+    
+    public func editCanceled() {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
 }
 
 extension LiftViewController: UITableViewDataSource {

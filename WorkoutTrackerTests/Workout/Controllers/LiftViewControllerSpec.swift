@@ -235,6 +235,16 @@ class LiftViewControllerSpec: QuickSpec {
                                     expect(subject.tableView?.dequeueReusableCellWithIdentifier(LiftSetTableViewCell.name, forIndexPath: NSIndexPath(forRow: 0, inSection: 0))).toNot(throwError())
                                 }
                             }
+                            
+                            describe("When the set entry form modal is canceled") {
+                                beforeEach {
+                                    subject.editCanceled()
+                                }
+                                
+                                it("dismisses the set entry form modal") {
+                                    expect(subject.presentedViewController).toEventually(beNil(), timeout:2.0)
+                                }
+                            }
                         }
                     }
                     

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10089" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qk4-tX-a8e">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qk4-tX-a8e">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10072.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -202,6 +202,9 @@
                             <view alpha="0.25" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5GQ-h0-bUx" userLabel="Background View">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="VDV-7r-31H" appends="YES" id="jF3-Is-HWi"/>
+                                </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xi6-N9-soR" userLabel="Form Content View">
                                 <rect key="frame" x="90" y="100" width="420" height="240"/>
@@ -307,15 +310,22 @@
                     </view>
                     <connections>
                         <outlet property="addPreviousButton" destination="z1h-La-Cs1" id="wrr-jc-yO4"/>
+                        <outlet property="backgroundView" destination="5GQ-h0-bUx" id="Zna-im-658"/>
                         <outlet property="formContentView" destination="xi6-N9-soR" id="KXZ-Kb-FYW"/>
                         <outlet property="formSubmitButton" destination="iki-Bp-few" id="xJP-ps-421"/>
                         <outlet property="formSubmitButtonAddPreviousConstraint" destination="ikz-16-d1y" id="3B3-h1-kTl"/>
                         <outlet property="formSubmitButtonModalBottomConstraint" destination="Uvh-ma-AyI" id="qSb-gR-CaY"/>
                         <outlet property="repsEntryInputField" destination="6eJ-dT-pFd" id="ycJ-2O-jaH"/>
+                        <outlet property="tapGestureRecognizer" destination="VDV-7r-31H" id="Vai-yt-Z19"/>
                         <outlet property="weightEntryInputField" destination="jU0-V9-QIB" id="K8q-vN-IzC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4eB-Ms-PMg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="VDV-7r-31H">
+                    <connections>
+                        <action selector="handleTapOutsideModal" destination="Bn4-7w-fxI" id="kzO-No-rnB"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2786" y="-71"/>
         </scene>

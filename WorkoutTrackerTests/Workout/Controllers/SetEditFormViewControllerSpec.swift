@@ -5,6 +5,31 @@ import WorkoutTracker
 
 class SetEditFormViewControllerSpec: QuickSpec {
     override func spec() {
+        class MockSetEditFormDelegate: SetEditFormDelegate {
+            var enteredWeight: Double?
+            var enteredReps: Int?
+            var internalLastSetEntered: LiftSet?
+            var canceled: Bool = false
+            
+            var lastSetEntered: LiftSet? {
+                get {
+                    return internalLastSetEntered
+                }
+                set {
+                    internalLastSetEntered = newValue
+                }
+            }
+            
+            func setEnteredWithWeight(weight: Double, reps: Int) {
+                enteredWeight = weight
+                enteredReps = reps
+            }
+            
+            func editCanceled() {
+                canceled = true
+            }
+        }
+        
         describe("SetEditFormViewController") {
             var subject: SetEditFormViewController!
             var mockSetEditFormDelegate: MockSetEditFormDelegate!
@@ -77,6 +102,10 @@ class SetEditFormViewControllerSpec: QuickSpec {
                                 }
                             }
                         }
+                    }
+                    
+                    it("attaches a tap gesture recognizer to the background view") {
+                        expect(subject.tapGestureRecognizer?.view).to(beIdenticalTo(subject.backgroundView))
                     }
                     
                     describe("Entering form data and submitting") {
@@ -203,27 +232,19 @@ class SetEditFormViewControllerSpec: QuickSpec {
                         itBehavesLike("A set is not yet on the controller")
                     }
                 }
+                
+                describe("Tapping outside the modal") {
+                    beforeEach {
+                        TestAppDelegate.setAsRootViewController(subject)
+                        
+                        subject.handleTapOutsideModal()
+                    }
+                    
+                    it("cancels the modal") {
+                        expect(mockSetEditFormDelegate.canceled).to(beTrue())
+                    }
+                }
             }
         }
-    }
-}
-
-class MockSetEditFormDelegate: SetEditFormDelegate {
-    var enteredWeight: Double?
-    var enteredReps: Int?
-    var internalLastSetEntered: LiftSet?
-    
-    var lastSetEntered: LiftSet? {
-        get {
-            return internalLastSetEntered
-        }
-        set {
-            internalLastSetEntered = newValue
-        }
-    }
-    
-    func setEnteredWithWeight(weight: Double, reps: Int) {
-        enteredWeight = weight
-        enteredReps = reps
     }
 }
