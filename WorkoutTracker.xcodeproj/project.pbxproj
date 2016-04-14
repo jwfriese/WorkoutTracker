@@ -28,6 +28,10 @@
 		7B8E7ED81C9E04C3008BF7B0 /* LiftHistoryIndexBuilderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8E7ED71C9E04C3008BF7B0 /* LiftHistoryIndexBuilderSpec.swift */; };
 		7BA90A7A1CB6977B0040B031 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA90A791CB6977B0040B031 /* ArrayExtension.swift */; };
 		7BA90A7D1CB697A50040B031 /* ArrayExtensionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA90A7C1CB697A50040B031 /* ArrayExtensionSpec.swift */; };
+		7BA90A9C1CBE8B870040B031 /* LiftTableHeaderViewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA90A9B1CBE8B870040B031 /* LiftTableHeaderViewProvider.swift */; };
+		7BA90A9F1CBE8BE80040B031 /* LiftTableHeaderViewProviderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA90A9E1CBE8BE80040B031 /* LiftTableHeaderViewProviderSpec.swift */; };
+		7BA90AA21CBF24A40040B031 /* LiftTableHeaderViewColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA90AA11CBF24A40040B031 /* LiftTableHeaderViewColumnView.swift */; };
+		7BA90AA41CBF24D00040B031 /* LiftTableHeaderViewColumnView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BA90AA31CBF24D00040B031 /* LiftTableHeaderViewColumnView.xib */; };
 		7BA92C281C9F0F18009A81E3 /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA92C271C9F0F18009A81E3 /* StartupViewController.swift */; };
 		7BA92C2D1C9F0F24009A81E3 /* StartupViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA92C2B1C9F0F24009A81E3 /* StartupViewControllerSpec.swift */; };
 		7BA92C2F1C9F0F6D009A81E3 /* StartupStoryboardMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA92C2E1C9F0F6D009A81E3 /* StartupStoryboardMetadata.swift */; };
@@ -45,7 +49,6 @@
 		7BB118AC1CAB1A89005CC1AF /* LiftHistoryIndexLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB118AB1CAB1A89005CC1AF /* LiftHistoryIndexLoader.swift */; };
 		7BB90D3A1C7E0E46007D365E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB90D391C7E0E46007D365E /* main.swift */; };
 		7BB90D3C1C7E10BC007D365E /* TestAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB90D3B1C7E10BC007D365E /* TestAppDelegate.swift */; };
-		7BB90D671C888F38007D365E /* LiftTableViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BB90D661C888F38007D365E /* LiftTableViewHeaderView.xib */; };
 		7BB90D821C890A9D007D365E /* Workout.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BB90D6D1C890A9D007D365E /* Workout.storyboard */; };
 		7BB90D831C890A9D007D365E /* WorkoutList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BB90D6E1C890A9D007D365E /* WorkoutList.storyboard */; };
 		7BB90D841C890A9D007D365E /* WorkoutListStoryboardMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB90D6F1C890A9D007D365E /* WorkoutListStoryboardMetadata.swift */; };
@@ -131,6 +134,10 @@
 		7B8E7ED71C9E04C3008BF7B0 /* LiftHistoryIndexBuilderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftHistoryIndexBuilderSpec.swift; sourceTree = "<group>"; };
 		7BA90A791CB6977B0040B031 /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		7BA90A7C1CB697A50040B031 /* ArrayExtensionSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensionSpec.swift; sourceTree = "<group>"; };
+		7BA90A9B1CBE8B870040B031 /* LiftTableHeaderViewProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftTableHeaderViewProvider.swift; sourceTree = "<group>"; };
+		7BA90A9E1CBE8BE80040B031 /* LiftTableHeaderViewProviderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftTableHeaderViewProviderSpec.swift; sourceTree = "<group>"; };
+		7BA90AA11CBF24A40040B031 /* LiftTableHeaderViewColumnView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftTableHeaderViewColumnView.swift; sourceTree = "<group>"; };
+		7BA90AA31CBF24D00040B031 /* LiftTableHeaderViewColumnView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LiftTableHeaderViewColumnView.xib; sourceTree = "<group>"; };
 		7BA92C271C9F0F18009A81E3 /* StartupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
 		7BA92C2B1C9F0F24009A81E3 /* StartupViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartupViewControllerSpec.swift; sourceTree = "<group>"; };
 		7BA92C2E1C9F0F6D009A81E3 /* StartupStoryboardMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartupStoryboardMetadata.swift; sourceTree = "<group>"; };
@@ -148,7 +155,6 @@
 		7BB118AB1CAB1A89005CC1AF /* LiftHistoryIndexLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftHistoryIndexLoader.swift; sourceTree = "<group>"; };
 		7BB90D391C7E0E46007D365E /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		7BB90D3B1C7E10BC007D365E /* TestAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestAppDelegate.swift; sourceTree = "<group>"; };
-		7BB90D661C888F38007D365E /* LiftTableViewHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LiftTableViewHeaderView.xib; sourceTree = "<group>"; };
 		7BB90D6D1C890A9D007D365E /* Workout.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Workout.storyboard; sourceTree = "<group>"; };
 		7BB90D6E1C890A9D007D365E /* WorkoutList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WorkoutList.storyboard; sourceTree = "<group>"; };
 		7BB90D6F1C890A9D007D365E /* WorkoutListStoryboardMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutListStoryboardMetadata.swift; sourceTree = "<group>"; };
@@ -294,7 +300,8 @@
 		7B6AC0AD1C74D7380063F667 /* Workout */ = {
 			isa = PBXGroup;
 			children = (
-				7BB90D661C888F38007D365E /* LiftTableViewHeaderView.xib */,
+				7BA90AA01CBF24680040B031 /* CustomViews */,
+				7BA90A9A1CBE8B6E0040B031 /* Providers */,
 				7BB90DCB1C8B22AD007D365E /* FileSystem */,
 				7BB90DB21C890B2A007D365E /* Serialization */,
 				7BB90D6C1C890A9D007D365E /* Storyboards */,
@@ -308,6 +315,7 @@
 		7B6AC0B21C74D7CA0063F667 /* Workout */ = {
 			isa = PBXGroup;
 			children = (
+				7BA90A9D1CBE8BCB0040B031 /* Providers */,
 				7BB90DCE1C8B22EE007D365E /* FileSystem */,
 				7BB90DB51C890C14007D365E /* Serialization */,
 				7BB90D941C890AAA007D365E /* Storyboard */,
@@ -373,6 +381,31 @@
 				7BA90A7C1CB697A50040B031 /* ArrayExtensionSpec.swift */,
 			);
 			path = CoreExtension;
+			sourceTree = "<group>";
+		};
+		7BA90A9A1CBE8B6E0040B031 /* Providers */ = {
+			isa = PBXGroup;
+			children = (
+				7BA90A9B1CBE8B870040B031 /* LiftTableHeaderViewProvider.swift */,
+			);
+			path = Providers;
+			sourceTree = "<group>";
+		};
+		7BA90A9D1CBE8BCB0040B031 /* Providers */ = {
+			isa = PBXGroup;
+			children = (
+				7BA90A9E1CBE8BE80040B031 /* LiftTableHeaderViewProviderSpec.swift */,
+			);
+			path = Providers;
+			sourceTree = "<group>";
+		};
+		7BA90AA01CBF24680040B031 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				7BA90AA11CBF24A40040B031 /* LiftTableHeaderViewColumnView.swift */,
+				7BA90AA31CBF24D00040B031 /* LiftTableHeaderViewColumnView.xib */,
+			);
+			path = CustomViews;
 			sourceTree = "<group>";
 		};
 		7BA92C241C9F0D83009A81E3 /* Startup */ = {
@@ -674,11 +707,11 @@
 				7BB90D8F1C890A9D007D365E /* LiftSetTableViewCell.xib in Resources */,
 				7BA92C331C9F1343009A81E3 /* Startup.storyboard in Resources */,
 				7BB90D831C890A9D007D365E /* WorkoutList.storyboard in Resources */,
-				7BB90D671C888F38007D365E /* LiftTableViewHeaderView.xib in Resources */,
 				7B4150471C6B9D380032333F /* LaunchScreen.storyboard in Resources */,
 				7BB90D911C890A9D007D365E /* WorkoutLiftTableViewCell.xib in Resources */,
 				7B4150441C6B9D380032333F /* Assets.xcassets in Resources */,
 				7BB90D931C890A9D007D365E /* WorkoutListTableViewCell.xib in Resources */,
+				7BA90AA41CBF24D00040B031 /* LiftTableHeaderViewColumnView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -748,6 +781,7 @@
 				7BB90D871C890A9D007D365E /* LiftSet.swift in Sources */,
 				7BB90DDE1C8B8DF6007D365E /* LiftSetDeserializer.swift in Sources */,
 				7BB90D881C890A9D007D365E /* Workout.swift in Sources */,
+				7BA90AA21CBF24A40040B031 /* LiftTableHeaderViewColumnView.swift in Sources */,
 				7BB90DE61C908330007D365E /* SetEditFormViewController.swift in Sources */,
 				7BB90DB41C890B57007D365E /* WorkoutSerializer.swift in Sources */,
 				7B6AC0C81C7A30040063F667 /* LocalStorageWorker.swift in Sources */,
@@ -757,6 +791,7 @@
 				7B6AC0C71C7A30040063F667 /* Timestamper.swift in Sources */,
 				7BB90D8C1C890A9D007D365E /* WorkoutListViewController.swift in Sources */,
 				7BB90D861C890A9D007D365E /* Lift.swift in Sources */,
+				7BA90A9C1CBE8B870040B031 /* LiftTableHeaderViewProvider.swift in Sources */,
 				7BB90D3A1C7E0E46007D365E /* main.swift in Sources */,
 				7BB90DD21C8B2332007D365E /* WorkoutLoadAgent.swift in Sources */,
 				7BB90D851C890A9D007D365E /* WorkoutStoryboardMetadata.swift in Sources */,
@@ -806,6 +841,7 @@
 				7BA90A7D1CB697A50040B031 /* ArrayExtensionSpec.swift in Sources */,
 				7BB90DB01C890AAA007D365E /* WorkoutLiftTableViewCellSpec.swift in Sources */,
 				7BB118AA1CAB19F2005CC1AF /* LiftHistoryIndexLoaderSpec.swift in Sources */,
+				7BA90A9F1CBE8BE80040B031 /* LiftTableHeaderViewProviderSpec.swift in Sources */,
 				7BB90DAD1C890AAA007D365E /* WorkoutListViewControllerSpec.swift in Sources */,
 				7BB90DE41C8D41D4007D365E /* WorkoutDeleteAgentSpec.swift in Sources */,
 				7BA92C311C9F0FCE009A81E3 /* StartupStoryboardMetadataSpec.swift in Sources */,

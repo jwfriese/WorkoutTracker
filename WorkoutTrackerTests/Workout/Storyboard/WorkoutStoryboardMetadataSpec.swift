@@ -39,6 +39,7 @@ class WorkoutStoryboardMetadataSpec: QuickSpec {
                     var workoutDeserializer: WorkoutDeserializer?
                     var liftSetDeserializer: LiftSetDeserializer?
                     var liftDeleteAgent: LiftDeleteAgent?
+                    var liftTableHeaderViewProvider: LiftTableHeaderViewProvider?
                     var workoutViewController: WorkoutViewController?
                     var liftViewController: LiftViewController?
                     
@@ -56,6 +57,7 @@ class WorkoutStoryboardMetadataSpec: QuickSpec {
                         workoutDeserializer = container.resolve(WorkoutDeserializer.self)
                         liftSetDeserializer = container.resolve(LiftSetDeserializer.self)
                         liftDeleteAgent = container.resolve(LiftDeleteAgent.self)
+                        liftTableHeaderViewProvider = container.resolve(LiftTableHeaderViewProvider.self)
                         workoutViewController = storyboard.instantiateViewControllerWithIdentifier("WorkoutViewController") as? WorkoutViewController
                         liftViewController = storyboard.instantiateViewControllerWithIdentifier("LiftViewController") as? LiftViewController
                     }
@@ -112,6 +114,10 @@ class WorkoutStoryboardMetadataSpec: QuickSpec {
                         expect(liftDeleteAgent).toNot(beNil())
                     }
                     
+                    it("can produce a LiftTableHeaderViewProvider") {
+                        expect(liftTableHeaderViewProvider).toNot(beNil())
+                    }
+                    
                     describe("Its WorkoutViewController") {
                         it("can be created") {
                             expect(workoutViewController).toNot(beNil())
@@ -137,6 +143,10 @@ class WorkoutStoryboardMetadataSpec: QuickSpec {
                         
                         it("is created with a WorkoutSaveAgent") {
                             expect(liftViewController?.workoutSaveAgent).toNot(beNil())
+                        }
+                        
+                        it("is created with a LiftTableHeaderViewProvider") {
+                            expect(liftViewController?.liftTableHeaderViewProvider).toNot(beNil())
                         }
                     }
                     

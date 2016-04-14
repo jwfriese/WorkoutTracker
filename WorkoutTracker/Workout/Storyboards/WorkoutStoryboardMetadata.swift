@@ -99,6 +99,10 @@ public class WorkoutStoryboardMetadata: SwinjectStoryboardMetadata {
                 return LiftDeleteAgent(withLocalStorageWorker: localStorageWorker)
             }
             
+            container.register(LiftTableHeaderViewProvider.self) { resolver in
+                return LiftTableHeaderViewProvider()
+            }
+            
             container.registerForStoryboard(WorkoutViewController.self) { resolver, instance in
                 instance.workoutSaveAgent = resolver.resolve(WorkoutSaveAgent.self)
                 instance.liftCreator = resolver.resolve(LiftCreator.self)
@@ -106,7 +110,8 @@ public class WorkoutStoryboardMetadata: SwinjectStoryboardMetadata {
             }
             
             container.registerForStoryboard(LiftViewController.self) { resolver, instance in
-               instance.workoutSaveAgent = resolver.resolve(WorkoutSaveAgent.self)
+                instance.workoutSaveAgent = resolver.resolve(WorkoutSaveAgent.self)
+                instance.liftTableHeaderViewProvider = resolver.resolve(LiftTableHeaderViewProvider.self)
             }
             
             return container

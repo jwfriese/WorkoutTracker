@@ -19,19 +19,35 @@ class LiftViewControllerSpec: QuickSpec {
             }
         }
         
+        class MockLiftTableHeaderViewProvider: LiftTableHeaderViewProvider {
+            var providedView = UIStackView()
+            var givenLift: Lift?
+            
+            override func provideForLift(lift: Lift) -> UIStackView {
+                givenLift = lift
+                return providedView
+            }
+        }
+        
         describe("LiftViewController") {
             var subject: LiftViewController!
             var mockWorkoutSaveAgent: MockWorkoutSaveAgent!
+            var mockLiftTableHeaderViewProvider: MockLiftTableHeaderViewProvider!
             var navigationController: TestNavigationController!
             var lift: Lift!
             
             beforeEach {
                 mockWorkoutSaveAgent = MockWorkoutSaveAgent()
+                mockLiftTableHeaderViewProvider = MockLiftTableHeaderViewProvider()
                 
                 let storyboardMetadata = WorkoutStoryboardMetadata()
                 let container = storyboardMetadata.container
                 container.register(WorkoutSaveAgent.self) { resolver in
                     return mockWorkoutSaveAgent
+                }
+                
+                container.register(LiftTableHeaderViewProvider.self) { resolver in
+                    return mockLiftTableHeaderViewProvider
                 }
                 
                 let storyboard = SwinjectStoryboard.create(name: storyboardMetadata.name, bundle: nil, container: container)
@@ -265,8 +281,9 @@ class LiftViewControllerSpec: QuickSpec {
                         
                         it("has a header view") {
                             let headerView = subject.tableView(subject.tableView!,
-                                viewForHeaderInSection: 0) as? LiftTableViewHeaderView
-                            expect(headerView).toNot(beNil())
+                                viewForHeaderInSection: 0)
+                            expect(headerView).to(beIdenticalTo(mockLiftTableHeaderViewProvider.providedView))
+                            expect(subject.lift).to(beIdenticalTo(mockLiftTableHeaderViewProvider?.givenLift))
                         }
                         
                         it("has a number of rows equal to the number of sets in its lift model") {

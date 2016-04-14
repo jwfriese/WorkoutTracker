@@ -1,13 +1,12 @@
 import UIKit
 
-public class LiftTableViewHeaderView: UIView { }
-
 public class LiftViewController: UIViewController {
     @IBOutlet public weak var tableView: UITableView?
     @IBOutlet public weak var addLiftButton: UIButton?
     
     public var lift: Lift!
     public var workoutSaveAgent: WorkoutSaveAgent!
+    public var liftTableHeaderViewProvider: LiftTableHeaderViewProvider!
     
     public var isReadonly: Bool = false
     
@@ -117,9 +116,7 @@ extension LiftViewController: UITableViewDataSource {
 
 extension LiftViewController: UITableViewDelegate {
     public func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = NSBundle.mainBundle().loadNibNamed("LiftTableViewHeaderView", owner: self,
-            options: nil)[0] as? UIView
-        return headerView
+        return liftTableHeaderViewProvider.provideForLift(self.lift)
     }
     
     public func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
