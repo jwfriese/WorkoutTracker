@@ -1,5 +1,6 @@
 import Quick
 import Nimble
+import Fleet
 import Swinject
 import WorkoutTracker
 
@@ -180,7 +181,7 @@ class LiftViewControllerSpec: QuickSpec {
                     
                     describe("Tapping the add lift button") {
                         beforeEach {
-                            subject.addLiftButton?.sendActionsForControlEvents(.TouchUpInside)
+                            subject.addLiftButton?.tap()
                         }
                         
                         it("presents a modal allowing the user to enter set information") {

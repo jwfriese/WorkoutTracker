@@ -1,3 +1,4 @@
-github "Quick/Nimble" "918ce7db50c532cdaa6f0cc79c438f612d82b444"
-github "Quick/Quick" "3a1d88fb81476001c62f086dbd94bb0f5354f1a3"
+github "jwfriese/Fleet" "61492ba66299de032a37a482eb1fb92146331438"
+github "Quick/Nimble" "1a9e53e2d74363e1d6320a87a5028bc234c9a4d4"
+github "Quick/Quick" "4f3ab19ebb2ebaf8d55f5950aee9eb696b14c351"
 github "Swinject/Swinject" "f3ddad053a007d0b5dd4fd7a1dd7059740ce1b04"

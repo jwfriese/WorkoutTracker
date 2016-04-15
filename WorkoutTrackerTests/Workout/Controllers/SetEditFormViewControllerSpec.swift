@@ -1,5 +1,6 @@
 import Quick
 import Nimble
+import Fleet
 import Swinject
 import WorkoutTracker
 
@@ -112,7 +113,7 @@ class SetEditFormViewControllerSpec: QuickSpec {
                         beforeEach {
                             subject.weightEntryInputField?.text = "235"
                             subject.repsEntryInputField?.text = "3"
-                            subject.formSubmitButton?.sendActionsForControlEvents(.TouchUpInside)
+                            subject.formSubmitButton?.tap()
                         }
                         
                         it("passes the form data along to its delegate") {
@@ -199,7 +200,7 @@ class SetEditFormViewControllerSpec: QuickSpec {
                         
                         describe("Tapping the 'Add Previous' button") {
                             beforeEach {
-                                subject.addPreviousButton?.sendActionsForControlEvents(.TouchUpInside)
+                                subject.addPreviousButton?.tap()
                             }
                             
                             it("populates the weight form field with the last set's weight") {

@@ -32,6 +32,7 @@
 		7BA90A9F1CBE8BE80040B031 /* LiftTableHeaderViewProviderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA90A9E1CBE8BE80040B031 /* LiftTableHeaderViewProviderSpec.swift */; };
 		7BA90AA21CBF24A40040B031 /* LiftTableHeaderViewColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA90AA11CBF24A40040B031 /* LiftTableHeaderViewColumnView.swift */; };
 		7BA90AA41CBF24D00040B031 /* LiftTableHeaderViewColumnView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BA90AA31CBF24D00040B031 /* LiftTableHeaderViewColumnView.xib */; };
+		7BA90AEE1CC449EC0040B031 /* Fleet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BA90AEC1CC449D90040B031 /* Fleet.framework */; };
 		7BA92C281C9F0F18009A81E3 /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA92C271C9F0F18009A81E3 /* StartupViewController.swift */; };
 		7BA92C2D1C9F0F24009A81E3 /* StartupViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA92C2B1C9F0F24009A81E3 /* StartupViewControllerSpec.swift */; };
 		7BA92C2F1C9F0F6D009A81E3 /* StartupStoryboardMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA92C2E1C9F0F6D009A81E3 /* StartupStoryboardMetadata.swift */; };
@@ -138,6 +139,7 @@
 		7BA90A9E1CBE8BE80040B031 /* LiftTableHeaderViewProviderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftTableHeaderViewProviderSpec.swift; sourceTree = "<group>"; };
 		7BA90AA11CBF24A40040B031 /* LiftTableHeaderViewColumnView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftTableHeaderViewColumnView.swift; sourceTree = "<group>"; };
 		7BA90AA31CBF24D00040B031 /* LiftTableHeaderViewColumnView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LiftTableHeaderViewColumnView.xib; sourceTree = "<group>"; };
+		7BA90AEC1CC449D90040B031 /* Fleet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fleet.framework; path = Carthage/Build/iOS/Fleet.framework; sourceTree = "<group>"; };
 		7BA92C271C9F0F18009A81E3 /* StartupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
 		7BA92C2B1C9F0F24009A81E3 /* StartupViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartupViewControllerSpec.swift; sourceTree = "<group>"; };
 		7BA92C2E1C9F0F6D009A81E3 /* StartupStoryboardMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartupStoryboardMetadata.swift; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 			files = (
 				7B4150641C6CEB720032333F /* Quick.framework in Frameworks */,
 				7B4150651C6CEB720032333F /* Nimble.framework in Frameworks */,
+				7BA90AEE1CC449EC0040B031 /* Fleet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +285,7 @@
 		7B41505C1C6B9FE20032333F /* External */ = {
 			isa = PBXGroup;
 			children = (
+				7BA90AEC1CC449D90040B031 /* Fleet.framework */,
 				7B41505D1C6B9FF40032333F /* Swinject.framework */,
 				7B41505E1C6B9FF40032333F /* Quick.framework */,
 				7B41505F1C6B9FF40032333F /* Nimble.framework */,
@@ -749,6 +753,7 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Quick.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Nimble.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Fleet.framework",
 			);
 			outputPaths = (
 			);

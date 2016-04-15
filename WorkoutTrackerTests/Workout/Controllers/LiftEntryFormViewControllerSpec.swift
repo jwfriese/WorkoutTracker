@@ -1,5 +1,6 @@
 import Quick
 import Nimble
+import Fleet
 import Swinject
 import WorkoutTracker
 
@@ -88,7 +89,7 @@ class LiftEntryFormViewControllerSpec: QuickSpec {
                 describe("Entering form data and submitting") {
                     beforeEach {
                         subject.nameEntryInputField?.text = "turtle grace"
-                        subject.createButton?.sendActionsForControlEvents(.TouchUpInside)
+                        subject.createButton?.tap()
                     }
                     
                     it("passes the form data along to its delegate") {
