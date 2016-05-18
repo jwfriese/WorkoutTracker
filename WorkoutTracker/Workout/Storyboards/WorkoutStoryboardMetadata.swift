@@ -9,10 +9,12 @@ public class WorkoutStoryboardMetadata: SwinjectStoryboardMetadata {
         }
     }
     
+    private var storyboard: UIStoryboard {
+        return SwinjectStoryboard.create(name: name, bundle: nil, container: container)
+    }
+    
     public var initialViewController: UIViewController {
         get {
-            let storyboard = SwinjectStoryboard.create(name: name, bundle: nil,
-                container: container)
             return storyboard.instantiateInitialViewController()!
         }
     }
@@ -30,13 +32,7 @@ public class WorkoutStoryboardMetadata: SwinjectStoryboardMetadata {
             }
             
             container.register(LiftSerializer.self) { resolver in
-                let liftSetSerializer = resolver.resolve(LiftSetSerializer.self)
-                
-                return LiftSerializer(withLiftSetSerializer: liftSetSerializer!)
-            }
-            
-            container.register(LiftSetSerializer.self) { resolver in
-                return LiftSetSerializer()
+                return LiftSerializer()
             }
             
             container.register(LiftCreator.self) { resolver in
@@ -68,7 +64,7 @@ public class WorkoutStoryboardMetadata: SwinjectStoryboardMetadata {
                 let workoutDeserializer = resolver.resolve(WorkoutDeserializer.self)
                 let localStorageWorker = resolver.resolve(LocalStorageWorker.self)
                 return WorkoutLoadAgent(withWorkoutDeserializer: workoutDeserializer,
-                            localStorageWorker: localStorageWorker)
+                                        localStorageWorker: localStorageWorker)
             }
             
             container.register(LiftLoadAgent.self) { resolver in
@@ -90,8 +86,13 @@ public class WorkoutStoryboardMetadata: SwinjectStoryboardMetadata {
                 return WorkoutDeserializer(withLiftLoadAgent: liftLoadAgent)
             }
             
+            container.register(LiftSetJSONValidator.self) { resolver in
+                return LiftSetJSONValidator()
+            }
+            
             container.register(LiftSetDeserializer.self) { resolver in
-                return LiftSetDeserializer()
+                let liftSetJSONValidator = resolver.resolve(LiftSetJSONValidator.self)
+                return LiftSetDeserializer(withLiftSetJSONValidator: liftSetJSONValidator!)
             }
             
             container.register(LiftDeleteAgent.self) { resolver in
@@ -101,6 +102,16 @@ public class WorkoutStoryboardMetadata: SwinjectStoryboardMetadata {
             
             container.register(LiftTableHeaderViewProvider.self) { resolver in
                 return LiftTableHeaderViewProvider()
+            }
+            
+            container.register(LiftTemplatePickerViewModel.self) { resolver in
+                return LiftTemplatePickerViewModel()
+            }
+            
+            WeightRepsEditFormViewController.registerForInjection(container)
+            
+            container.register(LiftSetEditFormControllerFactory.self) { resolver in
+                return LiftSetEditFormControllerFactory(withControllerContainer: container)
             }
             
             container.registerForStoryboard(WorkoutViewController.self) { resolver, instance in
@@ -114,7 +125,19 @@ public class WorkoutStoryboardMetadata: SwinjectStoryboardMetadata {
                 instance.liftTableHeaderViewProvider = resolver.resolve(LiftTableHeaderViewProvider.self)
             }
             
+            container.registerForStoryboard(LiftEntryFormViewController.self) { resolver, instance in
+                instance.liftTemplatePickerViewModel = resolver.resolve(LiftTemplatePickerViewModel.self)
+            }
+            
+            container.registerForStoryboard(SetEditModalViewController.self) { resolver, instance in
+                instance.liftSetEditFormControllerFactory = resolver.resolve(LiftSetEditFormControllerFactory.self)
+            }
+            
             return container
         }
     }
+    
+    //        public func injectDependencies(instance: LiftEntryFormViewController) {
+    //                instance.liftTemplatePickerViewModel = container.resolve(LiftTemplatePickerViewModel.self)
+    //        }
 }

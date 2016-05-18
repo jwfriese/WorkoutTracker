@@ -1,26 +1,23 @@
 import Foundation
 
 public class LiftSerializer {
-    public private(set) var liftSetSerializer: LiftSetSerializer!
-    
-    public init(withLiftSetSerializer liftSetSerializer: LiftSetSerializer?) {
-        self.liftSetSerializer = liftSetSerializer
-    }
-    
-    public func serialize(lift: Lift) -> [String : AnyObject] {
-        var result = [String : AnyObject]()
-        result["name"] = lift.name
-        var liftSets = Array<[String :  AnyObject]>()
-        for set in lift.sets {
-            liftSets.append(liftSetSerializer.serialize(set))
+        public init() { }
+
+        public func serialize(lift: Lift) -> [String : AnyObject] {
+                var result = [String : AnyObject]()
+                result["name"] = lift.name
+                result["dataTemplate"] = lift.dataTemplate.rawValue
+                var liftSetData = Array<[String :    AnyObject]>()
+                for set in lift.sets {
+                        liftSetData.append(set.data)
+                }
+
+                result["sets"] = liftSetData
+
+                if let workoutIdentifier = lift.workout?.timestamp {
+                        result["workout"] = workoutIdentifier
+                }
+
+                return result
         }
-        
-        result["sets"] = liftSets
-        
-        if let workoutIdentifier = lift.workout?.timestamp {
-            result["workout"] = workoutIdentifier
-        }
-        
-        return result
-    }
 }

@@ -56,7 +56,7 @@ class LiftViewControllerSpec: QuickSpec {
                 subject = storyboard.instantiateViewControllerWithIdentifier("LiftViewController")
                     as! LiftViewController
                 
-                lift = Lift(withName: "turtle deadlift")
+                lift = Lift(withName: "turtle deadlift", dataTemplate: .TimeInSeconds)
                 lift.workout = Workout(withName: "turtle workout", timestamp: 1000)
                 subject.lift = lift
                 
@@ -105,17 +105,16 @@ class LiftViewControllerSpec: QuickSpec {
                     }
                     
                     describe("Selecting a cell on the data table") {
-                        var setEditForm: SetEditFormViewController?
+                        var setEditForm: SetEditModalViewController?
                         
                         beforeEach {
-                            let set = LiftSet(withTargetWeight: nil, performedWeight: 100,
-                                targetReps: nil, performedReps: 1)
+                            let set = LiftSet(withDataTemplate: .WeightReps, data: ["weight": 100, "reps": 10])
                             subject.lift.addSet(set)
                             subject.tableView?.reloadData()
                             
                             let firstIndexPath = NSIndexPath(forRow: 0, inSection: 0)
                             subject.tableView(subject.tableView!, didSelectRowAtIndexPath: firstIndexPath)
-                            setEditForm = subject.presentedViewController as? SetEditFormViewController
+                            setEditForm = subject.presentedViewController as? SetEditModalViewController
                         }
                         
                         it("does not present the set edit modal") {
@@ -156,7 +155,7 @@ class LiftViewControllerSpec: QuickSpec {
                             var liftViewController: LiftViewController?
                             
                             beforeEach {
-                                previousLift = Lift(withName: lift.name)
+                                previousLift = Lift(withName: lift.name, dataTemplate: .TimeInSeconds)
                                 lift.previousInstance = previousLift
                                 action()
                                 
@@ -185,13 +184,19 @@ class LiftViewControllerSpec: QuickSpec {
                         }
                         
                         it("presents a modal allowing the user to enter set information") {
-                            let modalSetEditForm = subject.presentedViewController as? SetEditFormViewController
+                            let modalSetEditForm = subject.presentedViewController as? SetEditModalViewController
                             
                             expect(modalSetEditForm).toNot(beNil())
                             expect(modalSetEditForm?.delegate as? LiftViewController).to(beIdenticalTo(subject))
                         }
                         
-                        describe("Behavior as delegate of set entry form modal") {
+                        describe("Behavior as delegate of set edit form") {
+                            describe("When queried for the lift data template") {
+                                it("returns its lift's data template") {
+                                    expect(subject.liftDataTemplate).to(equal(lift.dataTemplate))
+                                }
+                            }
+                            
                             describe("When queried for the last set entered") {
                                 var lastEnteredSet: LiftSet?
                                 
@@ -210,10 +215,8 @@ class LiftViewControllerSpec: QuickSpec {
                                     var secondSetAdded: LiftSet!
                                     
                                     beforeEach {
-                                        firstSetAdded = LiftSet(withTargetWeight: nil, performedWeight: 100,
-                                            targetReps: nil, performedReps: 10)
-                                        secondSetAdded = LiftSet(withTargetWeight: nil, performedWeight: 200,
-                                            targetReps: nil, performedReps: 5)
+                                        firstSetAdded = LiftSet(withDataTemplate: .TimeInSeconds, data: ["turtles": 1])
+                                        secondSetAdded = LiftSet(withDataTemplate: .TimeInSeconds, data: ["turtles": 2])
                                         
                                         lift.addSet(firstSetAdded)
                                         lift.addSet(secondSetAdded)
@@ -226,15 +229,16 @@ class LiftViewControllerSpec: QuickSpec {
                                 }
                             }
                             
-                            describe("When the set entry form modal finishes") {
+                            describe("When the set edit form finishes") {
                                 beforeEach {
-                                    subject.setEnteredWithWeight(135, reps: 10)
+                                    subject.setEnteredWithData(["turtles": 10000, "nonturtles": 1])
                                 }
                                 
-                                it("adds a new set with the given weight and reps") {
+                                it("adds a new set with the given data and the data template of the controller's lift") {
                                     expect(subject.lift.sets.count).to(equal(1))
-                                    expect(subject.lift.sets[0].performedWeight).to(equal(135))
-                                    expect(subject.lift.sets[0].performedReps).to(equal(10))
+                                    expect(subject.lift.sets[0].data["turtles"] as? Int).to(equal(10000))
+                                    expect(subject.lift.sets[0].data["nonturtles"] as? Int).to(equal(1))
+                                    expect(subject.lift.sets[0].dataTemplate).to(equal(LiftDataTemplate.TimeInSeconds))
                                 }
                                 
                                 it("saves the workout with the new lift set on it") {
@@ -244,22 +248,8 @@ class LiftViewControllerSpec: QuickSpec {
                                     expect(savedWorkout?.name).to(equal(setWorkout?.name))
                                 }
                                 
-                                it("dismisses the set entry form modal") {
-                                    expect(subject.presentedViewController).toEventually(beNil(), timeout:2.0)
-                                }
-                                
                                 it("reloads the table view's data") {
                                     expect(subject.tableView?.dequeueReusableCellWithIdentifier(LiftSetTableViewCell.name, forIndexPath: NSIndexPath(forRow: 0, inSection: 0))).toNot(throwError())
-                                }
-                            }
-                            
-                            describe("When the set entry form modal is canceled") {
-                                beforeEach {
-                                    subject.editCanceled()
-                                }
-                                
-                                it("dismisses the set entry form modal") {
-                                    expect(subject.presentedViewController).toEventually(beNil(), timeout:2.0)
                                 }
                             }
                         }
@@ -267,12 +257,9 @@ class LiftViewControllerSpec: QuickSpec {
                     
                     describe("Its data table") {
                         beforeEach {
-                            subject.lift.addSet(LiftSet(withTargetWeight: nil, performedWeight: 100,
-                                targetReps: nil, performedReps: 1))
-                            subject.lift.addSet(LiftSet(withTargetWeight: nil, performedWeight: 200,
-                                targetReps: nil, performedReps: 2))
-                            subject.lift.addSet(LiftSet(withTargetWeight: nil, performedWeight: 300,
-                                targetReps: nil, performedReps: 3))
+                            subject.lift.addSet(LiftSet(withDataTemplate: .TimeInSeconds, data: ["turtles": 100]))
+                            subject.lift.addSet(LiftSet(withDataTemplate: .TimeInSeconds, data: ["turtles": 200]))
+                            subject.lift.addSet(LiftSet(withDataTemplate: .TimeInSeconds, data: ["turtles": 300]))
                             subject.tableView?.reloadData()
                         }
                         
@@ -282,7 +269,7 @@ class LiftViewControllerSpec: QuickSpec {
                         
                         it("has a header view") {
                             let headerView = subject.tableView(subject.tableView!,
-                                viewForHeaderInSection: 0)
+                                                               viewForHeaderInSection: 0)
                             expect(headerView).to(beIdenticalTo(mockLiftTableHeaderViewProvider.providedView))
                             expect(subject.lift).to(beIdenticalTo(mockLiftTableHeaderViewProvider?.givenLift))
                         }
@@ -315,19 +302,13 @@ class LiftViewControllerSpec: QuickSpec {
                                 expect(thirdCell.set).to(beIdenticalTo(subject.lift.sets[2]))
                             }
                             
-                            it("numbers the sets correctly in the cell list") {
-                                expect(firstCell.setNumberLabel?.text).to(equal("1"))
-                                expect(secondCell.setNumberLabel?.text).to(equal("2"))
-                                expect(thirdCell.setNumberLabel?.text).to(equal("3"))
-                            }
-                            
                             describe("Selection") {
-                                var setEditForm: SetEditFormViewController?
+                                var setEditForm: SetEditModalViewController?
                                 
                                 beforeEach {
                                     subject.tableView(subject.tableView!, didSelectRowAtIndexPath: firstIndexPath)
                                     
-                                    setEditForm = subject.presentedViewController as? SetEditFormViewController
+                                    setEditForm = subject.presentedViewController as? SetEditModalViewController
                                 }
                                 
                                 it("should present the set edit form for that set") {
@@ -341,7 +322,7 @@ class LiftViewControllerSpec: QuickSpec {
                                 
                                 describe("When the set entry form modal finishes") {
                                     beforeEach {
-                                        subject.setEnteredWithWeight(235, reps: 8)
+                                        subject.setEnteredWithData(["turtles": 20000, "nonturtles": 2])
                                     }
                                     
                                     it("will have the same number of sets as before the modal opened") {
@@ -349,8 +330,8 @@ class LiftViewControllerSpec: QuickSpec {
                                     }
                                     
                                     it("will have updated the selected cell's set with the values from the modal") {
-                                        expect(subject.lift.sets[0].performedWeight).to(equal(235))
-                                        expect(subject.lift.sets[0].performedReps).to(equal(8))
+                                        expect(subject.lift.sets[0].data["turtles"] as? Int).to(equal(20000))
+                                        expect(subject.lift.sets[0].data["nonturtles"] as? Int).to(equal(2))
                                     }
                                     
                                     it("saves the workout with the updated set on it") {
@@ -358,10 +339,6 @@ class LiftViewControllerSpec: QuickSpec {
                                         expect(savedWorkout).toNot(beNil())
                                         let setWorkout = subject.lift.sets[0].lift?.workout
                                         expect(savedWorkout?.name).to(equal(setWorkout?.name))
-                                    }
-                                    
-                                    it("dismisses the set entry form modal") {
-                                        expect(subject.presentedViewController).toEventually(beNil(), timeout:2.0)
                                     }
                                     
                                     it("reloads the table view's data") {

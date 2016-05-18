@@ -2,30 +2,46 @@ import Quick
 import Nimble
 import Fleet
 import Swinject
-import WorkoutTracker
+@testable import WorkoutTracker
 
 class LiftEntryFormViewControllerSpec: QuickSpec {
     override func spec() {
         
         class MockLiftEntryFormDelegate: LiftEntryFormDelegate {
             var enteredName: String?
+            var enteredLiftDataTemplate: LiftDataTemplate?
             
-            func liftEnteredWithName(name: String) {
+            func liftEnteredWithName(name: String, dataTemplate: LiftDataTemplate) {
                 enteredName = name
+                enteredLiftDataTemplate = dataTemplate
             }
+        }
+        
+        class MockLiftTemplatePickerViewModel: LiftTemplatePickerViewModel {
+            
         }
         
         describe("LiftEntryFormViewController") {
             var subject: LiftEntryFormViewController!
             var mockLiftEntryFormDelegate: MockLiftEntryFormDelegate!
+            var mockLiftTemplatePickerViewModel: LiftTemplatePickerViewModel!
             
             beforeEach {
+                mockLiftEntryFormDelegate = MockLiftEntryFormDelegate()
+                mockLiftTemplatePickerViewModel = MockLiftTemplatePickerViewModel()
+                
                 let storyboardMetadata = WorkoutStoryboardMetadata()
+                let container = storyboardMetadata.container
+                container.register(LiftTemplatePickerViewModel.self) { resolver in
+                    return mockLiftTemplatePickerViewModel
+                }
+                
                 let storyboard = SwinjectStoryboard.create(name: storyboardMetadata.name, bundle: nil,
-                    container: storyboardMetadata.container)
+                    container: container)
+                
                 subject = storyboard.instantiateViewControllerWithIdentifier("LiftEntryFormViewController")
                     as! LiftEntryFormViewController
-                mockLiftEntryFormDelegate = MockLiftEntryFormDelegate()
+                
                 subject.delegate = mockLiftEntryFormDelegate
                 TestAppDelegate.setAsRootViewController(subject)
             }
@@ -39,7 +55,7 @@ class LiftEntryFormViewControllerSpec: QuickSpec {
                     expect(subject.formContentView?.layer.borderWidth).to(equal(2.0))
                     
                     let colorsEqual = CGColorEqualToColor(subject.formContentView?.layer.borderColor,
-                        UIColor.grayColor().CGColor)
+                                                          UIColor.grayColor().CGColor)
                     expect(colorsEqual).to(beTruthy())
                 }
                 
@@ -51,8 +67,109 @@ class LiftEntryFormViewControllerSpec: QuickSpec {
                     expect(subject.createButton?.enabled).to(beFalse())
                 }
                 
+                it("shows the data selection view") {
+                    expect(subject.selectView?.hidden).to(beFalse())
+                }
+                
+                it("hides the data display view") {
+                    expect(subject.displaySelectionView?.hidden).to(beTrue())
+                }
+                
+                it("sets itself as the lift data template picker's delegate") {
+                    expect(mockLiftTemplatePickerViewModel.delegate).to(beIdenticalTo(subject))
+                }
+                
+                describe("Tapping the 'Select' button") {
+                    beforeEach {
+                        subject.selectDataButton?.tap()
+                    }
+                    
+                    it("shows the lift data template picker") {
+                        expect(subject.view.subviews).to(contain(mockLiftTemplatePickerViewModel.dataTemplatePickerView))
+                    }
+                    
+                    // given("shows the lift data template picker", "sets itself as the lift data template picker's delegate")
+                    describe("When selection of a data template completes") {
+                        sharedExamples("The entry form when data template is selected") {
+                            it("hides the data selection view") {
+                                expect(subject.selectView?.hidden).to(beTrue())
+                            }
+                            
+                            it("shows the data display view") {
+                                expect(subject.displaySelectionView?.hidden).to(beFalse())
+                            }
+                            
+                            it("dismisses the lift data template picker") {
+                                expect(subject.view.subviews).toNot(contain(mockLiftTemplatePickerViewModel.dataTemplatePickerView))
+                            }
+                        }
+                        
+                        context("For weight/reps data template") {
+                            beforeEach {
+                                subject.didFinishSelectingLiftDataTemplate(.WeightReps)
+                            }
+                            
+                            itBehavesLike("The entry form when data template is selected")
+                            
+                            it("displays 'Weight/Reps' for the template info description") {
+                                expect(subject.displaySelectionLabel?.text).to(equal("Weight/Reps"))
+                            }
+                        }
+                        
+                        context("For time in seconds data template") {
+                            beforeEach {
+                                subject.didFinishSelectingLiftDataTemplate(.TimeInSeconds)
+                            }
+                            
+                            itBehavesLike("The entry form when data template is selected")
+                            
+                            it("displays 'Time(sec)' for the template info description") {
+                                expect(subject.displaySelectionLabel?.text).to(equal("Time(sec)"))
+                            }
+                        }
+                        
+                        context("For weight/time in seconds data template") {
+                            beforeEach {
+                                subject.didFinishSelectingLiftDataTemplate(.WeightTimeInSeconds)
+                            }
+                            
+                            itBehavesLike("The entry form when data template is selected")
+                            
+                            it("displays 'Weight/Time(sec)' for the template info description") {
+                                expect(subject.displaySelectionLabel?.text).to(equal("Weight/Time(sec)"))
+                            }
+                        }
+                        
+                        context("For height/reps data template") {
+                            beforeEach {
+                                subject.didFinishSelectingLiftDataTemplate(.HeightReps)
+                            }
+                            
+                            itBehavesLike("The entry form when data template is selected")
+                            
+                            it("displays 'Height/Reps' for the template info description") {
+                                expect(subject.displaySelectionLabel?.text).to(equal("Height/Reps"))
+                            }
+                        }
+                        
+                        describe("Tapping on the 'Change' button once a selection has been made") {
+                            // var anyDataTemplate = any(LiftDataTemplate)
+                            let anyDataTemplate: LiftDataTemplate = .WeightReps
+                            
+                            beforeEach {
+                                subject.didFinishSelectingLiftDataTemplate(anyDataTemplate)
+                                subject.changeSelectionButton?.tap()
+                            }
+                            
+                            it("shows the lift data template picker") {
+                                expect(subject.view.subviews).to(contain(mockLiftTemplatePickerViewModel.dataTemplatePickerView))
+                            }
+                        }
+                    }
+                }
+                
                 describe("Availability of the 'Create' button") {
-                    context("When text field is empty") {
+                    context("When text field is empty and no data template selected") {
                         beforeEach {
                             subject.nameEntryInputField?.text = ""
                             subject.nameEntryInputField?.sendActionsForControlEvents(.EditingChanged)
@@ -63,10 +180,22 @@ class LiftEntryFormViewControllerSpec: QuickSpec {
                         }
                     }
                     
-                    context("When text field has any nonwhitespace text in it") {
+                    context("When text field has any nonwhitespace text in it and no data template selected") {
+                        beforeEach {
+                            subject.nameEntryInputField?.text = "¬˚∆˙©©"
+                            subject.nameEntryInputField?.sendActionsForControlEvents(.EditingChanged)
+                        }
+                        
+                        it("disables the 'Create' button") {
+                            expect(subject.createButton?.enabled).to(beFalse())
+                        }
+                    }
+                    
+                    context("When text field has any nonwhitespace text in it and data template selected") {
                         beforeEach {
                             subject.nameEntryInputField?.text = "∑"
                             subject.nameEntryInputField?.sendActionsForControlEvents(.EditingChanged)
+                            subject.didFinishSelectingLiftDataTemplate(.HeightReps)
                         }
                         
                         it("enables the 'Create' button") {
@@ -89,11 +218,13 @@ class LiftEntryFormViewControllerSpec: QuickSpec {
                 describe("Entering form data and submitting") {
                     beforeEach {
                         subject.nameEntryInputField?.text = "turtle grace"
+                        subject.didFinishSelectingLiftDataTemplate(.HeightReps)
                         subject.createButton?.tap()
                     }
                     
                     it("passes the form data along to its delegate") {
                         expect(mockLiftEntryFormDelegate.enteredName).to(equal("turtle grace"))
+                        expect(mockLiftEntryFormDelegate.enteredLiftDataTemplate).to(equal(LiftDataTemplate.HeightReps))
                     }
                 }
             }

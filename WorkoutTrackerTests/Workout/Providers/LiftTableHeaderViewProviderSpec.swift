@@ -17,33 +17,27 @@ class LiftTableHeaderViewProviderSpec: QuickSpec {
                 var lift: Lift?
                 
                 beforeEach {
-                    lift = Lift(withName: "")
+                    lift = Lift(withName: "", dataTemplate: .WeightReps)
                     
                     view = subject.provideForLift(lift!)
                 }
                 
-                it("has three subviews") {
-                    expect(view?.arrangedSubviews.count).to(equal(3))
+                it("has two subviews") {
+                    expect(view?.arrangedSubviews.count).to(equal(2))
                 }
                 
                 it("spaces the subviews evenly") {
                     expect(view?.distribution).to(equal(UIStackViewDistribution.FillEqually))
                 }
                 
-                // given("has three subviews")
-                describe("the three subviews") {
-                    var setSubview: LiftTableHeaderViewColumnView?
+                // given("has two subviews")
+                describe("the two subviews") {
                     var weightSubview: LiftTableHeaderViewColumnView?
                     var repsSubview: LiftTableHeaderViewColumnView?
                     
                     beforeEach {
-                        setSubview = view?.arrangedSubviews[0] as? LiftTableHeaderViewColumnView
-                        weightSubview = view?.arrangedSubviews[1] as? LiftTableHeaderViewColumnView
-                        repsSubview = view?.arrangedSubviews[2] as? LiftTableHeaderViewColumnView
-                    }
-                    
-                    it("has a 'set' component") {
-                        expect(setSubview?.textLabel?.text).to(equal("Set"))
+                        weightSubview = view?.arrangedSubviews[0] as? LiftTableHeaderViewColumnView
+                        repsSubview = view?.arrangedSubviews[1] as? LiftTableHeaderViewColumnView
                     }
                     
                     it("has a 'weight' component") {

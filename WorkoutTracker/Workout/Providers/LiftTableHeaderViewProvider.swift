@@ -6,9 +6,6 @@ public class LiftTableHeaderViewProvider {
     public func provideForLift(lift: Lift) -> UIStackView {
         let view = UIStackView()
         view.distribution = .FillEqually
-        let setView = NSBundle.mainBundle().loadNibNamed("LiftTableHeaderViewColumnView", owner: nil, options: nil)[0] as? LiftTableHeaderViewColumnView
-        setView?.textLabel?.text = "Set"
-        view.addArrangedSubview(setView!)
         
         let weightView = NSBundle.mainBundle().loadNibNamed("LiftTableHeaderViewColumnView", owner: nil, options: nil)[0] as? LiftTableHeaderViewColumnView
         weightView?.textLabel?.text = "Weight"

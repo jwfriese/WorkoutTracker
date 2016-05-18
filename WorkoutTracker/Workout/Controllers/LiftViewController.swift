@@ -29,6 +29,7 @@ public class LiftViewController: UIViewController {
     }
     
     @IBAction public func addSet() {
+        setInEditing = nil
         self.performSegueWithIdentifier("PresentModalSetEditForm", sender: nil)
     }
     
@@ -40,12 +41,12 @@ public class LiftViewController: UIViewController {
     
     override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "PresentModalSetEditForm" {
-            if let setEditFormViewController = segue.destinationViewController as? SetEditFormViewController {
+            if let setEditModalViewController = segue.destinationViewController as? SetEditModalViewController {
                 
-                setEditFormViewController.delegate = self
+                setEditModalViewController.delegate = self
                 if let sentSet = sender as? LiftSet {
                     setInEditing = sentSet
-                    setEditFormViewController.set = sentSet
+                    setEditModalViewController.set = sentSet
                 }
             }
         } else if segue.identifier == "ShowViewLastLift" {
@@ -60,21 +61,25 @@ public class LiftViewController: UIViewController {
     }
 }
 
-extension LiftViewController: SetEditFormDelegate {
+extension LiftViewController: SetEditDelegate {
+    public var liftDataTemplate: LiftDataTemplate {
+        get {
+            return lift.dataTemplate
+        }
+    }
+    
     public var lastSetEntered: LiftSet? {
         get {
             return lift.sets.last
         }
     }
     
-    public func setEnteredWithWeight(weight: Double, reps: Int) {
+    public func setEnteredWithData(data: [String : AnyObject]) {
         if let editedSet = setInEditing {
-            editedSet.performedWeight = weight
-            editedSet.performedReps = reps
+            editedSet.data = data
             setInEditing = nil
         } else {
-            lift.addSet(LiftSet(withTargetWeight: nil, performedWeight: weight,
-                targetReps: nil, performedReps: reps))
+            lift.addSet(LiftSet(withDataTemplate: lift.dataTemplate, data: data))
         }
         
         workoutSaveAgent.save(lift.workout!)
@@ -98,7 +103,7 @@ extension LiftViewController: UITableViewDataSource {
     
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(LiftSetTableViewCell.name, forIndexPath: indexPath) as! LiftSetTableViewCell
-        cell.configureWithSet(lift.sets[indexPath.row], setNumber: (indexPath.row + 1))
+        cell.configureWithSet(lift.sets[indexPath.row])
         if isReadonly {
             cell.selectionStyle = .None
         }

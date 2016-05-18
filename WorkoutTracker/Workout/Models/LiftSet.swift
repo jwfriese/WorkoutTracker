@@ -1,18 +1,13 @@
 import Foundation
 
 public class LiftSet {
-    public var targetWeight: Double?
-    public var performedWeight: Double
-    public var targetReps: Int?
-    public var performedReps: Int
-    
-    public var lift: Lift?
-    
-    public init(withTargetWeight targetWeight: Double?, performedWeight: Double,
-        targetReps: Int?, performedReps: Int) {
-            self.targetWeight = targetWeight
-            self.performedWeight = performedWeight
-            self.targetReps = targetReps
-            self.performedReps = performedReps
-    }
+        public private(set) var dataTemplate: LiftDataTemplate!
+        public var data: [String : AnyObject]!
+
+        public var lift: Lift?
+
+        public init(withDataTemplate dataTemplate: LiftDataTemplate, data: [String : AnyObject]) {
+                self.dataTemplate = dataTemplate
+                self.data = data
+        }
 }
