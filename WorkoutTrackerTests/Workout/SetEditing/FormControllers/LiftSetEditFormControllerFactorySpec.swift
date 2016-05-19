@@ -10,13 +10,19 @@ class LiftSetEditFormControllerFactorySpec: QuickSpec {
             var mockControllerContainer: Container!
             
             var mockWeightRepsController: WeightRepsEditFormViewController!
+            var mockHeightRepsController: HeightRepsEditFormViewController!
             
             beforeEach {
                 mockControllerContainer = Container()
                 
                 mockWeightRepsController = WeightRepsEditFormViewController()
+                mockHeightRepsController = HeightRepsEditFormViewController()
                 mockControllerContainer.register(WeightRepsEditFormViewController.self) { resolver in
                     return mockWeightRepsController
+                }
+                
+                mockControllerContainer.register(HeightRepsEditFormViewController.self) { resolver in
+                    return mockHeightRepsController
                 }
                 
                 subject = LiftSetEditFormControllerFactory(withControllerContainer: mockControllerContainer)
@@ -32,6 +38,16 @@ class LiftSetEditFormControllerFactorySpec: QuickSpec {
                     
                     it("is the appropriate type") {
                         expect(controller as? WeightRepsEditFormViewController).to(beIdenticalTo(mockWeightRepsController))
+                    }
+                }
+                
+                context("For Height/Reps template") {
+                    beforeEach {
+                        controller = subject.controllerForTemplate(.HeightReps)
+                    }
+                    
+                    it("is the appropriate type") {
+                        expect(controller as? HeightRepsEditFormViewController).to(beIdenticalTo(mockHeightRepsController))
                     }
                 }
             }

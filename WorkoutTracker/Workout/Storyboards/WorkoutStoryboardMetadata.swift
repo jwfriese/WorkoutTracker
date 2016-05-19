@@ -109,6 +109,7 @@ public class WorkoutStoryboardMetadata: SwinjectStoryboardMetadata {
             }
             
             WeightRepsEditFormViewController.registerForInjection(container)
+            HeightRepsEditFormViewController.registerForInjection(container)
             
             container.register(LiftSetEditFormControllerFactory.self) { resolver in
                 return LiftSetEditFormControllerFactory(withControllerContainer: container)
@@ -136,8 +137,4 @@ public class WorkoutStoryboardMetadata: SwinjectStoryboardMetadata {
             return container
         }
     }
-    
-    //        public func injectDependencies(instance: LiftEntryFormViewController) {
-    //                instance.liftTemplatePickerViewModel = container.resolve(LiftTemplatePickerViewModel.self)
-    //        }
 }

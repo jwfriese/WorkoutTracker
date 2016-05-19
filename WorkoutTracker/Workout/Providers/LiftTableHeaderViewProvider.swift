@@ -7,14 +7,27 @@ public class LiftTableHeaderViewProvider {
         let view = UIStackView()
         view.distribution = .FillEqually
         
-        let weightView = NSBundle.mainBundle().loadNibNamed("LiftTableHeaderViewColumnView", owner: nil, options: nil)[0] as? LiftTableHeaderViewColumnView
-        weightView?.textLabel?.text = "Weight"
-        view.addArrangedSubview(weightView!)
+        var subviews = [UIView]()
+        switch (lift.dataTemplate as LiftDataTemplate) {
+        case .WeightReps:
+            subviews.append(createViewWithLabel("Weight"))
+            subviews.append(createViewWithLabel("Reps"))
+        case .HeightReps:
+            subviews.append(createViewWithLabel("Height"))
+            subviews.append(createViewWithLabel("Reps"))
+        default: break
+        }
         
-        let repsView = NSBundle.mainBundle().loadNibNamed("LiftTableHeaderViewColumnView", owner: nil, options: nil)[0] as? LiftTableHeaderViewColumnView
-        repsView?.textLabel?.text = "Reps"
-        view.addArrangedSubview(repsView!)
+        for subview in subviews {
+            view.addArrangedSubview(subview)
+        }
         
         return view
+    }
+    
+    private func createViewWithLabel(label: String) -> UIView {
+        let view = NSBundle.mainBundle().loadNibNamed("LiftTableHeaderViewColumnView", owner: nil, options: nil)[0] as? LiftTableHeaderViewColumnView
+        view?.textLabel?.text = label
+        return view!
     }
 }

@@ -9,9 +9,13 @@ public class LiftSetEditFormControllerFactory {
     }
     
     public func controllerForTemplate(template: LiftDataTemplate) -> LiftSetEditFormController? {
-        
-        let controller = controllerContainer.resolve(WeightRepsEditFormViewController.self)
-        
-        return controller
+        switch (template) {
+        case .WeightReps:
+            return controllerContainer.resolve(WeightRepsEditFormViewController.self)
+        case .HeightReps:
+            return controllerContainer.resolve(HeightRepsEditFormViewController.self)
+        default:
+            return nil
+        }
     }
 }
