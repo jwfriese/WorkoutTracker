@@ -81,7 +81,6 @@
     
     private func hideAddPreviousButton() {
         addPreviousButton?.hidden = true
-        contentView?.removeConstraint(formSubmitButtonModalBottomConstraint!)
         contentView?.removeConstraint(formSubmitButtonAddPreviousConstraint!)
         contentView?.removeConstraint(formContainerAddPreviousConstraint!)
         formSubmitButton?.topAnchor.constraintEqualToAnchor(formContainerView?.bottomAnchor, constant: 0).active = true
