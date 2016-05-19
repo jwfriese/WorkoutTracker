@@ -114,6 +114,41 @@ class LiftTableHeaderViewProviderSpec: QuickSpec {
                         }
                     }
                 }
+                
+                context("When the lift template is Weight/Reps") {
+                    beforeEach {
+                        lift = Lift(withName: "", dataTemplate: .WeightTimeInSeconds)
+                        
+                        view = subject.provideForLift(lift!)
+                    }
+                    
+                    it("has two subviews") {
+                        expect(view?.arrangedSubviews.count).to(equal(2))
+                    }
+                    
+                    it("spaces the subviews evenly") {
+                        expect(view?.distribution).to(equal(UIStackViewDistribution.FillEqually))
+                    }
+                    
+                    // given("has two subviews")
+                    describe("the two subviews") {
+                        var weightSubview: LiftTableHeaderViewColumnView?
+                        var repsSubview: LiftTableHeaderViewColumnView?
+                        
+                        beforeEach {
+                            weightSubview = view?.arrangedSubviews[0] as? LiftTableHeaderViewColumnView
+                            repsSubview = view?.arrangedSubviews[1] as? LiftTableHeaderViewColumnView
+                        }
+                        
+                        it("has a 'weight' component") {
+                            expect(weightSubview?.textLabel?.text).to(equal("Weight"))
+                        }
+                        
+                        it("has a 'time(sec)' component") {
+                            expect(repsSubview?.textLabel?.text).to(equal("Time(sec)"))
+                        }
+                    }
+                }
             }
         }
     }

@@ -111,6 +111,7 @@ public class WorkoutStoryboardMetadata: SwinjectStoryboardMetadata {
             WeightRepsEditFormViewController.registerForInjection(container)
             HeightRepsEditFormViewController.registerForInjection(container)
             TimeInSecondsEditFormViewController.registerForInjection(container)
+            WeightTimeInSecondsEditFormViewController.registerForInjection(container)
             
             container.register(LiftSetEditFormControllerFactory.self) { resolver in
                 return LiftSetEditFormControllerFactory(withControllerContainer: container)

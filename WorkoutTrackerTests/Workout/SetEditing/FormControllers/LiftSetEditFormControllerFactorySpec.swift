@@ -12,6 +12,7 @@ class LiftSetEditFormControllerFactorySpec: QuickSpec {
             var mockWeightRepsController: WeightRepsEditFormViewController!
             var mockHeightRepsController: HeightRepsEditFormViewController!
             var mockTimeInSecondsController: TimeInSecondsEditFormViewController!
+            var mockWeightTimeInSecondsController: WeightTimeInSecondsEditFormViewController!
             
             beforeEach {
                 mockControllerContainer = Container()
@@ -19,6 +20,8 @@ class LiftSetEditFormControllerFactorySpec: QuickSpec {
                 mockWeightRepsController = WeightRepsEditFormViewController()
                 mockHeightRepsController = HeightRepsEditFormViewController()
                 mockTimeInSecondsController = TimeInSecondsEditFormViewController()
+                mockWeightTimeInSecondsController = WeightTimeInSecondsEditFormViewController()
+                
                 mockControllerContainer.register(WeightRepsEditFormViewController.self) { resolver in
                     return mockWeightRepsController
                 }
@@ -29,6 +32,10 @@ class LiftSetEditFormControllerFactorySpec: QuickSpec {
                 
                 mockControllerContainer.register(TimeInSecondsEditFormViewController.self) { resolver in
                     return mockTimeInSecondsController
+                }
+                
+                mockControllerContainer.register(WeightTimeInSecondsEditFormViewController.self) { resolver in
+                    return mockWeightTimeInSecondsController
                 }
                 
                 subject = LiftSetEditFormControllerFactory(withControllerContainer: mockControllerContainer)
@@ -64,6 +71,16 @@ class LiftSetEditFormControllerFactorySpec: QuickSpec {
                     
                     it("is the appropriate type") {
                         expect(controller as? TimeInSecondsEditFormViewController).to(beIdenticalTo(mockTimeInSecondsController))
+                    }
+                }
+                
+                context("For Weight/TimeInSeconds template") {
+                    beforeEach {
+                        controller = subject.controllerForTemplate(.WeightTimeInSeconds)
+                    }
+                    
+                    it("is the appropriate type") {
+                        expect(controller as? WeightTimeInSecondsEditFormViewController).to(beIdenticalTo(mockWeightTimeInSecondsController))
                     }
                 }
             }

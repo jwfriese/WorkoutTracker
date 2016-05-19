@@ -28,6 +28,9 @@
 		7B5B6ADC1CEDF4DE0038312B /* TimeInSecondsEditFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5B6ADB1CEDF4DE0038312B /* TimeInSecondsEditFormViewController.swift */; };
 		7B5B6ADE1CEDF5000038312B /* TimeInSecondsEditFormViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B5B6ADD1CEDF5000038312B /* TimeInSecondsEditFormViewController.xib */; };
 		7B5B6AE11CEDF56C0038312B /* TimeInSecondsEditFormViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5B6AE01CEDF56C0038312B /* TimeInSecondsEditFormViewControllerSpec.swift */; };
+		7B5B6AE41CEDF93A0038312B /* WeightTimeInSecondsEditFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5B6AE31CEDF93A0038312B /* WeightTimeInSecondsEditFormViewController.swift */; };
+		7B5B6AE61CEDF95D0038312B /* WeightTimeInSecondsEditFormViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B5B6AE51CEDF95D0038312B /* WeightTimeInSecondsEditFormViewController.xib */; };
+		7B5B6AE91CEDF9E50038312B /* WeightTimeInSecondsEditFormViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5B6AE81CEDF9E50038312B /* WeightTimeInSecondsEditFormViewControllerSpec.swift */; };
 		7B6AC0A61C712AAB0063F667 /* AppDelegateSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6AC0A51C712AAB0063F667 /* AppDelegateSpec.swift */; };
 		7B6AC0AC1C74D5E50063F667 /* TestNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6AC0AB1C74D5E50063F667 /* TestNavigationController.swift */; };
 		7B6AC0B91C76253F0063F667 /* VisualTreeWalker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6AC0B81C76253F0063F667 /* VisualTreeWalker.swift */; };
@@ -155,6 +158,9 @@
 		7B5B6ADB1CEDF4DE0038312B /* TimeInSecondsEditFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeInSecondsEditFormViewController.swift; sourceTree = "<group>"; };
 		7B5B6ADD1CEDF5000038312B /* TimeInSecondsEditFormViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimeInSecondsEditFormViewController.xib; sourceTree = "<group>"; };
 		7B5B6AE01CEDF56C0038312B /* TimeInSecondsEditFormViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeInSecondsEditFormViewControllerSpec.swift; sourceTree = "<group>"; };
+		7B5B6AE31CEDF93A0038312B /* WeightTimeInSecondsEditFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeightTimeInSecondsEditFormViewController.swift; sourceTree = "<group>"; };
+		7B5B6AE51CEDF95D0038312B /* WeightTimeInSecondsEditFormViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeightTimeInSecondsEditFormViewController.xib; sourceTree = "<group>"; };
+		7B5B6AE81CEDF9E50038312B /* WeightTimeInSecondsEditFormViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WeightTimeInSecondsEditFormViewControllerSpec.swift; path = WeightTimeInSeconds/WeightTimeInSecondsEditFormViewControllerSpec.swift; sourceTree = "<group>"; };
 		7B6AC0A51C712AAB0063F667 /* AppDelegateSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateSpec.swift; sourceTree = "<group>"; };
 		7B6AC0AB1C74D5E50063F667 /* TestNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestNavigationController.swift; sourceTree = "<group>"; };
 		7B6AC0B81C76253F0063F667 /* VisualTreeWalker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualTreeWalker.swift; sourceTree = "<group>"; };
@@ -356,6 +362,7 @@
 		7B4620DA1CE211DA0076278B /* FormControllers */ = {
 			isa = PBXGroup;
 			children = (
+				7B5B6AE21CEDF90A0038312B /* WeightTimeInSeconds */,
 				7B5B6ADA1CEDF4AF0038312B /* TimeInSeconds */,
 				7B5B6AD21CEDE7EF0038312B /* HeightReps */,
 				7B5B6AC71CE76CA20038312B /* WeightReps */,
@@ -368,6 +375,7 @@
 		7B4620DD1CE212300076278B /* FormControllers */ = {
 			isa = PBXGroup;
 			children = (
+				7B5B6AE71CEDF9C50038312B /* WeightTimeInSeconds */,
 				7B5B6ADF1CEDF5410038312B /* TimeInSeconds */,
 				7B5B6AD71CEDE8730038312B /* HeightReps */,
 				7B5B6AC81CE76D030038312B /* WeightReps */,
@@ -433,6 +441,23 @@
 				7B5B6AE01CEDF56C0038312B /* TimeInSecondsEditFormViewControllerSpec.swift */,
 			);
 			path = TimeInSeconds;
+			sourceTree = "<group>";
+		};
+		7B5B6AE21CEDF90A0038312B /* WeightTimeInSeconds */ = {
+			isa = PBXGroup;
+			children = (
+				7B5B6AE31CEDF93A0038312B /* WeightTimeInSecondsEditFormViewController.swift */,
+				7B5B6AE51CEDF95D0038312B /* WeightTimeInSecondsEditFormViewController.xib */,
+			);
+			path = WeightTimeInSeconds;
+			sourceTree = "<group>";
+		};
+		7B5B6AE71CEDF9C50038312B /* WeightTimeInSeconds */ = {
+			isa = PBXGroup;
+			children = (
+				7B5B6AE81CEDF9E50038312B /* WeightTimeInSecondsEditFormViewControllerSpec.swift */,
+			);
+			name = WeightTimeInSeconds;
 			sourceTree = "<group>";
 		};
 		7B6AC0AA1C74D5E50063F667 /* TestMocks */ = {
@@ -887,6 +912,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B5B6AE61CEDF95D0038312B /* WeightTimeInSecondsEditFormViewController.xib in Resources */,
 				7B5B6ADE1CEDF5000038312B /* TimeInSecondsEditFormViewController.xib in Resources */,
 				7BB90D821C890A9D007D365E /* Workout.storyboard in Resources */,
 				7B5B6AD61CEDE8470038312B /* HeightRepsEditFormViewController.xib in Resources */,
@@ -977,6 +1003,7 @@
 				7B4620DC1CE212080076278B /* WeightRepsEditFormViewController.swift in Sources */,
 				7B5B6AD11CE8C1670038312B /* LiftTableViewCellColumnView.swift in Sources */,
 				7BB90DDE1C8B8DF6007D365E /* LiftSetDeserializer.swift in Sources */,
+				7B5B6AE41CEDF93A0038312B /* WeightTimeInSecondsEditFormViewController.swift in Sources */,
 				7BB90D881C890A9D007D365E /* Workout.swift in Sources */,
 				7BA90AA21CBF24A40040B031 /* LiftTableHeaderViewColumnView.swift in Sources */,
 				7BB90DB41C890B57007D365E /* WorkoutSerializer.swift in Sources */,
@@ -1034,6 +1061,7 @@
 				7B6AC0CB1C7A30100063F667 /* LocalStorageWorkerSpec.swift in Sources */,
 				7B73E0921CCFB7EE007781B5 /* LiftSetJSONValidatorSpec.swift in Sources */,
 				7BB90DA91C890AAA007D365E /* WorkoutSpec.swift in Sources */,
+				7B5B6AE91CEDF9E50038312B /* WeightTimeInSecondsEditFormViewControllerSpec.swift in Sources */,
 				7B73E0901CCD2A60007781B5 /* LiftDataTemplateSpec.swift in Sources */,
 				7BA92C2D1C9F0F24009A81E3 /* StartupViewControllerSpec.swift in Sources */,
 				7BB90DA61C890AAA007D365E /* WorkoutStoryboardMetadataSpec.swift in Sources */,

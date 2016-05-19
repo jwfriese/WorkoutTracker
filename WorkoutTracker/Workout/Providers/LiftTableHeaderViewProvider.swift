@@ -17,7 +17,9 @@ public class LiftTableHeaderViewProvider {
             subviews.append(createViewWithLabel("Reps"))
         case .TimeInSeconds:
             subviews.append(createViewWithLabel("Time(sec)"))
-        default: break
+        case .WeightTimeInSeconds:
+            subviews.append(createViewWithLabel("Weight"))
+            subviews.append(createViewWithLabel("Time(sec)"))
         }
         
         for subview in subviews {
