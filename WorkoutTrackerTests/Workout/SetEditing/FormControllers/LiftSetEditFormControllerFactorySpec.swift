@@ -11,18 +11,24 @@ class LiftSetEditFormControllerFactorySpec: QuickSpec {
             
             var mockWeightRepsController: WeightRepsEditFormViewController!
             var mockHeightRepsController: HeightRepsEditFormViewController!
+            var mockTimeInSecondsController: TimeInSecondsEditFormViewController!
             
             beforeEach {
                 mockControllerContainer = Container()
                 
                 mockWeightRepsController = WeightRepsEditFormViewController()
                 mockHeightRepsController = HeightRepsEditFormViewController()
+                mockTimeInSecondsController = TimeInSecondsEditFormViewController()
                 mockControllerContainer.register(WeightRepsEditFormViewController.self) { resolver in
                     return mockWeightRepsController
                 }
                 
                 mockControllerContainer.register(HeightRepsEditFormViewController.self) { resolver in
                     return mockHeightRepsController
+                }
+                
+                mockControllerContainer.register(TimeInSecondsEditFormViewController.self) { resolver in
+                    return mockTimeInSecondsController
                 }
                 
                 subject = LiftSetEditFormControllerFactory(withControllerContainer: mockControllerContainer)
@@ -48,6 +54,16 @@ class LiftSetEditFormControllerFactorySpec: QuickSpec {
                     
                     it("is the appropriate type") {
                         expect(controller as? HeightRepsEditFormViewController).to(beIdenticalTo(mockHeightRepsController))
+                    }
+                }
+                
+                context("For TimeInSeconds template") {
+                    beforeEach {
+                        controller = subject.controllerForTemplate(.TimeInSeconds)
+                    }
+                    
+                    it("is the appropriate type") {
+                        expect(controller as? TimeInSecondsEditFormViewController).to(beIdenticalTo(mockTimeInSecondsController))
                     }
                 }
             }

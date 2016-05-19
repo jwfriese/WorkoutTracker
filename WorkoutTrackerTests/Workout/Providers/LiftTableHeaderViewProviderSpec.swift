@@ -85,6 +85,35 @@ class LiftTableHeaderViewProviderSpec: QuickSpec {
                         }
                     }
                 }
+                
+                context("When the lift template is TimeInSeconds") {
+                    beforeEach {
+                        lift = Lift(withName: "", dataTemplate: .TimeInSeconds)
+                        
+                        view = subject.provideForLift(lift!)
+                    }
+                    
+                    it("has one subview") {
+                        expect(view?.arrangedSubviews.count).to(equal(1))
+                    }
+                    
+                    it("spaces the subviews evenly") {
+                        expect(view?.distribution).to(equal(UIStackViewDistribution.FillEqually))
+                    }
+                    
+                    // given("has one subview")
+                    describe("the one subview") {
+                        var timeInSecondsSubview: LiftTableHeaderViewColumnView?
+                        
+                        beforeEach {
+                            timeInSecondsSubview = view?.arrangedSubviews[0] as? LiftTableHeaderViewColumnView
+                        }
+                        
+                        it("has a 'Time(sec)' component") {
+                            expect(timeInSecondsSubview?.textLabel?.text).to(equal("Time(sec)"))
+                        }
+                    }
+                }
             }
         }
     }

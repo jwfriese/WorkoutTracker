@@ -25,6 +25,9 @@
 		7B5B6AD41CEDE8310038312B /* HeightRepsEditFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5B6AD31CEDE8310038312B /* HeightRepsEditFormViewController.swift */; };
 		7B5B6AD61CEDE8470038312B /* HeightRepsEditFormViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B5B6AD51CEDE8470038312B /* HeightRepsEditFormViewController.xib */; };
 		7B5B6AD91CEDE88D0038312B /* HeightRepsEditFormViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5B6AD81CEDE88D0038312B /* HeightRepsEditFormViewControllerSpec.swift */; };
+		7B5B6ADC1CEDF4DE0038312B /* TimeInSecondsEditFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5B6ADB1CEDF4DE0038312B /* TimeInSecondsEditFormViewController.swift */; };
+		7B5B6ADE1CEDF5000038312B /* TimeInSecondsEditFormViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B5B6ADD1CEDF5000038312B /* TimeInSecondsEditFormViewController.xib */; };
+		7B5B6AE11CEDF56C0038312B /* TimeInSecondsEditFormViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5B6AE01CEDF56C0038312B /* TimeInSecondsEditFormViewControllerSpec.swift */; };
 		7B6AC0A61C712AAB0063F667 /* AppDelegateSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6AC0A51C712AAB0063F667 /* AppDelegateSpec.swift */; };
 		7B6AC0AC1C74D5E50063F667 /* TestNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6AC0AB1C74D5E50063F667 /* TestNavigationController.swift */; };
 		7B6AC0B91C76253F0063F667 /* VisualTreeWalker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6AC0B81C76253F0063F667 /* VisualTreeWalker.swift */; };
@@ -149,6 +152,9 @@
 		7B5B6AD31CEDE8310038312B /* HeightRepsEditFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeightRepsEditFormViewController.swift; sourceTree = "<group>"; };
 		7B5B6AD51CEDE8470038312B /* HeightRepsEditFormViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeightRepsEditFormViewController.xib; sourceTree = "<group>"; };
 		7B5B6AD81CEDE88D0038312B /* HeightRepsEditFormViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeightRepsEditFormViewControllerSpec.swift; sourceTree = "<group>"; };
+		7B5B6ADB1CEDF4DE0038312B /* TimeInSecondsEditFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeInSecondsEditFormViewController.swift; sourceTree = "<group>"; };
+		7B5B6ADD1CEDF5000038312B /* TimeInSecondsEditFormViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimeInSecondsEditFormViewController.xib; sourceTree = "<group>"; };
+		7B5B6AE01CEDF56C0038312B /* TimeInSecondsEditFormViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeInSecondsEditFormViewControllerSpec.swift; sourceTree = "<group>"; };
 		7B6AC0A51C712AAB0063F667 /* AppDelegateSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateSpec.swift; sourceTree = "<group>"; };
 		7B6AC0AB1C74D5E50063F667 /* TestNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestNavigationController.swift; sourceTree = "<group>"; };
 		7B6AC0B81C76253F0063F667 /* VisualTreeWalker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualTreeWalker.swift; sourceTree = "<group>"; };
@@ -350,6 +356,7 @@
 		7B4620DA1CE211DA0076278B /* FormControllers */ = {
 			isa = PBXGroup;
 			children = (
+				7B5B6ADA1CEDF4AF0038312B /* TimeInSeconds */,
 				7B5B6AD21CEDE7EF0038312B /* HeightReps */,
 				7B5B6AC71CE76CA20038312B /* WeightReps */,
 				7B4620E01CE215700076278B /* LiftSetEditFormController.swift */,
@@ -361,6 +368,7 @@
 		7B4620DD1CE212300076278B /* FormControllers */ = {
 			isa = PBXGroup;
 			children = (
+				7B5B6ADF1CEDF5410038312B /* TimeInSeconds */,
 				7B5B6AD71CEDE8730038312B /* HeightReps */,
 				7B5B6AC81CE76D030038312B /* WeightReps */,
 				7BD8525F1CE21AEA00F77FEF /* LiftSetEditFormControllerFactorySpec.swift */,
@@ -408,6 +416,23 @@
 				7B5B6AD81CEDE88D0038312B /* HeightRepsEditFormViewControllerSpec.swift */,
 			);
 			path = HeightReps;
+			sourceTree = "<group>";
+		};
+		7B5B6ADA1CEDF4AF0038312B /* TimeInSeconds */ = {
+			isa = PBXGroup;
+			children = (
+				7B5B6ADB1CEDF4DE0038312B /* TimeInSecondsEditFormViewController.swift */,
+				7B5B6ADD1CEDF5000038312B /* TimeInSecondsEditFormViewController.xib */,
+			);
+			path = TimeInSeconds;
+			sourceTree = "<group>";
+		};
+		7B5B6ADF1CEDF5410038312B /* TimeInSeconds */ = {
+			isa = PBXGroup;
+			children = (
+				7B5B6AE01CEDF56C0038312B /* TimeInSecondsEditFormViewControllerSpec.swift */,
+			);
+			path = TimeInSeconds;
 			sourceTree = "<group>";
 		};
 		7B6AC0AA1C74D5E50063F667 /* TestMocks */ = {
@@ -862,6 +887,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B5B6ADE1CEDF5000038312B /* TimeInSecondsEditFormViewController.xib in Resources */,
 				7BB90D821C890A9D007D365E /* Workout.storyboard in Resources */,
 				7B5B6AD61CEDE8470038312B /* HeightRepsEditFormViewController.xib in Resources */,
 				7BB90D8F1C890A9D007D365E /* LiftSetTableViewCell.xib in Resources */,
@@ -928,6 +954,7 @@
 			files = (
 				7B6AC0D61C7A5F9A0063F667 /* SwinjectStoryboardMetadata.swift in Sources */,
 				7B8E7ECE1C9E0225008BF7B0 /* LiftHistoryIndexBuilder.swift in Sources */,
+				7B5B6ADC1CEDF4DE0038312B /* TimeInSecondsEditFormViewController.swift in Sources */,
 				7BB90D841C890A9D007D365E /* WorkoutListStoryboardMetadata.swift in Sources */,
 				7BA90A7A1CB6977B0040B031 /* ArrayExtension.swift in Sources */,
 				7BB90D8E1C890A9D007D365E /* LiftSetTableViewCell.swift in Sources */,
@@ -1001,6 +1028,7 @@
 				7B8E7ED81C9E04C3008BF7B0 /* LiftHistoryIndexBuilderSpec.swift in Sources */,
 				7B8E7ED61C9E0495008BF7B0 /* MigrationAgentSpec.swift in Sources */,
 				7BB90D3C1C7E10BC007D365E /* TestAppDelegate.swift in Sources */,
+				7B5B6AE11CEDF56C0038312B /* TimeInSecondsEditFormViewControllerSpec.swift in Sources */,
 				7B6AC0AC1C74D5E50063F667 /* TestNavigationController.swift in Sources */,
 				7B5B6AD91CEDE88D0038312B /* HeightRepsEditFormViewControllerSpec.swift in Sources */,
 				7B6AC0CB1C7A30100063F667 /* LocalStorageWorkerSpec.swift in Sources */,

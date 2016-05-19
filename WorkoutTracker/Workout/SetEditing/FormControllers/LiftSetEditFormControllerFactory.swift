@@ -14,6 +14,8 @@ public class LiftSetEditFormControllerFactory {
             return controllerContainer.resolve(WeightRepsEditFormViewController.self)
         case .HeightReps:
             return controllerContainer.resolve(HeightRepsEditFormViewController.self)
+        case .TimeInSeconds:
+            return controllerContainer.resolve(TimeInSecondsEditFormViewController.self)
         default:
             return nil
         }

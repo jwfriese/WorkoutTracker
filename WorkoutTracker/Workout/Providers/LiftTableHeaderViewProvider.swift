@@ -15,6 +15,8 @@ public class LiftTableHeaderViewProvider {
         case .HeightReps:
             subviews.append(createViewWithLabel("Height"))
             subviews.append(createViewWithLabel("Reps"))
+        case .TimeInSeconds:
+            subviews.append(createViewWithLabel("Time(sec)"))
         default: break
         }
         
