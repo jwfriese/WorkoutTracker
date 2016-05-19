@@ -460,6 +460,22 @@
 			name = WeightTimeInSeconds;
 			sourceTree = "<group>";
 		};
+		7B5B6AEA1CEDFE7B0038312B /* LiftEntry */ = {
+			isa = PBXGroup;
+			children = (
+				7BB90D761C890A9D007D365E /* LiftEntryFormViewController.swift */,
+			);
+			path = LiftEntry;
+			sourceTree = "<group>";
+		};
+		7B5B6AEB1CEDFEE10038312B /* LiftEntry */ = {
+			isa = PBXGroup;
+			children = (
+				7BB90D9C1C890AAA007D365E /* LiftEntryFormViewControllerSpec.swift */,
+			);
+			path = LiftEntry;
+			sourceTree = "<group>";
+		};
 		7B6AC0AA1C74D5E50063F667 /* TestMocks */ = {
 			isa = PBXGroup;
 			children = (
@@ -471,6 +487,7 @@
 		7B6AC0AD1C74D7380063F667 /* Workout */ = {
 			isa = PBXGroup;
 			children = (
+				7B5B6AEA1CEDFE7B0038312B /* LiftEntry */,
 				7B4620D41CE211950076278B /* SetEditing */,
 				7B73E0891CC48A3F007781B5 /* ViewModels */,
 				7BA90AA01CBF24680040B031 /* CustomViews */,
@@ -488,6 +505,7 @@
 		7B6AC0B21C74D7CA0063F667 /* Workout */ = {
 			isa = PBXGroup;
 			children = (
+				7B5B6AEB1CEDFEE10038312B /* LiftEntry */,
 				7B4620D71CE211B00076278B /* SetEditing */,
 				7B73E0861CC489AE007781B5 /* ViewModels */,
 				7BA90A9D1CBE8BCB0040B031 /* Providers */,
@@ -711,7 +729,6 @@
 		7BB90D751C890A9D007D365E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7BB90D761C890A9D007D365E /* LiftEntryFormViewController.swift */,
 				7BB90D771C890A9D007D365E /* LiftViewController.swift */,
 				7BB90D791C890A9D007D365E /* WorkoutListViewController.swift */,
 				7BB90D7A1C890A9D007D365E /* WorkoutViewController.swift */,
@@ -755,7 +772,6 @@
 		7BB90D9B1C890AAA007D365E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7BB90D9C1C890AAA007D365E /* LiftEntryFormViewControllerSpec.swift */,
 				7BB90D9D1C890AAA007D365E /* LiftViewControllerSpec.swift */,
 				7BB90D9F1C890AAA007D365E /* WorkoutListViewControllerSpec.swift */,
 				7BB90DA01C890AAA007D365E /* WorkoutViewControllerSpec.swift */,
