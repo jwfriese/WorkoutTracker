@@ -295,21 +295,6 @@ class WorkoutStoryboardMetadataSpec: QuickSpec {
                         expect(initialViewController?.liftDeleteAgent).toNot(beNil())
                     }
                 }
-                
-                //                                describe("Injecting dependencies into instances") {
-                //                                        describe("For a LiftEntryFormViewController") {
-                //                                                var liftEntryFormViewController: LiftEntryFormViewController!
-                //
-                //                                                beforeEach {
-                //                                                        liftEntryFormViewController = LiftEntryFormViewController()
-                //                                                        subject.injectDependencies(liftEntryFormViewController)
-                //                                                }
-                //
-                //                                                it("sets its LiftTemplatePickerViewModel") {
-                //                                                        expect(liftEntryFormViewController.liftTemplatePickerViewModel).toNot(beNil())
-                //                                                }
-                //                                        }
-                //                                }
             }
         }
     }
