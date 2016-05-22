@@ -133,16 +133,13 @@ class LiftViewControllerSpec: QuickSpec {
                     itBehavesLike("The view controller's loading behavior in all contexts")
                     
                     describe("Tapping the right nav bar item") {
-                        func action() {
-                            let navigationItem = subject.navigationItem
-                            let rightNavigationBarButtonItem = navigationItem.rightBarButtonItem!
-                            UIApplication.sharedApplication().sendAction(rightNavigationBarButtonItem.action, to: rightNavigationBarButtonItem.target, from: nil, forEvent: nil)
-                        }
-                        
                         context("When there is no previous instance of this lift") {
                             beforeEach {
                                 lift.previousInstance = nil
-                                action()
+                                
+                                let navigationItem = subject.navigationItem
+                                let rightNavigationBarButtonItem = navigationItem.rightBarButtonItem!
+                                UIApplication.sharedApplication().sendAction(rightNavigationBarButtonItem.action, to: rightNavigationBarButtonItem.target, from: nil, forEvent: nil)
                             }
                             
                             it("leaves the nav stack untouched") {
@@ -157,7 +154,10 @@ class LiftViewControllerSpec: QuickSpec {
                             beforeEach {
                                 previousLift = Lift(withName: lift.name, dataTemplate: .TimeInSeconds)
                                 lift.previousInstance = previousLift
-                                action()
+                                
+                                let navigationItem = subject.navigationItem
+                                let rightNavigationBarButtonItem = navigationItem.rightBarButtonItem!
+                                UIApplication.sharedApplication().sendAction(rightNavigationBarButtonItem.action, to: rightNavigationBarButtonItem.target, from: nil, forEvent: nil)
                                 
                                 liftViewController = navigationController.topViewController as? LiftViewController
                             }
