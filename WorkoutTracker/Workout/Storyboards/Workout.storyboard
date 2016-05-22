@@ -195,6 +195,7 @@
                         <outlet property="nameEntryInputField" destination="ssH-mZ-jZW" id="m8T-q6-Qe7"/>
                         <outlet property="selectDataButton" destination="fze-Bx-7jI" id="RH7-Uv-Tsb"/>
                         <outlet property="selectView" destination="ht8-fR-ezj" id="BkP-wG-J98"/>
+                        <segue destination="Ion-EA-Ad1" kind="presentation" identifier="PresentLiftDataTemplateEntry" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="Skm-bp-588"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UHD-uH-geU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -207,7 +208,7 @@
                 <viewControllerPlaceholder storyboardName="Workout" referencedIdentifier="LiftViewController" id="EhT-1I-OhP" userLabel="View Last Lift" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wUf-jn-oF8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2299.5" y="-707"/>
+            <point key="canvasLocation" x="2475" y="-755"/>
         </scene>
         <!--Lift View Controller-->
         <scene sceneID="pkK-6j-XN6">
@@ -374,6 +375,38 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2786" y="-71"/>
+        </scene>
+        <!--Lift Data Template Entry View Controller-->
+        <scene sceneID="cuZ-yv-Tk7">
+            <objects>
+                <viewController storyboardIdentifier="LiftDataTemplateEntryViewController" id="Ion-EA-Ad1" customClass="LiftDataTemplateEntryViewController" customModule="WorkoutTracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fPK-u5-EVh"/>
+                        <viewControllerLayoutGuide type="bottom" id="avt-Kq-7aL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vXV-ft-jMm">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qKh-4d-0Y6">
+                                <rect key="frame" x="20" y="20" width="560" height="580"/>
+                            </pickerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="qKh-4d-0Y6" secondAttribute="trailing" id="AFG-pJ-K83"/>
+                            <constraint firstItem="qKh-4d-0Y6" firstAttribute="top" secondItem="fPK-u5-EVh" secondAttribute="bottom" id="JUs-er-krb"/>
+                            <constraint firstItem="avt-Kq-7aL" firstAttribute="top" secondItem="qKh-4d-0Y6" secondAttribute="bottom" id="cgK-RM-raw"/>
+                            <constraint firstItem="qKh-4d-0Y6" firstAttribute="leading" secondItem="vXV-ft-jMm" secondAttribute="leadingMargin" id="gBB-dF-VaI"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="dataTemplatePickerView" destination="qKh-4d-0Y6" id="OQZ-pH-TS6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TQS-0i-DFp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2786" y="687"/>
         </scene>
     </scenes>
 </document>

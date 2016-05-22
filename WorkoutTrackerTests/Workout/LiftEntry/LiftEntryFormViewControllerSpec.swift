@@ -17,24 +17,15 @@ class LiftEntryFormViewControllerSpec: QuickSpec {
             }
         }
         
-        class MockLiftTemplatePickerViewModel: LiftTemplatePickerViewModel {
-            
-        }
-        
         describe("LiftEntryFormViewController") {
             var subject: LiftEntryFormViewController!
             var mockLiftEntryFormDelegate: MockLiftEntryFormDelegate!
-            var mockLiftTemplatePickerViewModel: LiftTemplatePickerViewModel!
             
             beforeEach {
                 mockLiftEntryFormDelegate = MockLiftEntryFormDelegate()
-                mockLiftTemplatePickerViewModel = MockLiftTemplatePickerViewModel()
                 
                 let storyboardMetadata = WorkoutStoryboardMetadata()
                 let container = storyboardMetadata.container
-                container.register(LiftTemplatePickerViewModel.self) { resolver in
-                    return mockLiftTemplatePickerViewModel
-                }
                 
                 let storyboard = SwinjectStoryboard.create(name: storyboardMetadata.name, bundle: nil,
                     container: container)
@@ -75,17 +66,18 @@ class LiftEntryFormViewControllerSpec: QuickSpec {
                     expect(subject.displaySelectionView?.hidden).to(beTrue())
                 }
                 
-                it("sets itself as the lift data template picker's delegate") {
-                    expect(mockLiftTemplatePickerViewModel.delegate).to(beIdenticalTo(subject))
-                }
-                
                 describe("Tapping the 'Select' button") {
                     beforeEach {
                         subject.selectDataButton?.tap()
                     }
                     
                     it("shows the lift data template picker") {
-                        expect(subject.view.subviews).to(contain(mockLiftTemplatePickerViewModel.dataTemplatePickerView))
+                        expect(subject.presentedViewController).to(beAnInstanceOf(LiftDataTemplateEntryViewController.self))
+                    }
+                    
+                    it("sets itself as the lift data template entry controller's delegate") {
+                        let liftDataTemplateEntryViewController = subject.presentedViewController as? LiftDataTemplateEntryViewController
+                        expect(liftDataTemplateEntryViewController?.delegate).to(beIdenticalTo(subject))
                     }
                     
                     // given("shows the lift data template picker", "sets itself as the lift data template picker's delegate")
@@ -97,10 +89,6 @@ class LiftEntryFormViewControllerSpec: QuickSpec {
                             
                             it("shows the data display view") {
                                 expect(subject.displaySelectionView?.hidden).to(beFalse())
-                            }
-                            
-                            it("dismisses the lift data template picker") {
-                                expect(subject.view.subviews).toNot(contain(mockLiftTemplatePickerViewModel.dataTemplatePickerView))
                             }
                         }
                         
@@ -162,7 +150,12 @@ class LiftEntryFormViewControllerSpec: QuickSpec {
                             }
                             
                             it("shows the lift data template picker") {
-                                expect(subject.view.subviews).to(contain(mockLiftTemplatePickerViewModel.dataTemplatePickerView))
+                                expect(subject.presentedViewController).to(beAnInstanceOf(LiftDataTemplateEntryViewController.self))
+                            }
+                            
+                            it("sets itself as the lift data template entry controller's delegate") {
+                                let liftDataTemplateEntryViewController = subject.presentedViewController as? LiftDataTemplateEntryViewController
+                                expect(liftDataTemplateEntryViewController?.delegate).to(beIdenticalTo(subject))
                             }
                         }
                     }

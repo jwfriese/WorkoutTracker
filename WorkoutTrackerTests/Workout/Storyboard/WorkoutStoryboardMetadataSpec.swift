@@ -40,7 +40,6 @@ class WorkoutStoryboardMetadataSpec: QuickSpec {
                     var liftSetDeserializer: LiftSetDeserializer?
                     var liftDeleteAgent: LiftDeleteAgent?
                     var liftTableHeaderViewProvider: LiftTableHeaderViewProvider?
-                    var liftTemplatePickerViewModel: LiftTemplatePickerViewModel?
                     var liftSetEditFormControllerFactory: LiftSetEditFormControllerFactory?
                     var workoutViewController: WorkoutViewController?
                     var liftViewController: LiftViewController?
@@ -62,7 +61,6 @@ class WorkoutStoryboardMetadataSpec: QuickSpec {
                         liftSetDeserializer = container.resolve(LiftSetDeserializer.self)
                         liftDeleteAgent = container.resolve(LiftDeleteAgent.self)
                         liftTableHeaderViewProvider = container.resolve(LiftTableHeaderViewProvider.self)
-                        liftTemplatePickerViewModel = container.resolve(LiftTemplatePickerViewModel.self)
                         liftSetEditFormControllerFactory = container.resolve(LiftSetEditFormControllerFactory.self)
                         
                         workoutViewController = storyboard.instantiateViewControllerWithIdentifier("WorkoutViewController") as? WorkoutViewController
@@ -127,10 +125,6 @@ class WorkoutStoryboardMetadataSpec: QuickSpec {
                         expect(liftTableHeaderViewProvider).toNot(beNil())
                     }
                     
-                    it("can produce a LiftTemplatePickerViewModel") {
-                        expect(liftTemplatePickerViewModel).toNot(beNil())
-                    }
-                    
                     it("can produce a LiftSetEditFormControllerFactory") {
                         expect(liftSetEditFormControllerFactory).toNot(beNil())
                     }
@@ -170,10 +164,6 @@ class WorkoutStoryboardMetadataSpec: QuickSpec {
                     describe("Its LiftEntryFormViewController") {
                         it("can be created") {
                             expect(liftEntryFormViewController).toNot(beNil())
-                        }
-                        
-                        it("is created with a LiftTemplatePickerViewModel") {
-                            expect(liftEntryFormViewController?.liftTemplatePickerViewModel).toNot(beNil())
                         }
                     }
                     

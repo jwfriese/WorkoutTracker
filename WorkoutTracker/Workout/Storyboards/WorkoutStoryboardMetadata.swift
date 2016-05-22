@@ -104,10 +104,6 @@ public class WorkoutStoryboardMetadata: SwinjectStoryboardMetadata {
                 return LiftTableHeaderViewProvider()
             }
             
-            container.register(LiftTemplatePickerViewModel.self) { resolver in
-                return LiftTemplatePickerViewModel()
-            }
-            
             WeightRepsEditFormViewController.registerForInjection(container)
             HeightRepsEditFormViewController.registerForInjection(container)
             TimeInSecondsEditFormViewController.registerForInjection(container)
@@ -129,7 +125,7 @@ public class WorkoutStoryboardMetadata: SwinjectStoryboardMetadata {
             }
             
             container.registerForStoryboard(LiftEntryFormViewController.self) { resolver, instance in
-                instance.liftTemplatePickerViewModel = resolver.resolve(LiftTemplatePickerViewModel.self)
+                
             }
             
             container.registerForStoryboard(SetEditModalViewController.self) { resolver, instance in

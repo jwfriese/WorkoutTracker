@@ -16,8 +16,6 @@ public class LiftEntryFormViewController: UIViewController {
     
     public var delegate: LiftEntryFormDelegate?
     
-    var liftTemplatePickerViewModel: LiftTemplatePickerViewModel!
-    
     private var selectedDataTemplate: LiftDataTemplate?
     
     override public func viewDidLoad() {
@@ -31,12 +29,17 @@ public class LiftEntryFormViewController: UIViewController {
         
         selectView?.hidden = false
         displaySelectionView?.hidden = true
-        
-        liftTemplatePickerViewModel.delegate = self
+    }
+    
+    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let dataTemplateEntryViewController = segue.destinationViewController as? LiftDataTemplateEntryViewController {
+            
+            dataTemplateEntryViewController.delegate = self
+        }
     }
     
     @IBAction private func selectDataTemplateButtonTapped() {
-        view.addSubview(liftTemplatePickerViewModel.dataTemplatePickerView)
+        self.performSegueWithIdentifier("PresentLiftDataTemplateEntry", sender: nil)
     }
     
     @IBAction private func changeDataTemplateButtonTapped() {
@@ -80,11 +83,10 @@ public class LiftEntryFormViewController: UIViewController {
     }
 }
 
-extension LiftEntryFormViewController: LiftTemplatePickerViewModelDelegate {
-    func didFinishSelectingLiftDataTemplate(liftDataTemplate: LiftDataTemplate) {
+extension LiftEntryFormViewController: LiftDataTemplateEntryDelegate {
+    public func didFinishSelectingLiftDataTemplate(liftDataTemplate: LiftDataTemplate) {
         selectView?.hidden = true
         displaySelectionView?.hidden = false
-        liftTemplatePickerViewModel.dataTemplatePickerView.removeFromSuperview()
         selectedDataTemplate = liftDataTemplate
         updateCreateButtonAvailability()
         
@@ -98,5 +100,7 @@ extension LiftEntryFormViewController: LiftTemplatePickerViewModelDelegate {
         case .HeightReps:
             displaySelectionLabel?.text = "Height/Reps"
         }
+        
+        dismissViewControllerAnimated(true, completion: nil)
     }
 }
