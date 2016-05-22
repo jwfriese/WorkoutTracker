@@ -1,6 +1,6 @@
 import UIKit
 import Swinject
-import WorkoutTracker
+@testable import WorkoutTracker
 
 class TestAppDelegate: NSObject, UIApplicationDelegate {
     var window: UIWindow?

@@ -1,6 +1,6 @@
 import Quick
 import Nimble
-import WorkoutTracker
+@testable import WorkoutTracker
 
 class LiftSetTableViewCellSpec: QuickSpec {
     override func spec() {

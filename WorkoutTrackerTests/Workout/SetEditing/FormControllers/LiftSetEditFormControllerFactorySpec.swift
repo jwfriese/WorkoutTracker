@@ -1,6 +1,6 @@
 import Quick
 import Nimble
-import WorkoutTracker
+@testable import WorkoutTracker
 import Swinject
 
 class LiftSetEditFormControllerFactorySpec: QuickSpec {

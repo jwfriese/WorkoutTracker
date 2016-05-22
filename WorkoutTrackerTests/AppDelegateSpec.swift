@@ -1,6 +1,6 @@
 import Quick
 import Nimble
-import WorkoutTracker
+@testable import WorkoutTracker
 
 class AppDelegateSpec: QuickSpec {
     override func spec() {

@@ -1,7 +1,7 @@
 import Quick
 import Nimble
 import Swinject
-import WorkoutTracker
+@testable import WorkoutTracker
 
 class StartupStoryboardMetadataSpec: QuickSpec {
         override func spec() {

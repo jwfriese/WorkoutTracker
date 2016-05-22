@@ -1,6 +1,6 @@
 import Quick
 import Nimble
-import WorkoutTracker
+@testable import WorkoutTracker
 import UIKit
 
 class WorkoutListTableViewCellSpec: QuickSpec {

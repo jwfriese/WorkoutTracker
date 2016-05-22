@@ -1,6 +1,6 @@
 import Quick
 import Nimble
-import WorkoutTracker
+@testable import WorkoutTracker
 
 func deleteIfExists(fileOrDirectoryPath: String) {
     let exists = NSFileManager.defaultManager().fileExistsAtPath(fileOrDirectoryPath,

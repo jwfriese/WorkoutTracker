@@ -1,6 +1,6 @@
 import Quick
 import Nimble
-import WorkoutTracker
+@testable import WorkoutTracker
 
 class MigrationAgentSpec: QuickSpec {
     override func spec() {

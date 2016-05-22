@@ -2,7 +2,7 @@ import Quick
 import Nimble
 import Fleet
 import Swinject
-import WorkoutTracker
+@testable import WorkoutTracker
 
 class LiftViewControllerSpec: QuickSpec {
     override func spec() {
