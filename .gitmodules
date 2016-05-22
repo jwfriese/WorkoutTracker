@@ -1,3 +1,0 @@
-[submodule "Submodules/Fleet"]
-	path = Submodules/Fleet
-	url = git@github.com:jwfriese/Fleet.git
