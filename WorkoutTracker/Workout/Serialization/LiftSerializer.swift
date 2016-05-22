@@ -1,9 +1,9 @@
 import Foundation
 
-public class LiftSerializer {
-        public init() { }
+class LiftSerializer {
+        init() { }
 
-        public func serialize(lift: Lift) -> [String : AnyObject] {
+        func serialize(lift: Lift) -> [String : AnyObject] {
                 var result = [String : AnyObject]()
                 result["name"] = lift.name
                 result["dataTemplate"] = lift.dataTemplate.rawValue

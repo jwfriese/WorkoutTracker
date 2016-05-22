@@ -1,18 +1,18 @@
 import Foundation
 
-public class MigrationAgent {
-    public private(set) var liftHistoryIndexBuilder: LiftHistoryIndexBuilder!
-    public private(set) var workoutLoadAgent: WorkoutLoadAgent!
-    public private(set) var localStorageWorker: LocalStorageWorker!
+class MigrationAgent {
+    private(set) var liftHistoryIndexBuilder: LiftHistoryIndexBuilder!
+    private(set) var workoutLoadAgent: WorkoutLoadAgent!
+    private(set) var localStorageWorker: LocalStorageWorker!
     
-    public init(withLiftHistoryIndexBuilder liftHistoryIndexBuilder: LiftHistoryIndexBuilder,
+    init(withLiftHistoryIndexBuilder liftHistoryIndexBuilder: LiftHistoryIndexBuilder,
                     workoutLoadAgent: WorkoutLoadAgent, localStorageWorker: LocalStorageWorker) {
         self.liftHistoryIndexBuilder = liftHistoryIndexBuilder
         self.workoutLoadAgent = workoutLoadAgent
         self.localStorageWorker = localStorageWorker
     }
     
-    public func performMigrationWork(completionHandler completionHandler: (() -> ())?) {
+    func performMigrationWork(completionHandler completionHandler: (() -> ())?) {
         let workouts = workoutLoadAgent.loadAllWorkouts()
         let index = liftHistoryIndexBuilder.buildIndexFromWorkouts(workouts)
         try! localStorageWorker.writeJSONDictionary(index, toFileWithName: "Indices/LiftHistory.json",

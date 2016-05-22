@@ -1,11 +1,11 @@
 import UIKit
 
-public class LiftDataTemplateEntryViewController: UIViewController {
-    @IBOutlet public weak var dataTemplatePickerView: UIPickerView?
+class LiftDataTemplateEntryViewController: UIViewController {
+    @IBOutlet weak var dataTemplatePickerView: UIPickerView?
     
-    public weak var delegate: LiftDataTemplateEntryDelegate?
+    weak var delegate: LiftDataTemplateEntryDelegate?
     
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         self.dataTemplatePickerView?.dataSource = self
         self.dataTemplatePickerView?.delegate = self
@@ -13,7 +13,7 @@ public class LiftDataTemplateEntryViewController: UIViewController {
 }
 
 extension LiftDataTemplateEntryViewController: UIPickerViewDelegate {
-    public func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
         if row >= LiftDataTemplate.allValues.count {
             return nil
@@ -23,7 +23,7 @@ extension LiftDataTemplateEntryViewController: UIPickerViewDelegate {
         return titles[row]
     }
     
-    public func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if row < LiftDataTemplate.allValues.count {
             delegate?.didFinishSelectingLiftDataTemplate(LiftDataTemplate.allValues[row])
         }
@@ -31,11 +31,11 @@ extension LiftDataTemplateEntryViewController: UIPickerViewDelegate {
 }
 
 extension LiftDataTemplateEntryViewController: UIPickerViewDataSource {
-    public func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    public func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return 4
     }
 }

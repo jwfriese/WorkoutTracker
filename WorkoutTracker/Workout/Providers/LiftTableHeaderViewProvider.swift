@@ -1,9 +1,9 @@
 import UIKit
 
-public class LiftTableHeaderViewProvider {
-    public init() { }
+class LiftTableHeaderViewProvider {
+    init() { }
     
-    public func provideForLift(lift: Lift) -> UIStackView {
+    func provideForLift(lift: Lift) -> UIStackView {
         let view = UIStackView()
         view.distribution = .FillEqually
         

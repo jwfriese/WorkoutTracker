@@ -1,24 +1,24 @@
 import UIKit
 
-public protocol LiftEntryFormDelegate {
+protocol LiftEntryFormDelegate {
     func liftEnteredWithName(name: String, dataTemplate: LiftDataTemplate)
 }
 
-public class LiftEntryFormViewController: UIViewController {
-    @IBOutlet public weak var formContentView: UIView?
-    @IBOutlet public weak var nameEntryInputField: UITextField?
-    @IBOutlet public weak var createButton: UIButton?
-    @IBOutlet public weak var selectView: UIView?
-    @IBOutlet public weak var selectDataButton: UIButton?
-    @IBOutlet public weak var displaySelectionView: UIView?
-    @IBOutlet public weak var displaySelectionLabel: UILabel?
-    @IBOutlet public weak var changeSelectionButton: UIButton?
+class LiftEntryFormViewController: UIViewController {
+    @IBOutlet weak var formContentView: UIView?
+    @IBOutlet weak var nameEntryInputField: UITextField?
+    @IBOutlet weak var createButton: UIButton?
+    @IBOutlet weak var selectView: UIView?
+    @IBOutlet weak var selectDataButton: UIButton?
+    @IBOutlet weak var displaySelectionView: UIView?
+    @IBOutlet weak var displaySelectionLabel: UILabel?
+    @IBOutlet weak var changeSelectionButton: UIButton?
     
-    public var delegate: LiftEntryFormDelegate?
+    var delegate: LiftEntryFormDelegate?
     
     private var selectedDataTemplate: LiftDataTemplate?
     
-    override public func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         formContentView?.layer.borderWidth = 2.0
@@ -31,7 +31,7 @@ public class LiftEntryFormViewController: UIViewController {
         displaySelectionView?.hidden = true
     }
     
-    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let dataTemplateEntryViewController = segue.destinationViewController as? LiftDataTemplateEntryViewController {
             
             dataTemplateEntryViewController.delegate = self
@@ -84,7 +84,7 @@ public class LiftEntryFormViewController: UIViewController {
 }
 
 extension LiftEntryFormViewController: LiftDataTemplateEntryDelegate {
-    public func didFinishSelectingLiftDataTemplate(liftDataTemplate: LiftDataTemplate) {
+    func didFinishSelectingLiftDataTemplate(liftDataTemplate: LiftDataTemplate) {
         selectView?.hidden = true
         displaySelectionView?.hidden = false
         selectedDataTemplate = liftDataTemplate

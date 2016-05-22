@@ -1,13 +1,13 @@
 import Foundation
 
-public class WorkoutDeleteAgent {
-    public private(set) var localStorageWorker: LocalStorageWorker!
+class WorkoutDeleteAgent {
+    private(set) var localStorageWorker: LocalStorageWorker!
     
-    public init(withLocalStorageWorker localStorageWorker: LocalStorageWorker?) {
+    init(withLocalStorageWorker localStorageWorker: LocalStorageWorker?) {
         self.localStorageWorker = localStorageWorker
     }
     
-    public func delete(workout: Workout) {
+    func delete(workout: Workout) {
         let workoutNameWithoutWhitespace = workout.name.stringByReplacingOccurrencesOfString(" ", withString: "")
         let fileName = "Workouts/\(String(workout.timestamp))_\(workoutNameWithoutWhitespace).json"
         

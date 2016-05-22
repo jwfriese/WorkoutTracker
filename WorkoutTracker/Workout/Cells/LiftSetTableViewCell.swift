@@ -1,13 +1,13 @@
 import UIKit
 
-public class LiftSetTableViewCell: UITableViewCell {
-    public static var name: String = "LiftSetTableViewCell"
+class LiftSetTableViewCell: UITableViewCell {
+    static var name: String = "LiftSetTableViewCell"
     
-    @IBOutlet public weak var columnStackView: UIStackView?
+    @IBOutlet weak var columnStackView: UIStackView?
     
-    public var set: LiftSet?
+    var set: LiftSet?
     
-    public override func prepareForReuse() {
+    override func prepareForReuse() {
         if let columnStackView = columnStackView {
             for arrangedSubview in columnStackView.arrangedSubviews {
                 columnStackView.removeArrangedSubview(arrangedSubview)
@@ -16,7 +16,7 @@ public class LiftSetTableViewCell: UITableViewCell {
         }
     }
     
-    public func configureWithSet(set: LiftSet) {
+    func configureWithSet(set: LiftSet) {
         self.set = set
         
         var dataStrings = [String]()

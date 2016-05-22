@@ -1,18 +1,18 @@
 import UIKit
 
-public class LiftViewController: UIViewController {
-    @IBOutlet public weak var tableView: UITableView?
-    @IBOutlet public weak var addLiftButton: UIButton?
+class LiftViewController: UIViewController {
+    @IBOutlet weak var tableView: UITableView?
+    @IBOutlet weak var addLiftButton: UIButton?
     
-    public var lift: Lift!
-    public var workoutSaveAgent: WorkoutSaveAgent!
-    public var liftTableHeaderViewProvider: LiftTableHeaderViewProvider!
+    var lift: Lift!
+    var workoutSaveAgent: WorkoutSaveAgent!
+    var liftTableHeaderViewProvider: LiftTableHeaderViewProvider!
     
-    public var isReadonly: Bool = false
+    var isReadonly: Bool = false
     
     private var setInEditing: LiftSet?
     
-    override public func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         title = lift.name
@@ -28,18 +28,18 @@ public class LiftViewController: UIViewController {
         tableView?.registerNib(UINib(nibName: LiftSetTableViewCell.name, bundle: nil), forCellReuseIdentifier: LiftSetTableViewCell.name)
     }
     
-    @IBAction public func addSet() {
+    @IBAction func addSet() {
         setInEditing = nil
         self.performSegueWithIdentifier("PresentModalSetEditForm", sender: nil)
     }
     
-    @IBAction public func viewLastLift() {
+    @IBAction func viewLastLift() {
         if let lastLift = lift.previousInstance {
             self.performSegueWithIdentifier("ShowViewLastLift", sender: lastLift)
         }
     }
     
-    override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "PresentModalSetEditForm" {
             if let setEditModalViewController = segue.destinationViewController as? SetEditModalViewController {
                 
@@ -62,19 +62,19 @@ public class LiftViewController: UIViewController {
 }
 
 extension LiftViewController: SetEditDelegate {
-    public var liftDataTemplate: LiftDataTemplate {
+    var liftDataTemplate: LiftDataTemplate {
         get {
             return lift.dataTemplate
         }
     }
     
-    public var lastSetEntered: LiftSet? {
+    var lastSetEntered: LiftSet? {
         get {
             return lift.sets.last
         }
     }
     
-    public func setEnteredWithData(data: [String : AnyObject]) {
+    func setEnteredWithData(data: [String : AnyObject]) {
         if let editedSet = setInEditing {
             editedSet.data = data
             setInEditing = nil
@@ -87,21 +87,21 @@ extension LiftViewController: SetEditDelegate {
         tableView?.reloadData()
     }
     
-    public func editCanceled() {
+    func editCanceled() {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 }
 
 extension LiftViewController: UITableViewDataSource {
-    public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
-    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return lift.sets.count
     }
     
-    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(LiftSetTableViewCell.name, forIndexPath: indexPath) as! LiftSetTableViewCell
         cell.configureWithSet(lift.sets[indexPath.row])
         if isReadonly {
@@ -111,7 +111,7 @@ extension LiftViewController: UITableViewDataSource {
         return cell
     }
     
-    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if !isReadonly {
             let set = lift.sets[indexPath.row]
             self.performSegueWithIdentifier("PresentModalSetEditForm", sender: set)
@@ -120,11 +120,11 @@ extension LiftViewController: UITableViewDataSource {
 }
 
 extension LiftViewController: UITableViewDelegate {
-    public func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return liftTableHeaderViewProvider.provideForLift(self.lift)
     }
     
-    public func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
 }

@@ -1,5 +1,6 @@
 import Quick
 import Nimble
+@testable import WorkoutTracker
 
 class ArrayExtensionSpec: QuickSpec {
     override func spec() {

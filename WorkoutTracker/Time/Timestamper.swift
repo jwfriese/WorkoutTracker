@@ -1,9 +1,9 @@
 import Foundation
 
-public class Timestamper {
-    public init() { }
+class Timestamper {
+    init() { }
     
-    public func getTimestamp() -> UInt {
+    func getTimestamp() -> UInt {
         return UInt(NSDate().timeIntervalSince1970)
     }
 }

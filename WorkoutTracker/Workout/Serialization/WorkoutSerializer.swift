@@ -1,9 +1,9 @@
 import Foundation
 
-public class WorkoutSerializer {
-    public init() { }
+class WorkoutSerializer {
+    init() { }
     
-    public func serialize(workout: Workout) -> [String : AnyObject] {
+    func serialize(workout: Workout) -> [String : AnyObject] {
         var result = [String : AnyObject]()
         result["name"] = workout.name
         result["timestamp"] = workout.timestamp

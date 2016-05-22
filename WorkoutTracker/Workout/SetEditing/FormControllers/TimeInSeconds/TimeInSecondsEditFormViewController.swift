@@ -1,12 +1,12 @@
 import UIKit
 import Swinject
 
-public class TimeInSecondsEditFormViewController: UIViewController {
-    @IBOutlet public weak var timeInSecondsEntryInputField: UITextField?
+class TimeInSecondsEditFormViewController: UIViewController {
+    @IBOutlet weak var timeInSecondsEntryInputField: UITextField?
     
     private var _delegate: SetEditFormDelegate?
     
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         if let timeNumber = delegate?.set?.data["time(sec)"] as? Double {
@@ -22,7 +22,7 @@ public class TimeInSecondsEditFormViewController: UIViewController {
 }
 
 extension TimeInSecondsEditFormViewController: Injectable {
-    public static func registerForInjection(container: Container) {
+    static func registerForInjection(container: Container) {
         container.register(TimeInSecondsEditFormViewController.self) { resolver in
             return TimeInSecondsEditFormViewController(nibName: "TimeInSecondsEditFormViewController", bundle: nil)
         }
@@ -30,13 +30,13 @@ extension TimeInSecondsEditFormViewController: Injectable {
 }
 
 extension TimeInSecondsEditFormViewController: LiftSetEditFormController {
-    public var form: UIView? {
+    var form: UIView? {
         get {
             return view
         }
     }
     
-    public var enteredLiftData: [String : AnyObject] {
+    var enteredLiftData: [String : AnyObject] {
         get {
             var data = [String : AnyObject]()
             if let time = timeInSecondsEntryInputField?.text {
@@ -49,7 +49,7 @@ extension TimeInSecondsEditFormViewController: LiftSetEditFormController {
         }
     }
     
-    public var isFormValid: Bool {
+    var isFormValid: Bool {
         get {
             if let timeText = timeInSecondsEntryInputField?.text {
                 return !timeText.isEmpty
@@ -59,7 +59,7 @@ extension TimeInSecondsEditFormViewController: LiftSetEditFormController {
         }
     }
     
-    public var delegate: SetEditFormDelegate? {
+    var delegate: SetEditFormDelegate? {
         get {
             return _delegate
         }
@@ -69,7 +69,7 @@ extension TimeInSecondsEditFormViewController: LiftSetEditFormController {
         }
     }
     
-    public func removeCursorFromFields() {
+    func removeCursorFromFields() {
         timeInSecondsEntryInputField?.resignFirstResponder()
     }
 }

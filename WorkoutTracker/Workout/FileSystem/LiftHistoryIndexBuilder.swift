@@ -1,9 +1,9 @@
 import Foundation
 
-public class LiftHistoryIndexBuilder {
-    public init() { }
+class LiftHistoryIndexBuilder {
+    init() { }
     
-    public func buildIndexFromWorkouts(workouts: [Workout]) -> [String : [UInt]] {
+    func buildIndexFromWorkouts(workouts: [Workout]) -> [String : [UInt]] {
         var index = Dictionary<String, [UInt]>()
         
         let allLifts = workouts.reduce([Lift]()) { lifts, nextWorkout in

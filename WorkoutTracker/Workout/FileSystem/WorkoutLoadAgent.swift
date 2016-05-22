@@ -1,20 +1,20 @@
 import Foundation
 
-public class WorkoutLoadAgent {
-    public private(set) var workoutDeserializer: WorkoutDeserializer!
-    public private(set) var localStorageWorker: LocalStorageWorker!
+class WorkoutLoadAgent {
+    private(set) var workoutDeserializer: WorkoutDeserializer!
+    private(set) var localStorageWorker: LocalStorageWorker!
     
-    public init(withWorkoutDeserializer workoutDeserializer: WorkoutDeserializer?,
+    init(withWorkoutDeserializer workoutDeserializer: WorkoutDeserializer?,
                                         localStorageWorker: LocalStorageWorker?) {
         self.workoutDeserializer = workoutDeserializer
         self.localStorageWorker = localStorageWorker
     }
     
-    public func loadWorkout(withIdentifier workoutIdentifier: UInt) -> Workout? {
+    func loadWorkout(withIdentifier workoutIdentifier: UInt) -> Workout? {
         return loadFromFile("Workouts/\(workoutIdentifier)_.json")
     }
     
-    public func loadAllWorkouts() -> [Workout] {
+    func loadAllWorkouts() -> [Workout] {
         let allWorkoutFiles = localStorageWorker.allFilesWithExtension(".json", recursive: false,
             startingDirectory: "Workouts")
         var workouts = [Workout]()

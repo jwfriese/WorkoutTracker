@@ -1,17 +1,17 @@
 import Foundation
 
-public class LiftLoadAgent {
-        public private(set) var liftSetDeserializer: LiftSetDeserializer!
-        public private(set) var localStorageWorker: LocalStorageWorker!
-        public private(set) var liftHistoryIndexLoader: LiftHistoryIndexLoader!
+class LiftLoadAgent {
+        private(set) var liftSetDeserializer: LiftSetDeserializer!
+        private(set) var localStorageWorker: LocalStorageWorker!
+        private(set) var liftHistoryIndexLoader: LiftHistoryIndexLoader!
 
-        public init(withLiftSetDeserializer liftSetDeserializer: LiftSetDeserializer?, localStorageWorker: LocalStorageWorker?, liftHistoryIndexLoader: LiftHistoryIndexLoader?) {
+        init(withLiftSetDeserializer liftSetDeserializer: LiftSetDeserializer?, localStorageWorker: LocalStorageWorker?, liftHistoryIndexLoader: LiftHistoryIndexLoader?) {
                 self.liftSetDeserializer = liftSetDeserializer
                 self.localStorageWorker = localStorageWorker
                 self.liftHistoryIndexLoader = liftHistoryIndexLoader
         }
 
-        public func loadLift(withName name: String, fromWorkoutWithIdentifier workoutIdentifier: UInt,
+        func loadLift(withName name: String, fromWorkoutWithIdentifier workoutIdentifier: UInt,
                                                          shouldLoadPreviousLift: Bool) -> Lift? {
                 let liftNameSnakeCase = name.stringByReplacingOccurrencesOfString(" ", withString: "_")
                 let liftFileName = "Lifts/\(liftNameSnakeCase)/\(String(workoutIdentifier)).json"
@@ -51,7 +51,7 @@ public class LiftLoadAgent {
                 return nil
         }
 
-        public func loadLatestLiftWithName(name: String) -> Lift? {
+        func loadLatestLiftWithName(name: String) -> Lift? {
                 let liftHistoryIndex = liftHistoryIndexLoader.load()
                 if let latestWorkoutIdentifier = liftHistoryIndex[name]?.last {
                         return loadLift(withName: name, fromWorkoutWithIdentifier: latestWorkoutIdentifier,

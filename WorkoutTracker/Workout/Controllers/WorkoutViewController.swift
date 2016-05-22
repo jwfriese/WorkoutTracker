@@ -1,14 +1,14 @@
 import UIKit
 
-public class WorkoutViewController: UIViewController {
-    @IBOutlet public private(set) weak var tableView: UITableView?
+class WorkoutViewController: UIViewController {
+    @IBOutlet private(set) weak var tableView: UITableView?
     
-    public var workout: Workout!
-    public var workoutSaveAgent: WorkoutSaveAgent!
-    public var liftCreator: LiftCreator!
-    public var liftDeleteAgent: LiftDeleteAgent!
+    var workout: Workout!
+    var workoutSaveAgent: WorkoutSaveAgent!
+    var liftCreator: LiftCreator!
+    var liftDeleteAgent: LiftDeleteAgent!
     
-    override public func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Workout"
@@ -18,11 +18,11 @@ public class WorkoutViewController: UIViewController {
         tableView?.registerNib(UINib(nibName: WorkoutLiftTableViewCell.name, bundle: nil), forCellReuseIdentifier: WorkoutLiftTableViewCell.name)
     }
     
-    @IBAction public func addLift() {
+    @IBAction func addLift() {
         self.performSegueWithIdentifier("PresentModalLiftEntryForm", sender: self)
     }
     
-    override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "PresentModalLiftEntryForm" {
             if let liftEntryFormViewController = segue.destinationViewController as? LiftEntryFormViewController {
                 
@@ -37,7 +37,7 @@ public class WorkoutViewController: UIViewController {
 }
 
 extension WorkoutViewController: LiftEntryFormDelegate {
-    public func liftEnteredWithName(name: String, dataTemplate: LiftDataTemplate) {
+    func liftEnteredWithName(name: String, dataTemplate: LiftDataTemplate) {
         let lift = liftCreator.createWithName(name, dataTemplate: dataTemplate)
         workout.addLift(lift)
         workoutSaveAgent.save(workout)
@@ -47,28 +47,28 @@ extension WorkoutViewController: LiftEntryFormDelegate {
 }
 
 extension WorkoutViewController: UITableViewDelegate {
-    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.performSegueWithIdentifier("ShowLift", sender: workout.lifts[indexPath.row])
     }
 }
 
 extension WorkoutViewController: UITableViewDataSource {
-    public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
-    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return workout.lifts.count
     }
     
-    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(WorkoutLiftTableViewCell.name, forIndexPath: indexPath) as! WorkoutLiftTableViewCell
         cell.lift = workout.lifts[indexPath.row]
         
         return cell
     }
     
-    public func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
         if editingStyle == .Delete {
             let liftToDelete = workout.lifts[indexPath.row]

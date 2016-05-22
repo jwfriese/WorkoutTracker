@@ -1,13 +1,13 @@
 import Foundation
 
-public class LiftHistoryIndexLoader {
-    public var localStorageWorker: LocalStorageWorker!
+class LiftHistoryIndexLoader {
+    var localStorageWorker: LocalStorageWorker!
     
-    public init(withLocalStorageWorker localStorageWorker: LocalStorageWorker?) {
+    init(withLocalStorageWorker localStorageWorker: LocalStorageWorker?) {
         self.localStorageWorker = localStorageWorker
     }
     
-    public func load() -> [String: [UInt]] {
+    func load() -> [String: [UInt]] {
         return localStorageWorker.readJSONDictionaryFromFile("Indices/LiftHistory.json") as! [String : [UInt]]
     }
 }

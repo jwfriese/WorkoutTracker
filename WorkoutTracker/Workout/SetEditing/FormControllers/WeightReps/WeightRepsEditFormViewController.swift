@@ -1,13 +1,13 @@
 import UIKit
 import Swinject
 
-public class WeightRepsEditFormViewController: UIViewController {
-    @IBOutlet public weak var weightEntryInputField: UITextField?
-    @IBOutlet public weak var repsEntryInputField: UITextField?
+class WeightRepsEditFormViewController: UIViewController {
+    @IBOutlet weak var weightEntryInputField: UITextField?
+    @IBOutlet weak var repsEntryInputField: UITextField?
     
     private var _delegate: SetEditFormDelegate?
     
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         if let weightNumber = delegate?.set?.data["weight"] as? Double {
@@ -27,7 +27,7 @@ public class WeightRepsEditFormViewController: UIViewController {
 }
 
 extension WeightRepsEditFormViewController: Injectable {
-    public static func registerForInjection(container: Container) {
+    static func registerForInjection(container: Container) {
         container.register(WeightRepsEditFormViewController.self) { resolver in
             return WeightRepsEditFormViewController(nibName: "WeightRepsEditFormViewController", bundle: nil)
         }
@@ -35,13 +35,13 @@ extension WeightRepsEditFormViewController: Injectable {
 }
 
 extension WeightRepsEditFormViewController: LiftSetEditFormController {
-    public var form: UIView? {
+    var form: UIView? {
         get {
             return view
         }
     }
     
-    public var enteredLiftData: [String : AnyObject] {
+    var enteredLiftData: [String : AnyObject] {
         get {
             var data = [String : AnyObject]()
             if let weight = weightEntryInputField?.text {
@@ -60,7 +60,7 @@ extension WeightRepsEditFormViewController: LiftSetEditFormController {
         }
     }
     
-    public var isFormValid: Bool {
+    var isFormValid: Bool {
         get {
             if let weightText = weightEntryInputField?.text {
                 if let repsText = repsEntryInputField?.text {
@@ -73,7 +73,7 @@ extension WeightRepsEditFormViewController: LiftSetEditFormController {
         }
     }
     
-    public var delegate: SetEditFormDelegate? {
+    var delegate: SetEditFormDelegate? {
         get {
             return _delegate
         }
@@ -83,7 +83,7 @@ extension WeightRepsEditFormViewController: LiftSetEditFormController {
         }
     }
     
-    public func removeCursorFromFields() {
+    func removeCursorFromFields() {
         weightEntryInputField?.resignFirstResponder()
         repsEntryInputField?.resignFirstResponder()
     }

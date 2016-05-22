@@ -1,5 +1,5 @@
 import UIKit
 
-public class LiftTableHeaderViewColumnView: UIView {
-    @IBOutlet public weak var textLabel: UILabel?
+class LiftTableHeaderViewColumnView: UIView {
+    @IBOutlet weak var textLabel: UILabel?
 }

@@ -1,13 +1,13 @@
 import UIKit
 import Swinject
 
-public class HeightRepsEditFormViewController: UIViewController {
-    @IBOutlet public weak var heightEntryInputField: UITextField?
-    @IBOutlet public weak var repsEntryInputField: UITextField?
+class HeightRepsEditFormViewController: UIViewController {
+    @IBOutlet weak var heightEntryInputField: UITextField?
+    @IBOutlet weak var repsEntryInputField: UITextField?
     
     private var _delegate: SetEditFormDelegate?
     
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         if let heightNumber = delegate?.set?.data["height"] as? Double {
@@ -27,7 +27,7 @@ public class HeightRepsEditFormViewController: UIViewController {
 }
 
 extension HeightRepsEditFormViewController: Injectable {
-    public static func registerForInjection(container: Container) {
+    static func registerForInjection(container: Container) {
         container.register(HeightRepsEditFormViewController.self) { resolver in
             return HeightRepsEditFormViewController(nibName: "HeightRepsEditFormViewController", bundle: nil)
         }
@@ -35,13 +35,13 @@ extension HeightRepsEditFormViewController: Injectable {
 }
 
 extension HeightRepsEditFormViewController: LiftSetEditFormController {
-    public var form: UIView? {
+    var form: UIView? {
         get {
             return view
         }
     }
     
-    public var enteredLiftData: [String : AnyObject] {
+    var enteredLiftData: [String : AnyObject] {
         get {
             var data = [String : AnyObject]()
             if let height = heightEntryInputField?.text {
@@ -60,7 +60,7 @@ extension HeightRepsEditFormViewController: LiftSetEditFormController {
         }
     }
     
-    public var isFormValid: Bool {
+    var isFormValid: Bool {
         get {
             if let heightText = heightEntryInputField?.text {
                 if let repsText = repsEntryInputField?.text {
@@ -73,7 +73,7 @@ extension HeightRepsEditFormViewController: LiftSetEditFormController {
         }
     }
     
-    public var delegate: SetEditFormDelegate? {
+    var delegate: SetEditFormDelegate? {
         get {
             return _delegate
         }
@@ -83,7 +83,7 @@ extension HeightRepsEditFormViewController: LiftSetEditFormController {
         }
     }
     
-    public func removeCursorFromFields() {
+    func removeCursorFromFields() {
         heightEntryInputField?.resignFirstResponder()
         repsEntryInputField?.resignFirstResponder()
     }

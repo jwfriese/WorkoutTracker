@@ -1,15 +1,15 @@
 import Foundation
 
-public class LiftSaveAgent {
-    public private(set) var liftSerializer: LiftSerializer!
-    public private(set) var localStorageWorker: LocalStorageWorker!
+class LiftSaveAgent {
+    private(set) var liftSerializer: LiftSerializer!
+    private(set) var localStorageWorker: LocalStorageWorker!
     
-    public init(withLiftSerializer liftSerializer: LiftSerializer?, localStorageWorker: LocalStorageWorker?) {
+    init(withLiftSerializer liftSerializer: LiftSerializer?, localStorageWorker: LocalStorageWorker?) {
         self.liftSerializer = liftSerializer
         self.localStorageWorker = localStorageWorker
     }
     
-    public func save(lift: Lift) {
+    func save(lift: Lift) {
         if let liftWorkout = lift.workout {
             let liftDictionary = liftSerializer.serialize(lift)
             let liftNameSnakeCase = lift.name.stringByReplacingOccurrencesOfString(" ", withString: "_")

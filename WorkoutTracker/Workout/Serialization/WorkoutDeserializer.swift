@@ -1,13 +1,13 @@
 import Foundation
 
-public class WorkoutDeserializer {
-        public private(set) var liftLoadAgent: LiftLoadAgent!
+class WorkoutDeserializer {
+        private(set) var liftLoadAgent: LiftLoadAgent!
 
-        public init(withLiftLoadAgent liftLoadAgent: LiftLoadAgent?) {
+        init(withLiftLoadAgent liftLoadAgent: LiftLoadAgent?) {
                 self.liftLoadAgent = liftLoadAgent
         }
 
-        public func deserialize(workoutDictionary: [String : AnyObject]) -> Workout {
+        func deserialize(workoutDictionary: [String : AnyObject]) -> Workout {
                 let name = workoutDictionary["name"] as! String
                 let timestamp = workoutDictionary["timestamp"] as! UInt
 

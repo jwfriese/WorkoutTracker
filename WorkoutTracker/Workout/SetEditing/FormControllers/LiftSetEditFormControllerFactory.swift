@@ -1,14 +1,14 @@
 import UIKit
 import Swinject
 
-public class LiftSetEditFormControllerFactory {
-    public private(set) var controllerContainer: Container!
+class LiftSetEditFormControllerFactory {
+    private(set) var controllerContainer: Container!
     
-    public init(withControllerContainer controllerContainer: Container?) {
+    init(withControllerContainer controllerContainer: Container?) {
         self.controllerContainer = controllerContainer
     }
     
-    public func controllerForTemplate(template: LiftDataTemplate) -> LiftSetEditFormController? {
+    func controllerForTemplate(template: LiftDataTemplate) -> LiftSetEditFormController? {
         switch (template) {
         case .WeightReps:
             return controllerContainer.resolve(WeightRepsEditFormViewController.self)

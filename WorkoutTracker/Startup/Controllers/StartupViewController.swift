@@ -1,10 +1,10 @@
 import UIKit
 
-public class StartupViewController : UIViewController {
-    public var migrationAgent: MigrationAgent!
-    public var workoutListStoryboardMetadata: WorkoutListStoryboardMetadata!
+class StartupViewController : UIViewController {
+    var migrationAgent: MigrationAgent!
+    var workoutListStoryboardMetadata: WorkoutListStoryboardMetadata!
     
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         migrationAgent.performMigrationWork() {

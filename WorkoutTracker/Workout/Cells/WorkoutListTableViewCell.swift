@@ -1,11 +1,11 @@
 import UIKit
 
-public class WorkoutListTableViewCell: UITableViewCell {
-    public static var name: String = "WorkoutListTableViewCell"
+class WorkoutListTableViewCell: UITableViewCell {
+    static var name: String = "WorkoutListTableViewCell"
     
-    @IBOutlet weak public var contentLabel: UILabel?
+    @IBOutlet weak var contentLabel: UILabel?
     
-    public var workout: Workout! {
+    var workout: Workout! {
         didSet {
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "MM/dd/YYYY, hh:mma"

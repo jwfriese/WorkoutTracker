@@ -1,11 +1,11 @@
 import UIKit
 
-public class WorkoutLiftTableViewCell: UITableViewCell {
-    public static var name: String = "WorkoutLiftTableViewCell"
+class WorkoutLiftTableViewCell: UITableViewCell {
+    static var name: String = "WorkoutLiftTableViewCell"
     
-    @IBOutlet weak public var contentLabel: UILabel?
+    @IBOutlet weak var contentLabel: UILabel?
     
-    public var lift: Lift! {
+    var lift: Lift! {
         didSet {
             contentLabel?.text = lift.name
         }

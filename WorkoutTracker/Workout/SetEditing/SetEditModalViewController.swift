@@ -1,31 +1,31 @@
  import UIKit
  
- public protocol SetEditDelegate: class {
+ protocol SetEditDelegate: class {
     var liftDataTemplate: LiftDataTemplate { get }
     var lastSetEntered: LiftSet? { get }
     func setEnteredWithData(data: [String : AnyObject])
     func editCanceled()
  }
  
- public class SetEditModalViewController: UIViewController {
-    @IBOutlet public weak var backgroundView: UIView?
-    @IBOutlet public weak var tapGestureRecognizer: UITapGestureRecognizer?
-    @IBOutlet public weak var contentView: UIView?
-    @IBOutlet public weak var formContainerView: UIView?
-    @IBOutlet public weak var addPreviousButton: UIButton?
-    @IBOutlet public weak var formSubmitButton: UIButton?
-    @IBOutlet public weak var formSubmitButtonAddPreviousConstraint: NSLayoutConstraint?
-    @IBOutlet public weak var formContainerAddPreviousConstraint: NSLayoutConstraint?
-    @IBOutlet public weak var formSubmitButtonModalBottomConstraint: NSLayoutConstraint?
+ class SetEditModalViewController: UIViewController {
+    @IBOutlet weak var backgroundView: UIView?
+    @IBOutlet weak var tapGestureRecognizer: UITapGestureRecognizer?
+    @IBOutlet weak var contentView: UIView?
+    @IBOutlet weak var formContainerView: UIView?
+    @IBOutlet weak var addPreviousButton: UIButton?
+    @IBOutlet weak var formSubmitButton: UIButton?
+    @IBOutlet weak var formSubmitButtonAddPreviousConstraint: NSLayoutConstraint?
+    @IBOutlet weak var formContainerAddPreviousConstraint: NSLayoutConstraint?
+    @IBOutlet weak var formSubmitButtonModalBottomConstraint: NSLayoutConstraint?
     
-    public var liftSetEditFormControllerFactory: LiftSetEditFormControllerFactory!
+    var liftSetEditFormControllerFactory: LiftSetEditFormControllerFactory!
     
-    public var set: LiftSet? = nil
-    public weak var delegate: SetEditDelegate? = nil
+    var set: LiftSet? = nil
+    weak var delegate: SetEditDelegate? = nil
     
     private var formController: LiftSetEditFormController?
     
-    override public func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         if set == nil {
@@ -63,17 +63,17 @@
         contentView?.layer.borderColor = UIColor.grayColor().CGColor
     }
     
-    @IBAction public func handleTapOutsideModal() {
+    @IBAction func handleTapOutsideModal() {
         delegate?.editCanceled()
     }
     
-    @IBAction public func formSubmitButtonTapped() {
+    @IBAction func formSubmitButtonTapped() {
         if let formController = formController {
             delegate?.setEnteredWithData(formController.enteredLiftData)
         }
     }
     
-    @IBAction public func addPreviousButtonTapped() {
+    @IBAction func addPreviousButtonTapped() {
         if let lastSet = delegate?.lastSetEntered {
             delegate?.setEnteredWithData(lastSet.data)
         }
@@ -98,7 +98,7 @@
  }
  
  extension SetEditModalViewController: SetEditFormDelegate {
-    public func onFormChanged() {
+    func onFormChanged() {
         if formController != nil && formController!.isFormValid {
             enableFormSubmitButton()
         } else {

@@ -1,5 +1,5 @@
 import UIKit
 
-public class LiftTableViewCellColumnView: UIView {
-        @IBOutlet public weak var textLabel: UILabel?
+class LiftTableViewCellColumnView: UIView {
+        @IBOutlet weak var textLabel: UILabel?
 }

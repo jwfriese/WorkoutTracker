@@ -1,10 +1,10 @@
 import Foundation
 import UIKit
 
-public class LocalStorageWorker {
-    public init() { }
+class LocalStorageWorker {
+    init() { }
     
-    public func writeData(data: NSData!, toFileWithName name: String!, createSubdirectories: Bool = false) throws {
+    func writeData(data: NSData!, toFileWithName name: String!, createSubdirectories: Bool = false) throws {
         let filePaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
         if filePaths.count > 0 {
             let documentsDirectoryPath = filePaths[0]
@@ -30,19 +30,19 @@ public class LocalStorageWorker {
         }
     }
     
-    public func writeJSONDictionary(dictionary: Dictionary<String, AnyObject>, toFileWithName name: String!,
+    func writeJSONDictionary(dictionary: Dictionary<String, AnyObject>, toFileWithName name: String!,
         createSubdirectories: Bool = false) throws {
             let dictionaryData: NSData?
             dictionaryData = try NSJSONSerialization.dataWithJSONObject(dictionary, options: .PrettyPrinted)
             try writeData(dictionaryData!, toFileWithName: name, createSubdirectories: createSubdirectories)
     }
     
-    public func writeImage(image: UIImage!, toFileWithName name: String!, createSubdirectories: Bool = false) throws {
+    func writeImage(image: UIImage!, toFileWithName name: String!, createSubdirectories: Bool = false) throws {
         let imageData = UIImageJPEGRepresentation(image, 1.0)
         try self.writeData(imageData, toFileWithName: name, createSubdirectories: createSubdirectories)
     }
     
-    public func readDataFromFile(fileName: String!) -> NSData? {
+    func readDataFromFile(fileName: String!) -> NSData? {
         let filePaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
         if filePaths.count > 0 {
             let documentsDirectoryPath = filePaths[0]
@@ -53,13 +53,13 @@ public class LocalStorageWorker {
         return nil
     }
     
-    public func readJSONDictionaryFromFile(fileName: String!) -> Dictionary<String, AnyObject>? {
+    func readJSONDictionaryFromFile(fileName: String!) -> Dictionary<String, AnyObject>? {
         let fetchedData = readDataFromFile(fileName)
         let fetchedDictionary = try! NSJSONSerialization.JSONObjectWithData(fetchedData!, options: .AllowFragments) as? [String : AnyObject]
         return fetchedDictionary
     }
     
-    public func readImageFromFile(fileName: String!) -> UIImage? {
+    func readImageFromFile(fileName: String!) -> UIImage? {
         if let imageData = readDataFromFile(fileName) {
             return UIImage(data: imageData)
         }
@@ -67,7 +67,7 @@ public class LocalStorageWorker {
         return nil
     }
     
-    public func createDirectory(directoryName: String) -> Bool {
+    func createDirectory(directoryName: String) -> Bool {
         let filePaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
         if filePaths.count > 0 {
             let documentsDirectoryPath = filePaths[0]
@@ -85,7 +85,7 @@ public class LocalStorageWorker {
         return false
     }
     
-    public func allFilesWithExtension(ext: String!, recursive: Bool,
+    func allFilesWithExtension(ext: String!, recursive: Bool,
         startingDirectory: String = "") -> [String] {
             var fileNames = [String]()
             
@@ -119,7 +119,7 @@ public class LocalStorageWorker {
             return fileNames
     }
     
-    public func deleteFile(fileName: String!) throws {
+    func deleteFile(fileName: String!) throws {
         let filePaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
         if filePaths.count > 0 {
             let documentsDirectoryPath = filePaths[0]
@@ -128,7 +128,7 @@ public class LocalStorageWorker {
         }
     }
     
-    public func deleteAllFilesWithExtension(ext: String!, recursive: Bool,
+    func deleteAllFilesWithExtension(ext: String!, recursive: Bool,
         startingDirectory: String = "") throws {
             for file in self.allFilesWithExtension(ext, recursive: recursive, startingDirectory: startingDirectory) {
                 try self.deleteFile(file)

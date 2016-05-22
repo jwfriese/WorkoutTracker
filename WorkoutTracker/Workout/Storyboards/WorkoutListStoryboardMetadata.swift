@@ -1,15 +1,15 @@
 import Swinject
 
-public class WorkoutListStoryboardMetadata: SwinjectStoryboardMetadata {
-        public init() { }
+class WorkoutListStoryboardMetadata: SwinjectStoryboardMetadata {
+        init() { }
 
-        public var name: String {
+        var name: String {
                 get {
                         return "WorkoutList"
                 }
         }
 
-        public var initialViewController: UIViewController {
+        var initialViewController: UIViewController {
                 get {
                         let storyboard = SwinjectStoryboard.create(name: name, bundle: nil,
                                 container: container)
@@ -17,7 +17,7 @@ public class WorkoutListStoryboardMetadata: SwinjectStoryboardMetadata {
                 }
         }
 
-        public var container: Container {
+        var container: Container {
                 get {
                         let container = Container()
 

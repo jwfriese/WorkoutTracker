@@ -1,3 +1,3 @@
-public protocol LiftDataTemplateEntryDelegate: class {
+protocol LiftDataTemplateEntryDelegate: class {
     func didFinishSelectingLiftDataTemplate(liftDataTemplate: LiftDataTemplate)
 }

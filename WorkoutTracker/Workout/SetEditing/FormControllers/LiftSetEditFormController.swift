@@ -1,6 +1,6 @@
 import UIKit
 
-public protocol LiftSetEditFormController {
+protocol LiftSetEditFormController {
         var form: UIView? { get }
         var enteredLiftData: [String : AnyObject] { get }
         var isFormValid: Bool { get }

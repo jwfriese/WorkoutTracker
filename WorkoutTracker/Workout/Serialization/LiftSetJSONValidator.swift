@@ -5,10 +5,10 @@ enum JSONSchemaType {
         case Int
 }
 
-public class LiftSetJSONValidator {
-        public init() { }
+class LiftSetJSONValidator {
+        init() { }
 
-        public func validateJSON(jsonData: [String : AnyObject], forDataTemplate dataTemplate: LiftDataTemplate)
+        func validateJSON(jsonData: [String : AnyObject], forDataTemplate dataTemplate: LiftDataTemplate)
                 -> Bool {
                         switch dataTemplate {
                         case .WeightReps:
