@@ -6,18 +6,32 @@ public class LiftTableHeaderViewProvider {
     public func provideForLift(lift: Lift) -> UIStackView {
         let view = UIStackView()
         view.distribution = .FillEqually
-        let setView = NSBundle.mainBundle().loadNibNamed("LiftTableHeaderViewColumnView", owner: nil, options: nil)[0] as? LiftTableHeaderViewColumnView
-        setView?.textLabel?.text = "Set"
-        view.addArrangedSubview(setView!)
         
-        let weightView = NSBundle.mainBundle().loadNibNamed("LiftTableHeaderViewColumnView", owner: nil, options: nil)[0] as? LiftTableHeaderViewColumnView
-        weightView?.textLabel?.text = "Weight"
-        view.addArrangedSubview(weightView!)
+        var subviews = [UIView]()
+        switch (lift.dataTemplate as LiftDataTemplate) {
+        case .WeightReps:
+            subviews.append(createViewWithLabel("Weight"))
+            subviews.append(createViewWithLabel("Reps"))
+        case .HeightReps:
+            subviews.append(createViewWithLabel("Height"))
+            subviews.append(createViewWithLabel("Reps"))
+        case .TimeInSeconds:
+            subviews.append(createViewWithLabel("Time(sec)"))
+        case .WeightTimeInSeconds:
+            subviews.append(createViewWithLabel("Weight"))
+            subviews.append(createViewWithLabel("Time(sec)"))
+        }
         
-        let repsView = NSBundle.mainBundle().loadNibNamed("LiftTableHeaderViewColumnView", owner: nil, options: nil)[0] as? LiftTableHeaderViewColumnView
-        repsView?.textLabel?.text = "Reps"
-        view.addArrangedSubview(repsView!)
+        for subview in subviews {
+            view.addArrangedSubview(subview)
+        }
         
         return view
+    }
+    
+    private func createViewWithLabel(label: String) -> UIView {
+        let view = NSBundle.mainBundle().loadNibNamed("LiftTableHeaderViewColumnView", owner: nil, options: nil)[0] as? LiftTableHeaderViewColumnView
+        view?.textLabel?.text = label
+        return view!
     }
 }

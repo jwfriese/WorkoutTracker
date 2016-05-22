@@ -29,29 +29,6 @@ task :verbose_specs, [:phone_version, :ios_version]  do |t, args|
   end
 end
 
-desc "Trim extraneous whitespace"
-task :trim do
-  awk_statement = <<-AWK
-   {
-     if ($1 == "RM" || $1 == "R") {
-       print $4;
-     } else if ($1 != "D") {
-       if ($2 ~ /\".*/) {
-     print $2 "\\\\ " $3;
-       } else {
-         print $2;
-       }
-     }
-   }
-   AWK
-
-   awk_statement.gsub!(%r{\s+}, " ")
-   success = system(%Q[git status --porcelain | awk '#{awk_statement}' | sed 's/\"//g' | grep -e '.*\.[swift]$' | xargs sed -i '' -e 's/  /    /g;s/ *$//g;'])
-   unless success
-    exit 1
-   end
-end
-
 desc "Clean out all provisioning profiles"
 task :wipe do
   Dir["#{ENV['HOME']}/Library/MobileDevice/Provisioning Profiles/*.mobileprovision"].each {|f|  File.delete(f) }

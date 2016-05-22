@@ -1,7 +1,7 @@
 import Quick
 import Nimble
 import Swinject
-import WorkoutTracker
+@testable import WorkoutTracker
 
 class WorkoutStoryboardMetadataSpec: QuickSpec {
     override func spec() {
@@ -31,17 +31,20 @@ class WorkoutStoryboardMetadataSpec: QuickSpec {
                     var localStorageWorker: LocalStorageWorker?
                     var workoutSerializer: WorkoutSerializer?
                     var liftSerializer: LiftSerializer?
-                    var liftSetSerializer: LiftSetSerializer?
                     var liftCreator: LiftCreator?
                     var liftHistoryIndexLoader: LiftHistoryIndexLoader?
                     var workoutLoadAgent: WorkoutLoadAgent?
                     var liftLoadAgent: LiftLoadAgent?
                     var workoutDeserializer: WorkoutDeserializer?
+                    var liftSetJSONValidator: LiftSetJSONValidator?
                     var liftSetDeserializer: LiftSetDeserializer?
                     var liftDeleteAgent: LiftDeleteAgent?
                     var liftTableHeaderViewProvider: LiftTableHeaderViewProvider?
+                    var liftSetEditFormControllerFactory: LiftSetEditFormControllerFactory?
                     var workoutViewController: WorkoutViewController?
                     var liftViewController: LiftViewController?
+                    var liftEntryFormViewController: LiftEntryFormViewController?
+                    var setEditModalViewController: SetEditModalViewController?
                     
                     beforeEach {
                         workoutSaveAgent = container.resolve(WorkoutSaveAgent.self)
@@ -49,17 +52,21 @@ class WorkoutStoryboardMetadataSpec: QuickSpec {
                         localStorageWorker = container.resolve(LocalStorageWorker.self)
                         workoutSerializer = container.resolve(WorkoutSerializer.self)
                         liftSerializer = container.resolve(LiftSerializer.self)
-                        liftSetSerializer = container.resolve(LiftSetSerializer.self)
                         liftCreator = container.resolve(LiftCreator.self)
                         liftHistoryIndexLoader = container.resolve(LiftHistoryIndexLoader.self)
                         workoutLoadAgent = container.resolve(WorkoutLoadAgent.self)
                         liftLoadAgent = container.resolve(LiftLoadAgent.self)
                         workoutDeserializer = container.resolve(WorkoutDeserializer.self)
+                        liftSetJSONValidator = container.resolve(LiftSetJSONValidator.self)
                         liftSetDeserializer = container.resolve(LiftSetDeserializer.self)
                         liftDeleteAgent = container.resolve(LiftDeleteAgent.self)
                         liftTableHeaderViewProvider = container.resolve(LiftTableHeaderViewProvider.self)
+                        liftSetEditFormControllerFactory = container.resolve(LiftSetEditFormControllerFactory.self)
+                        
                         workoutViewController = storyboard.instantiateViewControllerWithIdentifier("WorkoutViewController") as? WorkoutViewController
                         liftViewController = storyboard.instantiateViewControllerWithIdentifier("LiftViewController") as? LiftViewController
+                        liftEntryFormViewController = storyboard.instantiateViewControllerWithIdentifier("LiftEntryFormViewController") as? LiftEntryFormViewController
+                        setEditModalViewController = storyboard.instantiateViewControllerWithIdentifier("SetEditModalViewController") as? SetEditModalViewController
                     }
                     
                     it("can produce a WorkoutSaveAgent") {
@@ -82,10 +89,6 @@ class WorkoutStoryboardMetadataSpec: QuickSpec {
                         expect(liftSerializer).toNot(beNil())
                     }
                     
-                    it("can produce a LiftSetSerializer") {
-                        expect(liftSetSerializer).toNot(beNil())
-                    }
-                    
                     it("can produce a LiftCreator") {
                         expect(liftCreator).toNot(beNil())
                     }
@@ -106,6 +109,10 @@ class WorkoutStoryboardMetadataSpec: QuickSpec {
                         expect(workoutDeserializer).toNot(beNil())
                     }
                     
+                    it("can produce a LiftSetJSONValidator") {
+                        expect(liftSetJSONValidator).toNot(beNil())
+                    }
+                    
                     it("can produce a LiftSetDeserializer") {
                         expect(liftSetDeserializer).toNot(beNil())
                     }
@@ -116,6 +123,10 @@ class WorkoutStoryboardMetadataSpec: QuickSpec {
                     
                     it("can produce a LiftTableHeaderViewProvider") {
                         expect(liftTableHeaderViewProvider).toNot(beNil())
+                    }
+                    
+                    it("can produce a LiftSetEditFormControllerFactory") {
+                        expect(liftSetEditFormControllerFactory).toNot(beNil())
                     }
                     
                     describe("Its WorkoutViewController") {
@@ -150,6 +161,22 @@ class WorkoutStoryboardMetadataSpec: QuickSpec {
                         }
                     }
                     
+                    describe("Its LiftEntryFormViewController") {
+                        it("can be created") {
+                            expect(liftEntryFormViewController).toNot(beNil())
+                        }
+                    }
+                    
+                    describe("Its SetEditModalViewController") {
+                        it("can be created") {
+                            expect(setEditModalViewController).toNot(beNil())
+                        }
+                        
+                        it("is created with a LiftSetEditFormControllerFactory") {
+                            expect(setEditModalViewController?.liftSetEditFormControllerFactory).toNot(beNil())
+                        }
+                    }
+                    
                     describe("Its WorkoutSaveAgent") {
                         it("is created with a WorkoutSerializer") {
                             expect(workoutSaveAgent?.workoutSerializer).toNot(beNil())
@@ -171,12 +198,6 @@ class WorkoutStoryboardMetadataSpec: QuickSpec {
                         
                         it("is created with a LocalStorageWorker") {
                             expect(liftSaveAgent?.localStorageWorker).toNot(beNil())
-                        }
-                    }
-                    
-                    describe("Its LiftSerializer") {
-                        it("is created with a LiftSetSerializer") {
-                            expect(liftSerializer?.liftSetSerializer).toNot(beNil())
                         }
                     }
                     
@@ -222,9 +243,21 @@ class WorkoutStoryboardMetadataSpec: QuickSpec {
                         }
                     }
                     
+                    describe("Its LiftSetDeserializer") {
+                        it("is created with a LiftSetJSONValidator") {
+                            expect(liftSetDeserializer?.liftSetJSONValidator).toNot(beNil())
+                        }
+                    }
+                    
                     describe("Its LiftDeleteAgent") {
                         it("is created with a LocalStorageWorker") {
                             expect(liftDeleteAgent?.localStorageWorker).toNot(beNil())
+                        }
+                    }
+                    
+                    describe("Its LiftSetEditFormControllerFactory") {
+                        it("is created with this as its controller container") {
+                            expect(liftSetEditFormControllerFactory?.controllerContainer).to(beIdenticalTo(container))
                         }
                     }
                 }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WeightTimeInSecondsEditFormViewController" customModule="WorkoutTracker" customModuleProvider="target">
+            <connections>
+                <outlet property="timeInSecondsEntryInputField" destination="3wA-VU-i9p" id="Qdn-cT-bMS"/>
+                <outlet property="view" destination="Vbg-8u-BLb" id="bOP-kN-ZmP"/>
+                <outlet property="weightEntryInputField" destination="ElF-yB-KaY" id="Smp-Lg-2PJ"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="Vbg-8u-BLb">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weight" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jIH-2V-DEA" userLabel="Weight">
+                    <rect key="frame" x="20" y="36" width="54" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ElF-yB-KaY">
+                    <rect key="frame" x="98" y="32" width="486" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <action selector="onTextFieldChanged" destination="-1" eventType="editingChanged" id="LVs-Jg-cMX"/>
+                    </connections>
+                </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time(sec)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uKO-Gg-cPc">
+                    <rect key="frame" x="20" y="73" width="77" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3wA-VU-i9p">
+                    <rect key="frame" x="98" y="69" width="486" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <action selector="onTextFieldChanged" destination="-1" eventType="editingChanged" id="34c-VW-HhA"/>
+                    </connections>
+                </textField>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="jIH-2V-DEA" firstAttribute="top" secondItem="Vbg-8u-BLb" secondAttribute="top" constant="36" id="1JT-ym-bsB"/>
+                <constraint firstItem="3wA-VU-i9p" firstAttribute="leading" secondItem="ElF-yB-KaY" secondAttribute="leading" id="1lP-Sn-Z6m"/>
+                <constraint firstItem="uKO-Gg-cPc" firstAttribute="leading" secondItem="jIH-2V-DEA" secondAttribute="leading" id="4zV-Q0-fah"/>
+                <constraint firstItem="uKO-Gg-cPc" firstAttribute="top" secondItem="jIH-2V-DEA" secondAttribute="bottom" constant="16" id="I8E-Eq-fUT"/>
+                <constraint firstAttribute="trailing" secondItem="3wA-VU-i9p" secondAttribute="trailing" constant="16" id="IEF-Nj-WmL"/>
+                <constraint firstItem="3wA-VU-i9p" firstAttribute="centerY" secondItem="uKO-Gg-cPc" secondAttribute="centerY" id="V0B-TK-QyF"/>
+                <constraint firstItem="ElF-yB-KaY" firstAttribute="leading" secondItem="jIH-2V-DEA" secondAttribute="trailing" constant="24" id="gLC-p8-1ui"/>
+                <constraint firstItem="ElF-yB-KaY" firstAttribute="centerY" secondItem="jIH-2V-DEA" secondAttribute="centerY" id="h78-Oc-gwv"/>
+                <constraint firstItem="jIH-2V-DEA" firstAttribute="leading" secondItem="Vbg-8u-BLb" secondAttribute="leadingMargin" constant="12" id="nKt-As-9wq"/>
+                <constraint firstAttribute="trailing" secondItem="ElF-yB-KaY" secondAttribute="trailing" constant="16" id="thQ-M0-BLY"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

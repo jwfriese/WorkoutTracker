@@ -3,97 +3,72 @@ import Nimble
 import WorkoutTracker
 
 class LiftSetDeserializerSpec: QuickSpec {
-    override func spec() {
+        override func spec() {
 
-        describe("LiftSetDeserializer") {
-            var subject: LiftSetDeserializer!
-            
-            beforeEach {
-                subject = LiftSetDeserializer()
-            }
-            
-            describe("Deserializing a dictionary into a lift set") {
-                var set: LiftSet?
-                var inputDictionary: Dictionary<String,AnyObject>!
-                
-                context("When dictionary is populated with all values") {
-                    beforeEach {
-                        inputDictionary = ["targetWeight" : 234.5, "weight" : 123.4,
-                            "targetReps" : 10, "reps" : 9]
-                        set = subject.deserialize(inputDictionary)
-                    }
-                    
+                class MockLiftSetJSONValidator: LiftSetJSONValidator {
+                        let jsonHeightReps = ["height": 10, "reps": 20]
+                        let jsonWeightReps = ["weight": 100, "reps": 5]
+
+                        override func validateJSON(jsonData: [String : AnyObject], forDataTemplate dataTemplate: LiftDataTemplate) -> Bool {
+
+                                if let _ = jsonData["height"] {
+                                        return dataTemplate == .HeightReps
+                                }
+
+                                if let _ = jsonData["weight"] {
+                                        return dataTemplate == .WeightReps
+                                }
+
+                                return false
+                        }
                 }
-                
-                context("When dictionary is missing target weight") {
-                    beforeEach {
-                        inputDictionary = ["weight" : 123.4, "targetReps" : 10, "reps" : 9]
-                        set = subject.deserialize(inputDictionary)
-                    }
-                    
-                    it("initializes the lift set's target weight with nil") {
-                        expect(set?.targetWeight).to(beNil())
-                    }
-                    
-                    it("initializes the lift set's performed weight with the data value") {
-                        expect(set?.performedWeight).to(equal(123.4))
-                    }
-                    
-                    it("initializes the lift set's target reps with the data value") {
-                        expect(set?.targetReps).to(equal(10))
-                    }
-                    
-                    it("initializes the lift set's performed reps with the data value") {
-                        expect(set?.performedReps).to(equal(9))
-                    }
+
+                describe("LiftSetDeserializer") {
+                        var subject: LiftSetDeserializer!
+                        var mockLiftSetJSONValidator: MockLiftSetJSONValidator!
+
+                        beforeEach {
+                                mockLiftSetJSONValidator = MockLiftSetJSONValidator()
+                                subject = LiftSetDeserializer(withLiftSetJSONValidator: mockLiftSetJSONValidator)
+                        }
+
+                        describe("Its initializer") {
+                                it("sets its LiftSetJSONValidator") {
+                                        expect(subject.liftSetJSONValidator).to(beIdenticalTo(mockLiftSetJSONValidator))
+                                }
+                        }
+
+                        describe("Deserializing a dictionary into a lift set") {
+                                var liftSet: LiftSet?
+
+                                context("When the given JSON defines valid data that matches the given data template") {
+                                        var matchingJSON: [String : AnyObject]!
+
+                                        beforeEach {
+                                                matchingJSON = mockLiftSetJSONValidator.jsonHeightReps
+                                                liftSet = subject.deserialize(matchingJSON, usingDataTemplate: .HeightReps)
+                                        }
+
+                                        it("sets the set with the data JSON and data template") {
+                                                expect(liftSet?.dataTemplate).to(equal(LiftDataTemplate.HeightReps))
+                                                expect(liftSet?.data["height"] as? Int).to(equal(10))
+                                                expect(liftSet?.data["reps"] as? Int).to(equal(20))
+                                        }
+                                }
+
+                                context("When the given JSON defines valid data, but it does not match the given template") {
+                                        var nonmatchingJSON: [String : AnyObject]!
+
+                                        beforeEach {
+                                                nonmatchingJSON = mockLiftSetJSONValidator.jsonWeightReps
+                                                liftSet = subject.deserialize(nonmatchingJSON, usingDataTemplate: .HeightReps)
+                                        }
+
+                                        it("returns nil") {
+                                                expect(liftSet).to(beNil())
+                                        }
+                                }
+                        }
                 }
-                
-                context("When dictionary is missing target reps") {
-                    beforeEach {
-                        inputDictionary = ["targetWeight" : 234.5, "weight" : 123.4, "reps" : 9]
-                        set = subject.deserialize(inputDictionary)
-                    }
-                    
-                    it("initializes the lift set's target weight with the data value") {
-                        expect(set?.targetWeight).to(equal(234.5))
-                    }
-                    
-                    it("initializes the lift set's performed weight with the data value") {
-                        expect(set?.performedWeight).to(equal(123.4))
-                    }
-                    
-                    it("initializes the lift set's target reps with nil") {
-                        expect(set?.targetReps).to(beNil())
-                    }
-                    
-                    it("initializes the lift set's performed reps with the data value") {
-                        expect(set?.performedReps).to(equal(9))
-                    }
-                }
-                
-                context("When dictionary is missing weight") {
-                    beforeEach {
-                        inputDictionary = ["targetWeight" : 234.5, "targetReps" : 10, "reps" : 9]
-                        set = subject.deserialize(inputDictionary)
-                    }
-                    
-                    it("returns nil") {
-                        expect(set).to(beNil())
-                    }
-                }
-                
-                context("When dictionary is missing reps") {
-                    beforeEach {
-                        inputDictionary = ["targetWeight" : 234.5, "weight" : 123.4,
-                            "targetReps" : 10]
-                        set = subject.deserialize(inputDictionary)
-                    }
-                    
-                    it("returns nil") {
-                        expect(set).to(beNil())
-                    }
-                }
-            }
         }
-    }
 }

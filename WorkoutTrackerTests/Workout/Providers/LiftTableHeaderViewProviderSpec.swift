@@ -16,42 +16,137 @@ class LiftTableHeaderViewProviderSpec: QuickSpec {
                 var view: UIStackView?
                 var lift: Lift?
                 
-                beforeEach {
-                    lift = Lift(withName: "")
-                    
-                    view = subject.provideForLift(lift!)
-                }
-                
-                it("has three subviews") {
-                    expect(view?.arrangedSubviews.count).to(equal(3))
-                }
-                
-                it("spaces the subviews evenly") {
-                    expect(view?.distribution).to(equal(UIStackViewDistribution.FillEqually))
-                }
-                
-                // given("has three subviews")
-                describe("the three subviews") {
-                    var setSubview: LiftTableHeaderViewColumnView?
-                    var weightSubview: LiftTableHeaderViewColumnView?
-                    var repsSubview: LiftTableHeaderViewColumnView?
-                    
+                context("When the lift template is Weight/Reps") {
                     beforeEach {
-                        setSubview = view?.arrangedSubviews[0] as? LiftTableHeaderViewColumnView
-                        weightSubview = view?.arrangedSubviews[1] as? LiftTableHeaderViewColumnView
-                        repsSubview = view?.arrangedSubviews[2] as? LiftTableHeaderViewColumnView
+                        lift = Lift(withName: "", dataTemplate: .WeightReps)
+                        
+                        view = subject.provideForLift(lift!)
                     }
                     
-                    it("has a 'set' component") {
-                        expect(setSubview?.textLabel?.text).to(equal("Set"))
+                    it("has two subviews") {
+                        expect(view?.arrangedSubviews.count).to(equal(2))
                     }
                     
-                    it("has a 'weight' component") {
-                        expect(weightSubview?.textLabel?.text).to(equal("Weight"))
+                    it("spaces the subviews evenly") {
+                        expect(view?.distribution).to(equal(UIStackViewDistribution.FillEqually))
                     }
                     
-                    it("has a 'reps' component") {
-                        expect(repsSubview?.textLabel?.text).to(equal("Reps"))
+                    // given("has two subviews")
+                    describe("the two subviews") {
+                        var weightSubview: LiftTableHeaderViewColumnView?
+                        var repsSubview: LiftTableHeaderViewColumnView?
+                        
+                        beforeEach {
+                            weightSubview = view?.arrangedSubviews[0] as? LiftTableHeaderViewColumnView
+                            repsSubview = view?.arrangedSubviews[1] as? LiftTableHeaderViewColumnView
+                        }
+                        
+                        it("has a 'weight' component") {
+                            expect(weightSubview?.textLabel?.text).to(equal("Weight"))
+                        }
+                        
+                        it("has a 'reps' component") {
+                            expect(repsSubview?.textLabel?.text).to(equal("Reps"))
+                        }
+                    }
+                }
+                
+                context("When the lift template is Height/Reps") {
+                    beforeEach {
+                        lift = Lift(withName: "", dataTemplate: .HeightReps)
+                        
+                        view = subject.provideForLift(lift!)
+                    }
+                    
+                    it("has two subviews") {
+                        expect(view?.arrangedSubviews.count).to(equal(2))
+                    }
+                    
+                    it("spaces the subviews evenly") {
+                        expect(view?.distribution).to(equal(UIStackViewDistribution.FillEqually))
+                    }
+                    
+                    // given("has two subviews")
+                    describe("the two subviews") {
+                        var weightSubview: LiftTableHeaderViewColumnView?
+                        var repsSubview: LiftTableHeaderViewColumnView?
+                        
+                        beforeEach {
+                            weightSubview = view?.arrangedSubviews[0] as? LiftTableHeaderViewColumnView
+                            repsSubview = view?.arrangedSubviews[1] as? LiftTableHeaderViewColumnView
+                        }
+                        
+                        it("has a 'weight' component") {
+                            expect(weightSubview?.textLabel?.text).to(equal("Height"))
+                        }
+                        
+                        it("has a 'reps' component") {
+                            expect(repsSubview?.textLabel?.text).to(equal("Reps"))
+                        }
+                    }
+                }
+                
+                context("When the lift template is TimeInSeconds") {
+                    beforeEach {
+                        lift = Lift(withName: "", dataTemplate: .TimeInSeconds)
+                        
+                        view = subject.provideForLift(lift!)
+                    }
+                    
+                    it("has one subview") {
+                        expect(view?.arrangedSubviews.count).to(equal(1))
+                    }
+                    
+                    it("spaces the subviews evenly") {
+                        expect(view?.distribution).to(equal(UIStackViewDistribution.FillEqually))
+                    }
+                    
+                    // given("has one subview")
+                    describe("the one subview") {
+                        var timeInSecondsSubview: LiftTableHeaderViewColumnView?
+                        
+                        beforeEach {
+                            timeInSecondsSubview = view?.arrangedSubviews[0] as? LiftTableHeaderViewColumnView
+                        }
+                        
+                        it("has a 'Time(sec)' component") {
+                            expect(timeInSecondsSubview?.textLabel?.text).to(equal("Time(sec)"))
+                        }
+                    }
+                }
+                
+                context("When the lift template is Weight/Reps") {
+                    beforeEach {
+                        lift = Lift(withName: "", dataTemplate: .WeightTimeInSeconds)
+                        
+                        view = subject.provideForLift(lift!)
+                    }
+                    
+                    it("has two subviews") {
+                        expect(view?.arrangedSubviews.count).to(equal(2))
+                    }
+                    
+                    it("spaces the subviews evenly") {
+                        expect(view?.distribution).to(equal(UIStackViewDistribution.FillEqually))
+                    }
+                    
+                    // given("has two subviews")
+                    describe("the two subviews") {
+                        var weightSubview: LiftTableHeaderViewColumnView?
+                        var repsSubview: LiftTableHeaderViewColumnView?
+                        
+                        beforeEach {
+                            weightSubview = view?.arrangedSubviews[0] as? LiftTableHeaderViewColumnView
+                            repsSubview = view?.arrangedSubviews[1] as? LiftTableHeaderViewColumnView
+                        }
+                        
+                        it("has a 'weight' component") {
+                            expect(weightSubview?.textLabel?.text).to(equal("Weight"))
+                        }
+                        
+                        it("has a 'time(sec)' component") {
+                            expect(repsSubview?.textLabel?.text).to(equal("Time(sec)"))
+                        }
                     }
                 }
             }

@@ -37,8 +37,8 @@ public class WorkoutViewController: UIViewController {
 }
 
 extension WorkoutViewController: LiftEntryFormDelegate {
-    public func liftEnteredWithName(name: String) {
-        let lift = liftCreator.createWithName(name)
+    public func liftEnteredWithName(name: String, dataTemplate: LiftDataTemplate) {
+        let lift = liftCreator.createWithName(name, dataTemplate: dataTemplate)
         workout.addLift(lift)
         workoutSaveAgent.save(workout)
         tableView?.reloadData()
