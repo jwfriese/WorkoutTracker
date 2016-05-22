@@ -91,9 +91,9 @@ class VisualTreeWalkerSpec: QuickSpec {
             
             it("should return all the subviews that conform to a given predicate block") {
                 let rabbitButtons = VisualTreeWalker.findAllSubviewsOfType(UIButton.self, conformingToBlock: { (button: UIButton) -> Bool in
-                        return button.titleLabel?.text == "Rabbit"
+                    return button.titleLabel?.text == "Rabbit"
                     },
-                    rootVisual: rootView)
+                                                                           rootVisual: rootView)
                 expect(rabbitButtons.count).to(equal(2))
                 expect(rabbitButtons[0]).to(beIdenticalTo(rabbitTitleButtonOne))
                 expect(rabbitButtons[1]).to(beIdenticalTo(rabbitTitleButtonTwo))

@@ -4,78 +4,79 @@ import Swinject
 @testable import WorkoutTracker
 
 class WorkoutListViewControllerSpec: QuickSpec {
-    class MockTimestamper: Timestamper {
-        var timestamp: UInt!
-        
-        override func getTimestamp() -> UInt {
-            if let timestamp = timestamp {
-                return timestamp
-            }
-            
-            return 0
-        }
-    }
-    
-    class MockWorkoutSaveAgent: WorkoutSaveAgent {
-        var savedWorkout: Workout?
-        
-        init() {
-            super.init(withWorkoutSerializer: nil, liftSaveAgent: nil, localStorageWorker: nil)
-        }
-        
-        override func save(workout: Workout) -> String {
-            savedWorkout = workout
-            return ""
-        }
-    }
-    
-    class MockWorkoutLoadAgent: WorkoutLoadAgent {
-        init() {
-            super.init(withWorkoutDeserializer:nil, localStorageWorker:nil)
-        }
-        
-        override func loadAllWorkouts() -> [Workout] {
-            return [
-                Workout(withName: "turtle workout one", timestamp: 1000),
-                Workout(withName: "turtle workout two", timestamp: 2000),
-                Workout(withName: "turtle workout three", timestamp: 3000)
-            ]
-        }
-    }
-    
-    class MockWorkoutStoryboardMetadata: WorkoutStoryboardMetadata {
-        var workoutViewController: WorkoutViewController = WorkoutViewController()
-        
-        override init() { }
-        
-        override var container: Container {
-            let container = Container()
-            
-            container.registerForStoryboard(WorkoutViewController.self) { resolver, instance in
-                return self.workoutViewController
-            }
-            
-            return container
-        }
-        
-        override var initialViewController: UIViewController {
-            return workoutViewController
-        }
-    }
-    
-    class MockWorkoutDeleteAgent: WorkoutDeleteAgent {
-        var deletedWorkout: Workout?
-        
-        init() {
-            super.init(withLocalStorageWorker: nil)
-        }
-        
-        override func delete(workout: Workout) {
-            deletedWorkout = workout
-        }
-    }
     
     override func spec() {
+        class MockTimestamper: Timestamper {
+            var timestamp: UInt!
+            
+            override func getTimestamp() -> UInt {
+                if let timestamp = timestamp {
+                    return timestamp
+                }
+                
+                return 0
+            }
+        }
+        
+        class MockWorkoutSaveAgent: WorkoutSaveAgent {
+            var savedWorkout: Workout?
+            
+            init() {
+                super.init(withWorkoutSerializer: nil, liftSaveAgent: nil, localStorageWorker: nil)
+            }
+            
+            override func save(workout: Workout) -> String {
+                savedWorkout = workout
+                return ""
+            }
+        }
+        
+        class MockWorkoutLoadAgent: WorkoutLoadAgent {
+            init() {
+                super.init(withWorkoutDeserializer:nil, localStorageWorker:nil)
+            }
+            
+            override func loadAllWorkouts() -> [Workout] {
+                return [
+                    Workout(withName: "turtle workout one", timestamp: 1000),
+                    Workout(withName: "turtle workout two", timestamp: 2000),
+                    Workout(withName: "turtle workout three", timestamp: 3000)
+                ]
+            }
+        }
+        
+        class MockWorkoutStoryboardMetadata: WorkoutStoryboardMetadata {
+            var workoutViewController: WorkoutViewController = WorkoutViewController()
+            
+            override init() { }
+            
+            override var container: Container {
+                let container = Container()
+                
+                container.registerForStoryboard(WorkoutViewController.self) { resolver, instance in
+                    return self.workoutViewController
+                }
+                
+                return container
+            }
+            
+            override var initialViewController: UIViewController {
+                return workoutViewController
+            }
+        }
+        
+        class MockWorkoutDeleteAgent: WorkoutDeleteAgent {
+            var deletedWorkout: Workout?
+            
+            init() {
+                super.init(withLocalStorageWorker: nil)
+            }
+            
+            override func delete(workout: Workout) {
+                deletedWorkout = workout
+            }
+        }
+        
         describe("WorkoutListViewController") {
             var subject: WorkoutListViewController!
             var mockTimestamper: MockTimestamper!

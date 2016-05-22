@@ -2,48 +2,48 @@ import Quick
 import Nimble
 @testable import WorkoutTracker
 
-func deleteIfExists(fileOrDirectoryPath: String) {
-    let exists = NSFileManager.defaultManager().fileExistsAtPath(fileOrDirectoryPath,
-        isDirectory: nil)
-    if exists {
-        try! NSFileManager.defaultManager().removeItemAtPath(fileOrDirectoryPath)
-    }
-}
-
-func clearAllFiles() {
-    let documentsDirectoryPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
-    
-    deleteIfExists(documentsDirectoryPath + "/testDictionary.json")
-    deleteIfExists(documentsDirectoryPath + "/testImageFileName.jpg")
-    deleteIfExists(documentsDirectoryPath + "/Subdirectory/testDictionary.json")
-    deleteIfExists(documentsDirectoryPath + "/Subdirectory/testImageFileName.jpg")
-    deleteIfExists(documentsDirectoryPath + "/Subdirectory")
-    deleteIfExists(documentsDirectoryPath + "/testDeletionOne.jpg")
-    deleteIfExists(documentsDirectoryPath + "/testDeletionTwo.jpg")
-    deleteIfExists(documentsDirectoryPath + "/testDeletionThree.jpg")
-    deleteIfExists(documentsDirectoryPath + "/testDeletionFour.png")
-    deleteIfExists(documentsDirectoryPath + "/integrationTest.jpg")
-    deleteIfExists(documentsDirectoryPath + "/integrationTest.json")
-    
-    deleteIfExists(documentsDirectoryPath + "/100.jpg")
-    deleteIfExists(documentsDirectoryPath + "/200.jpg")
-    deleteIfExists(documentsDirectoryPath + "/300.jpg")
-    deleteIfExists(documentsDirectoryPath + "/400.txt")
-    deleteIfExists(documentsDirectoryPath + "/DirectoryOne/500.txt")
-    deleteIfExists(documentsDirectoryPath + "/DirectoryOne/600.txt")
-    deleteIfExists(documentsDirectoryPath + "/DirectoryTwo/700.txt")
-    deleteIfExists(documentsDirectoryPath + "/DirectoryTwo/800.jpg")
-    deleteIfExists(documentsDirectoryPath + "/DirectoryTwo/900.txt")
-    deleteIfExists(documentsDirectoryPath + "/DirectoryTwo/SubdirectoryOne/1000.txt")
-    deleteIfExists(documentsDirectoryPath + "/DirectoryTwo/SubdirectoryOne/1100.jpg")
-    
-    deleteIfExists(documentsDirectoryPath + "/DirectoryTwo/SubdirectoryOne")
-    deleteIfExists(documentsDirectoryPath + "/DirectoryTwo")
-    deleteIfExists(documentsDirectoryPath + "/DirectoryOne")
-}
-
 class LocalStorageWorkerSpec: QuickSpec {
     override func spec() {
+        func deleteIfExists(fileOrDirectoryPath: String) {
+            let exists = NSFileManager.defaultManager().fileExistsAtPath(fileOrDirectoryPath,
+                                                                         isDirectory: nil)
+            if exists {
+                try! NSFileManager.defaultManager().removeItemAtPath(fileOrDirectoryPath)
+            }
+        }
+        
+        func clearAllFiles() {
+            let documentsDirectoryPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
+            
+            deleteIfExists(documentsDirectoryPath + "/testDictionary.json")
+            deleteIfExists(documentsDirectoryPath + "/testImageFileName.jpg")
+            deleteIfExists(documentsDirectoryPath + "/Subdirectory/testDictionary.json")
+            deleteIfExists(documentsDirectoryPath + "/Subdirectory/testImageFileName.jpg")
+            deleteIfExists(documentsDirectoryPath + "/Subdirectory")
+            deleteIfExists(documentsDirectoryPath + "/testDeletionOne.jpg")
+            deleteIfExists(documentsDirectoryPath + "/testDeletionTwo.jpg")
+            deleteIfExists(documentsDirectoryPath + "/testDeletionThree.jpg")
+            deleteIfExists(documentsDirectoryPath + "/testDeletionFour.png")
+            deleteIfExists(documentsDirectoryPath + "/integrationTest.jpg")
+            deleteIfExists(documentsDirectoryPath + "/integrationTest.json")
+            
+            deleteIfExists(documentsDirectoryPath + "/100.jpg")
+            deleteIfExists(documentsDirectoryPath + "/200.jpg")
+            deleteIfExists(documentsDirectoryPath + "/300.jpg")
+            deleteIfExists(documentsDirectoryPath + "/400.txt")
+            deleteIfExists(documentsDirectoryPath + "/DirectoryOne/500.txt")
+            deleteIfExists(documentsDirectoryPath + "/DirectoryOne/600.txt")
+            deleteIfExists(documentsDirectoryPath + "/DirectoryTwo/700.txt")
+            deleteIfExists(documentsDirectoryPath + "/DirectoryTwo/800.jpg")
+            deleteIfExists(documentsDirectoryPath + "/DirectoryTwo/900.txt")
+            deleteIfExists(documentsDirectoryPath + "/DirectoryTwo/SubdirectoryOne/1000.txt")
+            deleteIfExists(documentsDirectoryPath + "/DirectoryTwo/SubdirectoryOne/1100.jpg")
+            
+            deleteIfExists(documentsDirectoryPath + "/DirectoryTwo/SubdirectoryOne")
+            deleteIfExists(documentsDirectoryPath + "/DirectoryTwo")
+            deleteIfExists(documentsDirectoryPath + "/DirectoryOne")
+        }
+        
         describe("LocalStorageWorker") {
             var subject: LocalStorageWorker!
             var documentsDirectoryPath: String!
