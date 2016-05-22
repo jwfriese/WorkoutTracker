@@ -1,4 +1,4 @@
 github "Quick/Quick" "master"
 github "Quick/Nimble" "master"
-github "Swinject/Swinject" "master"
+github "Swinject/Swinject" "f3ddad053a007d0b5dd4fd7a1dd7059740ce1b04"
 github "jwfriese/Fleet" "master"
