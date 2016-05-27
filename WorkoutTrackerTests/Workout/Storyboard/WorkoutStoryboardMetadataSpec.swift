@@ -129,130 +129,20 @@ class WorkoutStoryboardMetadataSpec: QuickSpec {
                         expect(liftSetEditFormControllerFactory).toNot(beNil())
                     }
                     
-                    describe("Its WorkoutViewController") {
-                        it("can be created") {
-                            expect(workoutViewController).toNot(beNil())
-                        }
-                        
-                        it("is created with a WorkoutSaveAgent") {
-                            expect(workoutViewController?.workoutSaveAgent).toNot(beNil())
-                        }
-                        
-                        it("is created with a LiftCreator") {
-                            expect(workoutViewController?.liftCreator).toNot(beNil())
-                        }
-                        
-                        it("is created with a LiftDeleteAgent") {
-                            expect(workoutViewController?.liftDeleteAgent).toNot(beNil())
-                        }
+                    it("can produce a WorkoutViewController") {
+                        expect(workoutViewController).toNot(beNil())
                     }
                     
-                    describe("Its LiftViewController") {
-                        it("can be created") {
-                            expect(liftViewController).toNot(beNil())
-                        }
-                        
-                        it("is created with a WorkoutSaveAgent") {
-                            expect(liftViewController?.workoutSaveAgent).toNot(beNil())
-                        }
-                        
-                        it("is created with a LiftTableHeaderViewProvider") {
-                            expect(liftViewController?.liftTableHeaderViewProvider).toNot(beNil())
-                        }
+                    it("can produce a SetEditModalViewController") {
+                        expect(setEditModalViewController).toNot(beNil())
                     }
                     
-                    describe("Its LiftEntryFormViewController") {
-                        it("can be created") {
-                            expect(liftEntryFormViewController).toNot(beNil())
-                        }
+                    it("can produce a LiftViewController") {
+                        expect(liftViewController).toNot(beNil())
                     }
                     
-                    describe("Its SetEditModalViewController") {
-                        it("can be created") {
-                            expect(setEditModalViewController).toNot(beNil())
-                        }
-                        
-                        it("is created with a LiftSetEditFormControllerFactory") {
-                            expect(setEditModalViewController?.liftSetEditFormControllerFactory).toNot(beNil())
-                        }
-                    }
-                    
-                    describe("Its WorkoutSaveAgent") {
-                        it("is created with a WorkoutSerializer") {
-                            expect(workoutSaveAgent?.workoutSerializer).toNot(beNil())
-                        }
-                        
-                        it("is created with a LiftSaveAgent") {
-                            expect(workoutSaveAgent?.liftSaveAgent).toNot(beNil())
-                        }
-                        
-                        it("is created with a LocalStorageWorker") {
-                            expect(workoutSaveAgent?.localStorageWorker).toNot(beNil())
-                        }
-                    }
-                    
-                    describe("Its LiftSaveAgent") {
-                        it("is created with a LiftSerializer") {
-                            expect(liftSaveAgent?.liftSerializer).toNot(beNil())
-                        }
-                        
-                        it("is created with a LocalStorageWorker") {
-                            expect(liftSaveAgent?.localStorageWorker).toNot(beNil())
-                        }
-                    }
-                    
-                    describe("Its LiftCreator") {
-                        it("is created with a LiftLoadAgent") {
-                            expect(liftCreator?.liftLoadAgent).toNot(beNil())
-                        }
-                    }
-                    
-                    describe("Its LiftHistoryIndexLoader") {
-                        it("is created with a LocalStorageWorker") {
-                            expect(liftHistoryIndexLoader?.localStorageWorker).toNot(beNil())
-                        }
-                    }
-                    
-                    describe("Its WorkoutLoadAgent") {
-                        it("is created with a WorkoutDeserializer") {
-                            expect(workoutLoadAgent?.workoutDeserializer).toNot(beNil())
-                        }
-                        
-                        it("is created with a LocalStorageWorker") {
-                            expect(workoutLoadAgent?.localStorageWorker).toNot(beNil())
-                        }
-                    }
-                    
-                    describe("Its LiftLoadAgent") {
-                        it("is created with a LiftSetDeserializer") {
-                            expect(liftLoadAgent?.liftSetDeserializer).toNot(beNil())
-                        }
-                        
-                        it("is created with a LocalStorageWorker") {
-                            expect(liftLoadAgent?.localStorageWorker).toNot(beNil())
-                        }
-                        
-                        it("is created with a LiftHistoryIndexLoader") {
-                            expect(liftLoadAgent?.liftHistoryIndexLoader).toNot(beNil())
-                        }
-                    }
-                    
-                    describe("Its WorkoutDeserializer") {
-                        it("is created with a LiftLoadAgent") {
-                            expect(workoutDeserializer?.liftLoadAgent).toNot(beNil())
-                        }
-                    }
-                    
-                    describe("Its LiftSetDeserializer") {
-                        it("is created with a LiftSetJSONValidator") {
-                            expect(liftSetDeserializer?.liftSetJSONValidator).toNot(beNil())
-                        }
-                    }
-                    
-                    describe("Its LiftDeleteAgent") {
-                        it("is created with a LocalStorageWorker") {
-                            expect(liftDeleteAgent?.localStorageWorker).toNot(beNil())
-                        }
+                    it("can produce a LiftEntryFormViewController") {
+                        expect(liftEntryFormViewController).toNot(beNil())
                     }
                 }
                 
@@ -265,18 +155,6 @@ class WorkoutStoryboardMetadataSpec: QuickSpec {
                     
                     it("is a WorkoutViewController") {
                         expect(initialViewController).toNot(beNil())
-                    }
-                    
-                    it("is created with a WorkoutSaveAgent") {
-                        expect(initialViewController?.workoutSaveAgent).toNot(beNil())
-                    }
-                    
-                    it("is created with a LiftCreator") {
-                        expect(initialViewController?.liftCreator).toNot(beNil())
-                    }
-                    
-                    it("is created with a LiftDeleteAgent") {
-                        expect(initialViewController?.liftDeleteAgent).toNot(beNil())
                     }
                 }
             }

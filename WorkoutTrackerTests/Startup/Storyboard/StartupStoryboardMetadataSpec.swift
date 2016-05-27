@@ -96,72 +96,6 @@ class StartupStoryboardMetadataSpec: QuickSpec {
                     it("can produce a StartupViewController") {
                         expect(startupViewController).toNot(beNil())
                     }
-                    
-                    describe("Its MigrationAgent") {
-                        it("is created with a LiftHistoryIndexBuilder") {
-                            expect(migrationAgent?.liftHistoryIndexBuilder).toNot(beNil())
-                        }
-                        
-                        it("is created with a WorkoutLoadAgent") {
-                            expect(migrationAgent?.workoutLoadAgent).toNot(beNil())
-                        }
-                        
-                        it("is created with LocalStorageWorker") {
-                            expect(migrationAgent?.localStorageWorker).toNot(beNil())
-                        }
-                    }
-                    
-                    describe("Its WorkoutLoadAgent") {
-                        it("is created with a LocalStorageWorker") {
-                            expect(workoutLoadAgent?.localStorageWorker).toNot(beNil())
-                        }
-                        
-                        it("is created with a WorkoutDeserializer") {
-                            expect(workoutLoadAgent?.workoutDeserializer).toNot(beNil())
-                        }
-                    }
-                    
-                    describe("Its LiftLoadAgent") {
-                        it("is created with a LiftSetDeserializer") {
-                            expect(liftLoadAgent?.liftSetDeserializer).toNot(beNil())
-                        }
-                        
-                        it("is created with a LocalStorageWorker") {
-                            expect(liftLoadAgent?.localStorageWorker).toNot(beNil())
-                        }
-                        
-                        it("is created with a LiftHistoryIndexBuilder") {
-                            expect(liftLoadAgent?.liftHistoryIndexLoader).toNot(beNil())
-                        }
-                    }
-                    
-                    describe("Its LiftHistoryIndexLoader") {
-                        it("is created with a LocalStorageWorker") {
-                            expect(liftHistoryIndexLoader?.localStorageWorker).toNot(beNil())
-                        }
-                    }
-                    
-                    describe("Its WorkoutDeserializer") {
-                        it("is created with a LiftLoadAgent") {
-                            expect(workoutDeserializer?.liftLoadAgent).toNot(beNil())
-                        }
-                    }
-                    
-                    describe("Its LiftSetDeserializer") {
-                        it("is created with a LiftSetJSONValidator") {
-                            expect(liftSetDeserializer?.liftSetJSONValidator).toNot(beNil())
-                        }
-                    }
-                    
-                    describe("Its StartupViewController") {
-                        it("is created with a MigrationAgent") {
-                            expect(startupViewController?.migrationAgent).toNot(beNil())
-                        }
-                        
-                        it("is created with a WorkoutListStoryboardMetadata") {
-                            expect(startupViewController?.workoutListStoryboardMetadata).toNot(beNil())
-                        }
-                    }
                 }
                 
                 describe("The initial view controller") {
@@ -173,14 +107,6 @@ class StartupStoryboardMetadataSpec: QuickSpec {
                     
                     it("is a StartupViewController") {
                         expect(initialViewController).toNot(beNil())
-                    }
-                    
-                    it("is created with a MigrationAgent") {
-                        expect(initialViewController?.migrationAgent).toNot(beNil())
-                    }
-                    
-                    it("is created with a WorkoutListStoryboardMetadata") {
-                        expect(initialViewController?.workoutListStoryboardMetadata).toNot(beNil())
                     }
                 }
             }
