@@ -1,8 +1,7 @@
 import Foundation
+import Swinject
 
 class LiftHistoryIndexBuilder {
-    init() { }
-    
     func buildIndexFromWorkouts(workouts: [Workout]) -> [String : [UInt]] {
         var index = Dictionary<String, [UInt]>()
         
@@ -26,5 +25,11 @@ class LiftHistoryIndexBuilder {
         }
         
         return index
+    }
+}
+
+extension LiftHistoryIndexBuilder: Injectable {
+    static func registerForInjection(container: Container) {
+        container.register(LiftHistoryIndexBuilder.self) { _ in return LiftHistoryIndexBuilder() }
     }
 }

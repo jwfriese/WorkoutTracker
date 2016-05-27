@@ -1,15 +1,17 @@
 import Quick
 import Nimble
+import Swinject
 @testable import WorkoutTracker
 
 class LiftTableHeaderViewProviderSpec: QuickSpec {
     override func spec() {
-        
         describe("LiftTableHeaderViewProvider") {
             var subject: LiftTableHeaderViewProvider!
             
             beforeEach {
-                subject = LiftTableHeaderViewProvider()
+                let container = Container()
+                LiftTableHeaderViewProvider.registerForInjection(container)
+                subject = container.resolve(LiftTableHeaderViewProvider.self)
             }
             
             describe("The header view created for the given lift") {

@@ -1,5 +1,6 @@
 import Quick
 import Nimble
+import Swinject
 @testable import WorkoutTracker
 
 class LocalStorageWorkerSpec: QuickSpec {
@@ -49,7 +50,9 @@ class LocalStorageWorkerSpec: QuickSpec {
             var documentsDirectoryPath: String!
             
             beforeEach {
-                subject = LocalStorageWorker()
+                let container = Container()
+                LocalStorageWorker.registerForInjection(container)
+                subject = container.resolve(LocalStorageWorker.self)
                 documentsDirectoryPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
             }
             

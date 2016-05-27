@@ -10,10 +10,6 @@ class LiftViewControllerSpec: QuickSpec {
         class MockWorkoutSaveAgent: WorkoutSaveAgent {
             var savedWorkout: Workout?
             
-            init() {
-                super.init(withWorkoutSerializer: nil, liftSaveAgent: nil, localStorageWorker: nil)
-            }
-            
             override func save(workout: Workout) -> String {
                 savedWorkout = workout
                 return ""
@@ -30,29 +26,35 @@ class LiftViewControllerSpec: QuickSpec {
             }
         }
         
+        class MockSetEditModalViewController: SetEditModalViewController {
+            override func viewDidLoad() { }
+        }
+        
         describe("LiftViewController") {
             var subject: LiftViewController!
             var mockWorkoutSaveAgent: MockWorkoutSaveAgent!
             var mockLiftTableHeaderViewProvider: MockLiftTableHeaderViewProvider!
             var navigationController: TestNavigationController!
+            var mockSetEditModalViewController: MockSetEditModalViewController!
+            
             var lift: Lift!
             
             beforeEach {
+                let container = Container()
+                
                 mockWorkoutSaveAgent = MockWorkoutSaveAgent()
+                container.register(WorkoutSaveAgent.self) { _ in return mockWorkoutSaveAgent }
+                
                 mockLiftTableHeaderViewProvider = MockLiftTableHeaderViewProvider()
+                container.register(LiftTableHeaderViewProvider.self) { _ in return mockLiftTableHeaderViewProvider }
                 
                 let storyboardMetadata = WorkoutStoryboardMetadata()
-                let container = storyboardMetadata.container
-                container.register(WorkoutSaveAgent.self) { resolver in
-                    return mockWorkoutSaveAgent
-                }
-                
-                container.register(LiftTableHeaderViewProvider.self) { resolver in
-                    return mockLiftTableHeaderViewProvider
-                }
-                
                 let storyboard = SwinjectStoryboard.create(name: storyboardMetadata.name, bundle: nil, container: container)
                 
+                mockSetEditModalViewController = MockSetEditModalViewController()
+                storyboard.bindViewController(mockSetEditModalViewController, toIdentifier: "SetEditModalViewController")
+                
+                LiftViewController.registerForInjection(container)
                 subject = storyboard.instantiateViewControllerWithIdentifier("LiftViewController")
                     as! LiftViewController
                 

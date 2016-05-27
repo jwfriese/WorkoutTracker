@@ -1,5 +1,6 @@
 import Quick
 import Nimble
+import Swinject
 @testable import WorkoutTracker
 
 class WorkoutLoadAgentSpec: QuickSpec {
@@ -7,10 +8,6 @@ class WorkoutLoadAgentSpec: QuickSpec {
         
         class MockWorkoutDeserializer: WorkoutDeserializer {
             var deserializedWorkout: Workout?
-            
-            init() {
-                super.init(withLiftLoadAgent: nil)
-            }
             
             override func deserialize(workoutDictionary: [String : AnyObject]) -> Workout {
                 deserializedWorkout = Workout(withName: workoutDictionary["name"] as! String,
@@ -24,14 +21,14 @@ class WorkoutLoadAgentSpec: QuickSpec {
             var fileRead: String?
             
             override func allFilesWithExtension(ext: String!, recursive: Bool,
-                startingDirectory: String) -> [String] {
+                                                startingDirectory: String) -> [String] {
                 
-                    var workoutFiles = [String]()
-                    if startingDirectory == "Workouts" {
-                        workoutFiles = ["turtle one", "turtle two", "turtle three"]
-                    }
-                    
-                    return workoutFiles
+                var workoutFiles = [String]()
+                if startingDirectory == "Workouts" {
+                    workoutFiles = ["turtle one", "turtle two", "turtle three"]
+                }
+                
+                return workoutFiles
             }
             
             override func readJSONDictionaryFromFile(fileName: String!) -> Dictionary<String, AnyObject>? {
@@ -42,17 +39,24 @@ class WorkoutLoadAgentSpec: QuickSpec {
         
         describe("WorkoutLoadAgent") {
             var subject: WorkoutLoadAgent!
+            var container: Container!
             var mockWorkoutDeserializer: MockWorkoutDeserializer!
             var mockLocalStorageWorker: MockLocalStorageWorker!
             
             beforeEach {
-                mockWorkoutDeserializer = MockWorkoutDeserializer()
-                mockLocalStorageWorker = MockLocalStorageWorker()
+                container = Container()
                 
-                subject = WorkoutLoadAgent(withWorkoutDeserializer: mockWorkoutDeserializer, localStorageWorker: mockLocalStorageWorker)
+                mockWorkoutDeserializer = MockWorkoutDeserializer()
+                container.register(WorkoutDeserializer.self) { _ in return mockWorkoutDeserializer }
+                
+                mockLocalStorageWorker = MockLocalStorageWorker()
+                container.register(LocalStorageWorker.self) { _ in return mockLocalStorageWorker }
+                
+                WorkoutLoadAgent.registerForInjection(container)
+                subject = container.resolve(WorkoutLoadAgent.self)
             }
             
-            describe("Its initializer") {
+            describe("Its injection") {
                 it("sets its WorkoutDeserializer") {
                     expect(subject.workoutDeserializer).to(beIdenticalTo(mockWorkoutDeserializer))
                 }

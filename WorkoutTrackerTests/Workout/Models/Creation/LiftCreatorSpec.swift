@@ -1,5 +1,6 @@
 import Quick
 import Nimble
+import Swinject
 @testable import WorkoutTracker
 
 class LiftCreatorSpec: QuickSpec {
@@ -7,10 +8,6 @@ class LiftCreatorSpec: QuickSpec {
         
         class MockLiftLoadAgent: LiftLoadAgent {
             var loadedLift: Lift?
-            
-            init() {
-                super.init(withLiftSetDeserializer: nil, localStorageWorker: nil, liftHistoryIndexLoader: nil)
-            }
             
             override private func loadLatestLiftWithName(name: String) -> Lift? {
                 loadedLift = Lift(withName: name, dataTemplate: .WeightReps)
@@ -20,15 +17,21 @@ class LiftCreatorSpec: QuickSpec {
         
         describe("LiftCreator") {
             var subject: LiftCreator!
+            var container: Container!
             var mockLiftLoadAgent: MockLiftLoadAgent!
             
             beforeEach {
-                mockLiftLoadAgent = MockLiftLoadAgent()
+                container = Container()
                 
-                subject = LiftCreator(liftLoadAgent: mockLiftLoadAgent)
+                mockLiftLoadAgent = MockLiftLoadAgent()
+                container.register(LiftLoadAgent.self) { _ in return mockLiftLoadAgent }
+                
+                LiftCreator.registerForInjection(container)
+                
+                subject = container.resolve(LiftCreator.self)
             }
             
-            describe("Its initializer") {
+            describe("Its injection") {
                 it("sets its LiftLoadAgent") {
                     expect(subject.liftLoadAgent).to(beIdenticalTo(mockLiftLoadAgent))
                 }

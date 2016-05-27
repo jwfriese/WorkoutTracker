@@ -1,9 +1,8 @@
 import Foundation
 import UIKit
+import Swinject
 
 class LocalStorageWorker {
-    init() { }
-    
     func writeData(data: NSData!, toFileWithName name: String!, createSubdirectories: Bool = false) throws {
         let filePaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
         if filePaths.count > 0 {
@@ -31,10 +30,10 @@ class LocalStorageWorker {
     }
     
     func writeJSONDictionary(dictionary: Dictionary<String, AnyObject>, toFileWithName name: String!,
-        createSubdirectories: Bool = false) throws {
-            let dictionaryData: NSData?
-            dictionaryData = try NSJSONSerialization.dataWithJSONObject(dictionary, options: .PrettyPrinted)
-            try writeData(dictionaryData!, toFileWithName: name, createSubdirectories: createSubdirectories)
+                             createSubdirectories: Bool = false) throws {
+        let dictionaryData: NSData?
+        dictionaryData = try NSJSONSerialization.dataWithJSONObject(dictionary, options: .PrettyPrinted)
+        try writeData(dictionaryData!, toFileWithName: name, createSubdirectories: createSubdirectories)
     }
     
     func writeImage(image: UIImage!, toFileWithName name: String!, createSubdirectories: Bool = false) throws {
@@ -86,37 +85,37 @@ class LocalStorageWorker {
     }
     
     func allFilesWithExtension(ext: String!, recursive: Bool,
-        startingDirectory: String = "") -> [String] {
-            var fileNames = [String]()
+                               startingDirectory: String = "") -> [String] {
+        var fileNames = [String]()
+        
+        let filePaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        if filePaths.count > 0 {
+            let documentsDirectoryPath = filePaths[0]
+            var startingSubcomponent = ""
+            if startingDirectory != "" {
+                startingSubcomponent += (startingDirectory + "/")
+            }
             
-            let filePaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-            if filePaths.count > 0 {
-                let documentsDirectoryPath = filePaths[0]
-                var startingSubcomponent = ""
-                if startingDirectory != "" {
-                    startingSubcomponent += (startingDirectory + "/")
-                }
-                
-                let startingDirectoryPath = documentsDirectoryPath + "/" + startingSubcomponent
-                let documentsEnumerator = NSFileManager.defaultManager().enumeratorAtPath(startingDirectoryPath)
-                while let fileItem = documentsEnumerator?.nextObject() as? String {
-                    let fullFilePath = startingDirectoryPath + "/" + fileItem
-                    var isDirectory: ObjCBool = false
-                    NSFileManager.defaultManager().fileExistsAtPath(fullFilePath,
-                        isDirectory: &isDirectory)
-                    if isDirectory.boolValue {
-                        if !recursive {
-                            documentsEnumerator?.skipDescendants()
-                        }
-                    } else {
-                        if (fileItem.hasSuffix(ext)) {
-                            fileNames.append(startingSubcomponent + fileItem)
-                        }
+            let startingDirectoryPath = documentsDirectoryPath + "/" + startingSubcomponent
+            let documentsEnumerator = NSFileManager.defaultManager().enumeratorAtPath(startingDirectoryPath)
+            while let fileItem = documentsEnumerator?.nextObject() as? String {
+                let fullFilePath = startingDirectoryPath + "/" + fileItem
+                var isDirectory: ObjCBool = false
+                NSFileManager.defaultManager().fileExistsAtPath(fullFilePath,
+                                                                isDirectory: &isDirectory)
+                if isDirectory.boolValue {
+                    if !recursive {
+                        documentsEnumerator?.skipDescendants()
+                    }
+                } else {
+                    if (fileItem.hasSuffix(ext)) {
+                        fileNames.append(startingSubcomponent + fileItem)
                     }
                 }
             }
-            
-            return fileNames
+        }
+        
+        return fileNames
     }
     
     func deleteFile(fileName: String!) throws {
@@ -129,9 +128,15 @@ class LocalStorageWorker {
     }
     
     func deleteAllFilesWithExtension(ext: String!, recursive: Bool,
-        startingDirectory: String = "") throws {
-            for file in self.allFilesWithExtension(ext, recursive: recursive, startingDirectory: startingDirectory) {
-                try self.deleteFile(file)
-            }
+                                     startingDirectory: String = "") throws {
+        for file in self.allFilesWithExtension(ext, recursive: recursive, startingDirectory: startingDirectory) {
+            try self.deleteFile(file)
+        }
+    }
+}
+
+extension LocalStorageWorker: Injectable {
+    static func registerForInjection(container: Container) {
+        container.register(LocalStorageWorker.self) { _ in return LocalStorageWorker() }
     }
 }

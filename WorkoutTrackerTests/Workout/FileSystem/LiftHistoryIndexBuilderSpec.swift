@@ -1,5 +1,6 @@
 import Quick
 import Nimble
+import Swinject
 @testable import WorkoutTracker
 
 class LiftHistoryIndexBuilderSpec: QuickSpec {
@@ -8,7 +9,9 @@ class LiftHistoryIndexBuilderSpec: QuickSpec {
             var subject: LiftHistoryIndexBuilder!
             
             beforeEach {
-                subject = LiftHistoryIndexBuilder()
+                let container = Container()
+                LiftHistoryIndexBuilder.registerForInjection(container)
+                subject = container.resolve(LiftHistoryIndexBuilder.self)
             }
             
             describe("When building an index of histories for lifts") {

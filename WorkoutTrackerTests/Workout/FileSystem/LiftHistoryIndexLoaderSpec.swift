@@ -1,5 +1,6 @@
 import Quick
 import Nimble
+import Swinject
 @testable import WorkoutTracker
 
 class LiftHistoryIndexLoaderSpec: QuickSpec {
@@ -18,11 +19,18 @@ class LiftHistoryIndexLoaderSpec: QuickSpec {
         
         describe("LiftHistoryIndexLoader") {
             var subject: LiftHistoryIndexLoader!
+            var container: Container!
             var mockLocalStorageWorker: MockLocalStorageWorker!
             
             beforeEach {
+                container = Container()
+                
                 mockLocalStorageWorker = MockLocalStorageWorker()
-                subject = LiftHistoryIndexLoader(withLocalStorageWorker: mockLocalStorageWorker)
+                container.register(LocalStorageWorker.self) { _ in return mockLocalStorageWorker }
+                
+                LiftHistoryIndexLoader.registerForInjection(container)
+                
+                subject = container.resolve(LiftHistoryIndexLoader.self)
             }
             
             describe("Its initializer") {

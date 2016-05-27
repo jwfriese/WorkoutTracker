@@ -1,5 +1,6 @@
 import Quick
 import Nimble
+import Swinject
 @testable import WorkoutTracker
 
 class LiftDeleteAgentSpec: QuickSpec {
@@ -15,14 +16,21 @@ class LiftDeleteAgentSpec: QuickSpec {
         
         describe("LiftDeleteAgent") {
             var subject: LiftDeleteAgent!
+            var container: Container!
             var mockLocalStorageWorker: MockLocalStorageWorker!
             
             beforeEach {
+                container = Container()
+                
                 mockLocalStorageWorker = MockLocalStorageWorker()
-                subject = LiftDeleteAgent(withLocalStorageWorker: mockLocalStorageWorker)
+                container.register(LocalStorageWorker.self) { _ in return mockLocalStorageWorker }
+                
+                LiftDeleteAgent.registerForInjection(container)
+                
+                subject = container.resolve(LiftDeleteAgent.self)
             }
             
-            describe("Its initializer") {
+            describe("Its injection") {
                 it("sets the local storage worker") {
                     expect(subject.localStorageWorker).to(beIdenticalTo(mockLocalStorageWorker))
                 }

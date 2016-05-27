@@ -1,4 +1,5 @@
 import UIKit
+import Swinject
 
 protocol LiftEntryFormDelegate {
     func liftEnteredWithName(name: String, dataTemplate: LiftDataTemplate)
@@ -102,5 +103,11 @@ extension LiftEntryFormViewController: LiftDataTemplateEntryDelegate {
         }
         
         dismissViewControllerAnimated(true, completion: nil)
+    }
+}
+
+extension LiftEntryFormViewController: Injectable {
+    static func registerForInjection(container: Container) {
+        container.registerForStoryboard(LiftEntryFormViewController.self) { instance, resolver in }
     }
 }

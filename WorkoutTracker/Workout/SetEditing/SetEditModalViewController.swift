@@ -1,4 +1,5 @@
  import UIKit
+ import Swinject
  
  protocol SetEditDelegate: class {
     var liftDataTemplate: LiftDataTemplate { get }
@@ -94,6 +95,14 @@
     private func disableFormSubmitButton() {
         formSubmitButton?.enabled = false
         formSubmitButton?.alpha = 0.4
+    }
+ }
+ 
+ extension SetEditModalViewController: Injectable {
+    static func registerForInjection(container: Container) {
+        container.registerForStoryboard(SetEditModalViewController.self) { resolver, instance in
+            instance.liftSetEditFormControllerFactory = resolver.resolve(LiftSetEditFormControllerFactory.self)
+        }
     }
  }
  

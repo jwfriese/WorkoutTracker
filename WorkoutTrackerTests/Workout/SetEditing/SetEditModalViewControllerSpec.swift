@@ -47,10 +47,6 @@ class SetEditModalViewControllerSpec: QuickSpec {
             var capturedTemplate: LiftDataTemplate?
             var controller: MockLiftSetEditFormControllerImpl!
             
-            init() {
-                super.init(withControllerContainer: Container())
-            }
-            
             override private func controllerForTemplate(template: LiftDataTemplate) -> LiftSetEditFormController? {
                 capturedTemplate = template
                 
@@ -100,10 +96,12 @@ class SetEditModalViewControllerSpec: QuickSpec {
                 
                 let storyboardMetadata = WorkoutStoryboardMetadata()
                 
-                let container = storyboardMetadata.container
+                let container = Container()
                 container.register(LiftSetEditFormControllerFactory.self) { resolver in
                     return mockLiftSetEditFormControllerFactory
                 }
+                
+                SetEditModalViewController.registerForInjection(container)
                 
                 let storyboard = SwinjectStoryboard.create(name: storyboardMetadata.name, bundle: nil,
                     container: container)
@@ -112,6 +110,12 @@ class SetEditModalViewControllerSpec: QuickSpec {
                 
                 mockSetEditDelegate = MockSetEditDelegate()
                 subject.delegate = mockSetEditDelegate
+            }
+            
+            describe("Injection of its dependencies") {
+                it("sets a LiftSetEditFormControllerFactory on the view controller") {
+                    expect(subject.liftSetEditFormControllerFactory).to(beIdenticalTo(mockLiftSetEditFormControllerFactory))
+                }
             }
             
             describe("After the view has loaded") {

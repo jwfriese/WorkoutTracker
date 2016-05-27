@@ -1,8 +1,7 @@
 import UIKit
+import Swinject
 
 class LiftTableHeaderViewProvider {
-    init() { }
-    
     func provideForLift(lift: Lift) -> UIStackView {
         let view = UIStackView()
         view.distribution = .FillEqually
@@ -33,5 +32,11 @@ class LiftTableHeaderViewProvider {
         let view = NSBundle.mainBundle().loadNibNamed("LiftTableHeaderViewColumnView", owner: nil, options: nil)[0] as? LiftTableHeaderViewColumnView
         view?.textLabel?.text = label
         return view!
+    }
+}
+
+extension LiftTableHeaderViewProvider: Injectable {
+    static func registerForInjection(container: Container) {
+        container.register(LiftTableHeaderViewProvider.self) { _ in return LiftTableHeaderViewProvider() }
     }
 }

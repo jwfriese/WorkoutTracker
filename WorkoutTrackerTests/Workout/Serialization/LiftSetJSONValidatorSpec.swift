@@ -1,14 +1,20 @@
 import Quick
 import Nimble
+import Swinject
 @testable import WorkoutTracker
 
 class LiftSetJSONValidatorSpec: QuickSpec {
     override func spec() {
         describe("LiftSetJSONValidator") {
             var subject: LiftSetJSONValidator!
+            var container: Container!
             
             beforeEach {
-                subject = LiftSetJSONValidator()
+                container = Container()
+                
+                LiftSetJSONValidator.registerForInjection(container)
+                
+                subject = container.resolve(LiftSetJSONValidator.self)
             }
             
             func testData() -> [LiftDataTemplate : [String : AnyObject]] {

@@ -1,44 +1,45 @@
 import Quick
 import Nimble
-@testable import WorkoutTracker
 import Swinject
+@testable import WorkoutTracker
 
 class LiftSetEditFormControllerFactorySpec: QuickSpec {
     override func spec() {
         describe("LiftSetEditFormControllerFactory") {
             var subject: LiftSetEditFormControllerFactory!
-            var mockControllerContainer: Container!
-            
-            var mockWeightRepsController: WeightRepsEditFormViewController!
-            var mockHeightRepsController: HeightRepsEditFormViewController!
-            var mockTimeInSecondsController: TimeInSecondsEditFormViewController!
-            var mockWeightTimeInSecondsController: WeightTimeInSecondsEditFormViewController!
             
             beforeEach {
-                mockControllerContainer = Container()
-                
-                mockWeightRepsController = WeightRepsEditFormViewController()
-                mockHeightRepsController = HeightRepsEditFormViewController()
-                mockTimeInSecondsController = TimeInSecondsEditFormViewController()
-                mockWeightTimeInSecondsController = WeightTimeInSecondsEditFormViewController()
-                
-                mockControllerContainer.register(WeightRepsEditFormViewController.self) { resolver in
-                    return mockWeightRepsController
+                let container = Container()
+                LiftSetEditFormControllerFactory.registerForInjection(container)
+                subject = container.resolve(LiftSetEditFormControllerFactory.self)
+            }
+            
+            describe("Its injection") {
+                it("sets its controller container") {
+                    expect(subject.controllerContainer).toNot(beNil())
                 }
                 
-                mockControllerContainer.register(HeightRepsEditFormViewController.self) { resolver in
-                    return mockHeightRepsController
+                describe("The controller container dependency") {
+                    it("can produce a WeightRepsEditFormViewController") {
+                        let controller = subject.controllerContainer.resolve(WeightRepsEditFormViewController.self)
+                        expect(controller).toNot(beNil())
+                    }
+                    
+                    it("can produce a HeightRepsEditFormViewController") {
+                        let controller = subject.controllerContainer.resolve(HeightRepsEditFormViewController.self)
+                        expect(controller).toNot(beNil())
+                    }
+                    
+                    it("can produce a TimeInSecondsEditFormViewController") {
+                        let controller = subject.controllerContainer.resolve(TimeInSecondsEditFormViewController.self)
+                        expect(controller).toNot(beNil())
+                    }
+                    
+                    it("can produce a WeightTimeInSecondsEditFormViewController") {
+                        let controller = subject.controllerContainer.resolve(WeightTimeInSecondsEditFormViewController.self)
+                        expect(controller).toNot(beNil())
+                    }
                 }
-                
-                mockControllerContainer.register(TimeInSecondsEditFormViewController.self) { resolver in
-                    return mockTimeInSecondsController
-                }
-                
-                mockControllerContainer.register(WeightTimeInSecondsEditFormViewController.self) { resolver in
-                    return mockWeightTimeInSecondsController
-                }
-                
-                subject = LiftSetEditFormControllerFactory(withControllerContainer: mockControllerContainer)
             }
             
             describe("The controller provided") {
@@ -50,7 +51,7 @@ class LiftSetEditFormControllerFactorySpec: QuickSpec {
                     }
                     
                     it("is the appropriate type") {
-                        expect(controller as? WeightRepsEditFormViewController).to(beIdenticalTo(mockWeightRepsController))
+                        expect(controller as? WeightRepsEditFormViewController).toNot(beNil())
                     }
                 }
                 
@@ -60,7 +61,7 @@ class LiftSetEditFormControllerFactorySpec: QuickSpec {
                     }
                     
                     it("is the appropriate type") {
-                        expect(controller as? HeightRepsEditFormViewController).to(beIdenticalTo(mockHeightRepsController))
+                        expect(controller as? HeightRepsEditFormViewController).toNot(beNil())
                     }
                 }
                 
@@ -70,7 +71,7 @@ class LiftSetEditFormControllerFactorySpec: QuickSpec {
                     }
                     
                     it("is the appropriate type") {
-                        expect(controller as? TimeInSecondsEditFormViewController).to(beIdenticalTo(mockTimeInSecondsController))
+                        expect(controller as? TimeInSecondsEditFormViewController).toNot(beNil())
                     }
                 }
                 
@@ -80,7 +81,7 @@ class LiftSetEditFormControllerFactorySpec: QuickSpec {
                     }
                     
                     it("is the appropriate type") {
-                        expect(controller as? WeightTimeInSecondsEditFormViewController).to(beIdenticalTo(mockWeightTimeInSecondsController))
+                        expect(controller as? WeightTimeInSecondsEditFormViewController).toNot(beNil())
                     }
                 }
             }

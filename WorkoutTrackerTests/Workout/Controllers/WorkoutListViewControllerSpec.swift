@@ -21,10 +21,6 @@ class WorkoutListViewControllerSpec: QuickSpec {
         class MockWorkoutSaveAgent: WorkoutSaveAgent {
             var savedWorkout: Workout?
             
-            init() {
-                super.init(withWorkoutSerializer: nil, liftSaveAgent: nil, localStorageWorker: nil)
-            }
-            
             override func save(workout: Workout) -> String {
                 savedWorkout = workout
                 return ""
@@ -32,10 +28,6 @@ class WorkoutListViewControllerSpec: QuickSpec {
         }
         
         class MockWorkoutLoadAgent: WorkoutLoadAgent {
-            init() {
-                super.init(withWorkoutDeserializer:nil, localStorageWorker:nil)
-            }
-            
             override func loadAllWorkouts() -> [Workout] {
                 return [
                     Workout(withName: "turtle workout one", timestamp: 1000),
@@ -68,10 +60,6 @@ class WorkoutListViewControllerSpec: QuickSpec {
         class MockWorkoutDeleteAgent: WorkoutDeleteAgent {
             var deletedWorkout: Workout?
             
-            init() {
-                super.init(withLocalStorageWorker: nil)
-            }
-            
             override func delete(workout: Workout) {
                 deletedWorkout = workout
             }
@@ -102,13 +90,7 @@ class WorkoutListViewControllerSpec: QuickSpec {
                 container.register(WorkoutDeleteAgent.self) { _ in mockWorkoutDeleteAgent }
                 container.register(WorkoutStoryboardMetadata.self) { _ in mockWorkoutStoryboardMetadata }
                 
-                container.registerForStoryboard(WorkoutListViewController.self) { resolver, instance in
-                    instance.timestamper = resolver.resolve(Timestamper.self)
-                    instance.workoutSaveAgent = resolver.resolve(WorkoutSaveAgent.self)
-                    instance.workoutLoadAgent = resolver.resolve(WorkoutLoadAgent.self)
-                    instance.workoutDeleteAgent = resolver.resolve(WorkoutDeleteAgent.self)
-                    instance.workoutStoryboardMetadata = resolver.resolve(WorkoutStoryboardMetadata.self)
-                }
+                WorkoutListViewController.registerForInjection(container)
                 
                 let storyboard = SwinjectStoryboard.create(name: "WorkoutList", bundle: nil, container: container)
                 
@@ -119,6 +101,28 @@ class WorkoutListViewControllerSpec: QuickSpec {
                 navigationController.pushViewController(subject, animated: false)
                 
                 TestAppDelegate.setAsRootViewController(navigationController)
+            }
+            
+            describe("Injection of its dependencies") {
+                it("sets a Timestamper") {
+                    expect(subject.timestamper).to(beIdenticalTo(mockTimestamper))
+                }
+                
+                it("sets a WorkoutSaveAgent") {
+                    expect(subject.workoutSaveAgent).to(beIdenticalTo(mockWorkoutSaveAgent))
+                }
+                
+                it("sets a WorkoutLoadAgent") {
+                    expect(subject.workoutLoadAgent).to(beIdenticalTo(mockWorkoutLoadAgent))
+                }
+                
+                it("sets a WorkoutDeleteAgent") {
+                    expect(subject.workoutDeleteAgent).to(beIdenticalTo(mockWorkoutDeleteAgent))
+                }
+                
+                it("sets a WorkoutStoryboardMetadata") {
+                    expect(subject.workoutStoryboardMetadata).to(beIdenticalTo(mockWorkoutStoryboardMetadata))
+                }
             }
             
             describe("Once the view has loaded") {

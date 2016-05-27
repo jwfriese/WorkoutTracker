@@ -1,13 +1,19 @@
 import UIKit
+import Swinject
+
+extension Segues {
+    static var presentModalSetEditForm: String { get { return "PresentModalSetEditForm" } }
+    static var showViewLastLift: String { get { return "ShowViewLastLift" } }
+}
 
 class LiftViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView?
     @IBOutlet weak var addLiftButton: UIButton?
     
-    var lift: Lift!
-    var workoutSaveAgent: WorkoutSaveAgent!
-    var liftTableHeaderViewProvider: LiftTableHeaderViewProvider!
+    private(set) var workoutSaveAgent: WorkoutSaveAgent!
+    private(set) var liftTableHeaderViewProvider: LiftTableHeaderViewProvider!
     
+    var lift: Lift!
     var isReadonly: Bool = false
     
     private var setInEditing: LiftSet?
@@ -30,17 +36,17 @@ class LiftViewController: UIViewController {
     
     @IBAction func addSet() {
         setInEditing = nil
-        self.performSegueWithIdentifier("PresentModalSetEditForm", sender: nil)
+        self.performSegueWithIdentifier(Segues.presentModalSetEditForm, sender: nil)
     }
     
     @IBAction func viewLastLift() {
         if let lastLift = lift.previousInstance {
-            self.performSegueWithIdentifier("ShowViewLastLift", sender: lastLift)
+            self.performSegueWithIdentifier(Segues.showViewLastLift, sender: lastLift)
         }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "PresentModalSetEditForm" {
+        if segue.identifier == Segues.presentModalSetEditForm {
             if let setEditModalViewController = segue.destinationViewController as? SetEditModalViewController {
                 
                 setEditModalViewController.delegate = self
@@ -49,7 +55,7 @@ class LiftViewController: UIViewController {
                     setEditModalViewController.set = sentSet
                 }
             }
-        } else if segue.identifier == "ShowViewLastLift" {
+        } else if segue.identifier == Segues.showViewLastLift {
             if let viewLastLiftViewController = segue.destinationViewController as? LiftViewController {
                 viewLastLiftViewController.isReadonly = true
                 
@@ -114,7 +120,7 @@ extension LiftViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if !isReadonly {
             let set = lift.sets[indexPath.row]
-            self.performSegueWithIdentifier("PresentModalSetEditForm", sender: set)
+            self.performSegueWithIdentifier(Segues.presentModalSetEditForm, sender: set)
         }
     }
 }
@@ -126,5 +132,14 @@ extension LiftViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
+    }
+}
+
+extension LiftViewController: Injectable {
+    static func registerForInjection(container: Container) {
+        container.registerForStoryboard(LiftViewController.self) { resolver, instance in
+            instance.workoutSaveAgent = resolver.resolve(WorkoutSaveAgent.self)
+            instance.liftTableHeaderViewProvider = resolver.resolve(LiftTableHeaderViewProvider.self)
+        }
     }
 }

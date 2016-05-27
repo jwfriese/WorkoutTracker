@@ -31,6 +31,18 @@ class WorkoutListViewController: UIViewController {
     }
 }
 
+extension WorkoutListViewController: Injectable {
+    static func registerForInjection(container: Container) {
+        container.registerForStoryboard(WorkoutListViewController.self) { resolver, instance in
+            instance.timestamper = resolver.resolve(Timestamper.self)
+            instance.workoutSaveAgent = resolver.resolve(WorkoutSaveAgent.self)
+            instance.workoutLoadAgent = resolver.resolve(WorkoutLoadAgent.self)
+            instance.workoutDeleteAgent = resolver.resolve(WorkoutDeleteAgent.self)
+            instance.workoutStoryboardMetadata = resolver.resolve(WorkoutStoryboardMetadata.self)
+        }
+    }
+}
+
 extension WorkoutListViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return workouts.count
