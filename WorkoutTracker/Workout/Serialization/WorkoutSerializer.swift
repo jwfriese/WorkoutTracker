@@ -1,4 +1,5 @@
 import Foundation
+import Swinject
 
 class WorkoutSerializer {
     init() { }
@@ -16,5 +17,11 @@ class WorkoutSerializer {
         result["lifts"] = lifts
         
         return result
+    }
+}
+
+extension WorkoutSerializer: Injectable {
+    static func registerForInjection(container: Container) {
+        container.register(WorkoutSerializer.self) { _ in return WorkoutSerializer() }
     }
 }

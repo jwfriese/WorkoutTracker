@@ -1,5 +1,6 @@
 import Quick
 import Nimble
+import Swinject
 @testable import WorkoutTracker
 
 class LiftSerializerSpec: QuickSpec {
@@ -10,7 +11,9 @@ class LiftSerializerSpec: QuickSpec {
             var resultJSONDictionary: [String : AnyObject]!
             
             beforeEach {
-                subject = LiftSerializer()
+                let container = Container()
+                LiftSerializer.registerForInjection(container)
+                subject = container.resolve(LiftSerializer.self)
                 
                 lift = Lift(withName: "turtle lift", dataTemplate: .WeightTimeInSeconds)
                 lift.addSet(LiftSet(withDataTemplate: .WeightTimeInSeconds, data: ["data": 1]))

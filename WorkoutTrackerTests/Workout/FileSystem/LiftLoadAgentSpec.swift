@@ -1,15 +1,12 @@
 import Quick
 import Nimble
+import Swinject
 @testable import WorkoutTracker
 
 class LiftLoadAgentSpec: QuickSpec {
     override func spec() {
         
         class MockLiftSetDeserializer: LiftSetDeserializer {
-            init() {
-                super.init(withLiftSetJSONValidator: nil)
-            }
-            
             override func deserialize(liftSetDictionary: [String : AnyObject], usingDataTemplate dataTemplate: LiftDataTemplate) -> LiftSet? {
                 return LiftSet(withDataTemplate: dataTemplate, data: liftSetDictionary)
             }
@@ -47,10 +44,6 @@ class LiftLoadAgentSpec: QuickSpec {
         class MockLiftHistoryIndexLoader: LiftHistoryIndexLoader {
             var index: [String : [UInt]] = [String : [UInt]]()
             
-            init() {
-                super.init(withLocalStorageWorker: nil)
-            }
-            
             override private func load() -> [String : [UInt]] {
                 return index
             }
@@ -58,19 +51,29 @@ class LiftLoadAgentSpec: QuickSpec {
         
         describe("LiftLoadAgent") {
             var subject: LiftLoadAgent!
+            var container: Container!
             var mockLiftSetDeserializer: MockLiftSetDeserializer!
             var mockLocalStorageWorker: MockLocalStorageWorker!
             var mockLiftHistoryIndexLoader: MockLiftHistoryIndexLoader!
             
             beforeEach {
-                mockLiftSetDeserializer = MockLiftSetDeserializer()
-                mockLocalStorageWorker = MockLocalStorageWorker()
-                mockLiftHistoryIndexLoader = MockLiftHistoryIndexLoader()
+                container = Container()
                 
-                subject = LiftLoadAgent(withLiftSetDeserializer: mockLiftSetDeserializer, localStorageWorker: mockLocalStorageWorker, liftHistoryIndexLoader: mockLiftHistoryIndexLoader)
+                mockLiftSetDeserializer = MockLiftSetDeserializer()
+                container.register(LiftSetDeserializer.self) { _ in return mockLiftSetDeserializer }
+                
+                mockLocalStorageWorker = MockLocalStorageWorker()
+                container.register(LocalStorageWorker.self) { _ in return mockLocalStorageWorker }
+                
+                mockLiftHistoryIndexLoader = MockLiftHistoryIndexLoader()
+                container.register(LiftHistoryIndexLoader.self) { _ in return mockLiftHistoryIndexLoader }
+                
+                LiftLoadAgent.registerForInjection(container)
+                
+                subject = container.resolve(LiftLoadAgent.self)
             }
             
-            describe("Its initializer") {
+            describe("Its injection") {
                 it("sets its LiftSetDeserializer") {
                     expect(subject.liftSetDeserializer).to(beIdenticalTo(mockLiftSetDeserializer))
                 }

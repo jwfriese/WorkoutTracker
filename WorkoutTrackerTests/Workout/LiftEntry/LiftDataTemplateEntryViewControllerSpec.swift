@@ -19,7 +19,10 @@ class LiftDataTemplateEntryViewControllerSpec: QuickSpec {
             
             beforeEach {
                 let storyboardMetadata = WorkoutStoryboardMetadata()
-                let container = storyboardMetadata.container
+                let container = Container()
+                
+                LiftDataTemplateEntryViewController.registerForInjection(container)
+                
                 let storyboard = SwinjectStoryboard.create(name: storyboardMetadata.name, bundle: nil, container: container)
                 
                 subject = storyboard.instantiateViewControllerWithIdentifier("LiftDataTemplateEntryViewController")

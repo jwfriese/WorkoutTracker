@@ -254,12 +254,6 @@ class WorkoutStoryboardMetadataSpec: QuickSpec {
                             expect(liftDeleteAgent?.localStorageWorker).toNot(beNil())
                         }
                     }
-                    
-                    describe("Its LiftSetEditFormControllerFactory") {
-                        it("is created with this as its controller container") {
-                            expect(liftSetEditFormControllerFactory?.controllerContainer).to(beIdenticalTo(container))
-                        }
-                    }
                 }
                 
                 describe("The initial view controller") {

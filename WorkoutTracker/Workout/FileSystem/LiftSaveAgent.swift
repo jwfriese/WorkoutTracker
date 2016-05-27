@@ -1,13 +1,9 @@
 import Foundation
+import Swinject
 
 class LiftSaveAgent {
     private(set) var liftSerializer: LiftSerializer!
     private(set) var localStorageWorker: LocalStorageWorker!
-    
-    init(withLiftSerializer liftSerializer: LiftSerializer?, localStorageWorker: LocalStorageWorker?) {
-        self.liftSerializer = liftSerializer
-        self.localStorageWorker = localStorageWorker
-    }
     
     func save(lift: Lift) {
         if let liftWorkout = lift.workout {
@@ -21,6 +17,19 @@ class LiftSaveAgent {
             } catch {
                 print("Failed to write to \(fileName)")
             }
+        }
+    }
+}
+
+extension LiftSaveAgent: Injectable {
+    static func registerForInjection(container: Container) {
+        container.register(LiftSaveAgent.self) { resolver in
+            let instance = LiftSaveAgent()
+            
+            instance.liftSerializer = resolver.resolve(LiftSerializer.self)
+            instance.localStorageWorker = resolver.resolve(LocalStorageWorker.self)
+            
+            return instance
         }
     }
 }

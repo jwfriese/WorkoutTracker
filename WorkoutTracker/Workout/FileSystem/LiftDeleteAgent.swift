@@ -1,11 +1,8 @@
 import Foundation
+import Swinject
 
 class LiftDeleteAgent {
     private(set) var localStorageWorker: LocalStorageWorker!
-    
-    init(withLocalStorageWorker localStorageWorker: LocalStorageWorker?) {
-        self.localStorageWorker = localStorageWorker
-    }
     
     func delete(lift: Lift) {
         if let liftWorkout = lift.workout {
@@ -17,6 +14,18 @@ class LiftDeleteAgent {
             } catch {
                 print("Failed to delete file with name \(fileName) (for lift named \"\(lift.name)\"")
             }
+        }
+    }
+}
+
+extension LiftDeleteAgent: Injectable {
+    static func registerForInjection(container: Container) {
+        container.register(LiftDeleteAgent.self) { resolver in
+            let instance = LiftDeleteAgent()
+            
+            instance.localStorageWorker = resolver.resolve(LocalStorageWorker.self)
+            
+            return instance
         }
     }
 }

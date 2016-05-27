@@ -1,12 +1,14 @@
 import UIKit
+import Swinject
 
 class WorkoutViewController: UIViewController {
     @IBOutlet private(set) weak var tableView: UITableView?
+   
+    private(set) var workoutSaveAgent: WorkoutSaveAgent!
+    private(set) var liftCreator: LiftCreator!
+    private(set) var liftDeleteAgent: LiftDeleteAgent!
     
     var workout: Workout!
-    var workoutSaveAgent: WorkoutSaveAgent!
-    var liftCreator: LiftCreator!
-    var liftDeleteAgent: LiftDeleteAgent!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,6 +78,16 @@ extension WorkoutViewController: UITableViewDataSource {
             self.tableView?.reloadData()
             liftDeleteAgent.delete(liftToDelete)
             workoutSaveAgent.save(workout)
+        }
+    }
+}
+
+extension WorkoutViewController: Injectable {
+    static func registerForInjection(container: Container) {
+        container.registerForStoryboard(WorkoutViewController.self) { resolver, instance in
+            instance.workoutSaveAgent = resolver.resolve(WorkoutSaveAgent.self)
+            instance.liftCreator = resolver.resolve(LiftCreator.self)
+            instance.liftDeleteAgent = resolver.resolve(LiftDeleteAgent.self)
         }
     }
 }

@@ -1,5 +1,6 @@
 import Quick
 import Nimble
+import Swinject
 @testable import WorkoutTracker
 
 class LiftSetDeserializerSpec: QuickSpec {
@@ -25,14 +26,21 @@ class LiftSetDeserializerSpec: QuickSpec {
         
         describe("LiftSetDeserializer") {
             var subject: LiftSetDeserializer!
+            var container: Container!
             var mockLiftSetJSONValidator: MockLiftSetJSONValidator!
             
             beforeEach {
+                container = Container()
+                
                 mockLiftSetJSONValidator = MockLiftSetJSONValidator()
-                subject = LiftSetDeserializer(withLiftSetJSONValidator: mockLiftSetJSONValidator)
+                container.register(LiftSetJSONValidator.self) { _ in return mockLiftSetJSONValidator }
+                
+                LiftSetDeserializer.registerForInjection(container)
+                
+                subject = container.resolve(LiftSetDeserializer.self)
             }
             
-            describe("Its initializer") {
+            describe("Its injection") {
                 it("sets its LiftSetJSONValidator") {
                     expect(subject.liftSetJSONValidator).to(beIdenticalTo(mockLiftSetJSONValidator))
                 }

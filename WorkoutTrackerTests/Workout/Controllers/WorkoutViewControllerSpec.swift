@@ -9,10 +9,6 @@ class WorkoutViewControllerSpec: QuickSpec {
         class MockWorkoutSaveAgent: WorkoutSaveAgent {
             var savedWorkout: Workout?
             
-            init() {
-                super.init(withWorkoutSerializer: nil, liftSaveAgent: nil, localStorageWorker: nil)
-            }
-            
             override func save(workout: Workout) -> String {
                 savedWorkout = workout
                 return ""
@@ -20,10 +16,6 @@ class WorkoutViewControllerSpec: QuickSpec {
         }
         
         class MockLiftCreator: LiftCreator {
-            init() {
-                super.init(liftLoadAgent: nil)
-            }
-            
             override private func createWithName(name: String, dataTemplate: LiftDataTemplate) -> Lift {
                 return Lift(withName: name, dataTemplate: dataTemplate)
             }
@@ -31,10 +23,6 @@ class WorkoutViewControllerSpec: QuickSpec {
         
         class MockLiftDeleteAgent: LiftDeleteAgent {
             var deletedLift: Lift?
-            
-            init() {
-                super.init(withLocalStorageWorker: nil)
-            }
             
             override func delete(lift: Lift) {
                 deletedLift = lift
@@ -49,25 +37,21 @@ class WorkoutViewControllerSpec: QuickSpec {
             var navigationController: TestNavigationController!
             
             beforeEach {
+                let container = Container()
+                
                 mockWorkoutSaveAgent = MockWorkoutSaveAgent()
+                container.register(WorkoutSaveAgent.self) { _ in return mockWorkoutSaveAgent }
+                
                 mockLiftCreator = MockLiftCreator()
+                container.register(LiftCreator.self) { _ in return mockLiftCreator }
+                
                 mockLiftDeleteAgent = MockLiftDeleteAgent()
+                container.register(LiftDeleteAgent.self) { _ in return mockLiftDeleteAgent }
                 
                 let storyboardMetadata = WorkoutStoryboardMetadata()
-                let container = storyboardMetadata.container
-                container.register(WorkoutSaveAgent.self) { resolver in
-                    return mockWorkoutSaveAgent
-                }
-                
-                container.register(LiftCreator.self) { resolver in
-                    return mockLiftCreator
-                }
-                
-                container.register(LiftDeleteAgent.self) { resolver in
-                    return mockLiftDeleteAgent
-                }
-                
                 let storyboard = SwinjectStoryboard.create(name: storyboardMetadata.name, bundle: nil, container: container)
+                
+                WorkoutViewController.registerForInjection(container)
                 
                 subject = storyboard.instantiateViewControllerWithIdentifier("WorkoutViewController")
                     as! WorkoutViewController
@@ -78,6 +62,20 @@ class WorkoutViewControllerSpec: QuickSpec {
                 navigationController.pushViewController(subject, animated: false)
                 
                 TestAppDelegate.setAsRootViewController(navigationController)
+            }
+            
+            describe("Its injection") {
+                it("sets its WorkoutSaveAgent") {
+                    expect(subject.workoutSaveAgent).to(beIdenticalTo(mockWorkoutSaveAgent))
+                }
+                
+                it("sets its LiftCreator") {
+                    expect(subject.liftCreator).to(beIdenticalTo(mockLiftCreator))
+                }
+                
+                it("sets its LiftDeleteAgent") {
+                    expect(subject.liftDeleteAgent).to(beIdenticalTo(mockLiftDeleteAgent))
+                }
             }
             
             describe("After loading the view") {

@@ -1,15 +1,12 @@
 import Quick
 import Nimble
+import Swinject
 @testable import WorkoutTracker
 
 class WorkoutDeserializerSpec: QuickSpec {
     override func spec() {
         
         class MockLiftLoadAgent: LiftLoadAgent {
-            init() {
-                super.init(withLiftSetDeserializer: nil, localStorageWorker: nil, liftHistoryIndexLoader: nil)
-            }
-            
             override func loadLift(withName name: String, fromWorkoutWithIdentifier workoutIdentifier: UInt,
                                             shouldLoadPreviousLift: Bool) -> Lift? {
                 return Lift(withName: name, dataTemplate: .WeightReps)
@@ -18,14 +15,21 @@ class WorkoutDeserializerSpec: QuickSpec {
         
         describe("WorkoutDeserializer") {
             var subject: WorkoutDeserializer!
+            var container: Container!
             var mockLiftLoadAgent: MockLiftLoadAgent!
             
             beforeEach {
+                container = Container()
+                
                 mockLiftLoadAgent = MockLiftLoadAgent()
-                subject = WorkoutDeserializer(withLiftLoadAgent: mockLiftLoadAgent)
+                container.register(LiftLoadAgent.self) { _ in return mockLiftLoadAgent }
+                
+                WorkoutDeserializer.registerForInjection(container)
+                
+                subject = container.resolve(WorkoutDeserializer.self)
             }
             
-            describe("Its initializer") {
+            describe("Its injection") {
                 it("sets it lift load agent") {
                     expect(subject.liftLoadAgent).to(beIdenticalTo(mockLiftLoadAgent))
                 }

@@ -1,4 +1,5 @@
 import UIKit
+import Swinject
 
 class LiftDataTemplateEntryViewController: UIViewController {
     @IBOutlet weak var dataTemplatePickerView: UIPickerView?
@@ -9,6 +10,12 @@ class LiftDataTemplateEntryViewController: UIViewController {
         super.viewDidLoad()
         self.dataTemplatePickerView?.dataSource = self
         self.dataTemplatePickerView?.delegate = self
+    }
+}
+
+extension LiftDataTemplateEntryViewController: Injectable {
+    static func registerForInjection(container: Container) {
+        container.registerForStoryboard(LiftDataTemplateEntryViewController.self) { _, _ in }
     }
 }
 

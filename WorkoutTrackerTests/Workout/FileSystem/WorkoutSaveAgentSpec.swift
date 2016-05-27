@@ -1,5 +1,6 @@
 import Quick
 import Nimble
+import Swinject
 @testable import WorkoutTracker
 
 class WorkoutSaveAgentSpec: QuickSpec {
@@ -16,10 +17,6 @@ class WorkoutSaveAgentSpec: QuickSpec {
         class MockLiftSaveAgent: LiftSaveAgent {
             var savedLifts: [Lift] = []
             
-            init() {
-                super.init(withLiftSerializer: nil, localStorageWorker: nil)
-            }
-            
             override func save(lift: Lift) {
                 savedLifts.append(lift)
             }
@@ -28,38 +25,51 @@ class WorkoutSaveAgentSpec: QuickSpec {
         class MockLocalStorageWorker: LocalStorageWorker {
             var savedDictionary: [String : AnyObject]?
             
-            override private func writeJSONDictionary(dictionary: Dictionary<String, AnyObject>, toFileWithName name: String!,
-                                                      createSubdirectories: Bool) {
+            override private func writeJSONDictionary(dictionary: Dictionary<String, AnyObject>, toFileWithName name: String!, createSubdirectories: Bool) {
                 savedDictionary = dictionary
             }
         }
         
         describe("WorkoutSaveAgent") {
             var subject: WorkoutSaveAgent!
+            var container: Container!
             var mockWorkoutSerializer: MockWorkoutSerializer!
             var mockLiftSaveAgent: MockLiftSaveAgent!
             var mockLocalStorageWorker: MockLocalStorageWorker!
             
             beforeEach {
-                mockWorkoutSerializer = MockWorkoutSerializer()
-                mockLiftSaveAgent = MockLiftSaveAgent()
-                mockLocalStorageWorker = MockLocalStorageWorker()
+                container = Container()
                 
-                subject = WorkoutSaveAgent(withWorkoutSerializer: mockWorkoutSerializer,
-                    liftSaveAgent: mockLiftSaveAgent, localStorageWorker: mockLocalStorageWorker)
+                mockWorkoutSerializer = MockWorkoutSerializer()
+                container.register(WorkoutSerializer.self) { _ in
+                    return mockWorkoutSerializer
+                }
+                
+                mockLiftSaveAgent = MockLiftSaveAgent()
+                container.register(LiftSaveAgent.self) { _ in
+                    return mockLiftSaveAgent
+                }
+                
+                mockLocalStorageWorker = MockLocalStorageWorker()
+                container.register(LocalStorageWorker.self) { _ in
+                    return mockLocalStorageWorker
+                }
+                
+                WorkoutSaveAgent.registerForInjection(container)
+                subject = container.resolve(WorkoutSaveAgent.self)
             }
             
-            describe("Its initializer") {
+            describe("Its injection") {
                 it("sets its workout serializer") {
-                    expect(subject.workoutSerializer).toNot(beNil())
+                    expect(subject.workoutSerializer).to(beIdenticalTo(mockWorkoutSerializer))
                 }
                 
                 it("sets its lift save agent") {
-                    expect(subject.liftSaveAgent).toNot(beNil())
+                    expect(subject.liftSaveAgent).to(beIdenticalTo(mockLiftSaveAgent))
                 }
                 
                 it("sets its local storage worker") {
-                    expect(subject.localStorageWorker).toNot(beNil())
+                    expect(subject.localStorageWorker).to(beIdenticalTo(mockLocalStorageWorker))
                 }
             }
             

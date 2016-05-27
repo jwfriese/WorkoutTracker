@@ -25,7 +25,9 @@ class LiftEntryFormViewControllerSpec: QuickSpec {
                 mockLiftEntryFormDelegate = MockLiftEntryFormDelegate()
                 
                 let storyboardMetadata = WorkoutStoryboardMetadata()
-                let container = storyboardMetadata.container
+                let container = Container()
+                
+                LiftEntryFormViewController.registerForInjection(container)
                 
                 let storyboard = SwinjectStoryboard.create(name: storyboardMetadata.name, bundle: nil,
                     container: container)

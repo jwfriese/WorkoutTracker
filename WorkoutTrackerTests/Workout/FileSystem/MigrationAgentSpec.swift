@@ -1,5 +1,6 @@
 import Quick
 import Nimble
+import Swinject
 @testable import WorkoutTracker
 
 class MigrationAgentSpec: QuickSpec {
@@ -18,10 +19,6 @@ class MigrationAgentSpec: QuickSpec {
         
         class MockWorkoutLoadAgent: WorkoutLoadAgent {
             var allWorkouts: [Workout]?
-            
-            init() {
-                super.init(withWorkoutDeserializer: nil, localStorageWorker: nil)
-            }
             
             override func loadAllWorkouts() -> [Workout] {
                 if let workouts = allWorkouts {
@@ -45,19 +42,29 @@ class MigrationAgentSpec: QuickSpec {
         
         describe("MigrationAgent") {
             var subject: MigrationAgent!
+            var container: Container!
             var mockLiftHistoryIndexBuilder: MockLiftHistoryIndexBuilder!
             var mockWorkoutLoadAgent: MockWorkoutLoadAgent!
             var mockLocalStorageWorker: MockLocalStorageWorker!
             
             beforeEach {
-                mockLiftHistoryIndexBuilder = MockLiftHistoryIndexBuilder()
-                mockWorkoutLoadAgent = MockWorkoutLoadAgent()
-                mockLocalStorageWorker = MockLocalStorageWorker()
+                container = Container()
                 
-                subject = MigrationAgent(withLiftHistoryIndexBuilder: mockLiftHistoryIndexBuilder, workoutLoadAgent: mockWorkoutLoadAgent, localStorageWorker: mockLocalStorageWorker)
+                mockLiftHistoryIndexBuilder = MockLiftHistoryIndexBuilder()
+                container.register(LiftHistoryIndexBuilder.self) { _ in return mockLiftHistoryIndexBuilder }
+                
+                mockWorkoutLoadAgent = MockWorkoutLoadAgent()
+                container.register(WorkoutLoadAgent.self) { _ in return mockWorkoutLoadAgent }
+                
+                mockLocalStorageWorker = MockLocalStorageWorker()
+                container.register(LocalStorageWorker.self) { _ in return mockLocalStorageWorker }
+                
+                MigrationAgent.registerForInjection(container)
+                
+                subject = container.resolve(MigrationAgent.self)
             }
             
-            describe("Its initializer") {
+            describe("Its injection") {
                 it("sets its lift history index builder") {
                     expect(subject.liftHistoryIndexBuilder).to(beIdenticalTo(mockLiftHistoryIndexBuilder))
                 }

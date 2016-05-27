@@ -9,12 +9,6 @@ class StartupViewControllerSpec: QuickSpec {
             var didStartMigrationWork: Bool = false
             var givenCompletionHandler: (() -> ())?
             
-            init() {
-                super.init(withLiftHistoryIndexBuilder: LiftHistoryIndexBuilder(),
-                    workoutLoadAgent:WorkoutLoadAgent(withWorkoutDeserializer: nil, localStorageWorker: nil),
-                    localStorageWorker: LocalStorageWorker())
-            }
-            
             override func performMigrationWork(completionHandler completionHandler: (() -> ())?) {
                 didStartMigrationWork = true
                 givenCompletionHandler = completionHandler
@@ -46,7 +40,7 @@ class StartupViewControllerSpec: QuickSpec {
                 mockWorkoutListStoryboardMetadata = MockWorkoutListStoryboardMetadata()
                 
                 let storyboardMetadata = StartupStoryboardMetadata()
-                let container = storyboardMetadata.container
+                let container = Container()
                 container.register(MigrationAgent.self) { resolver in
                     return mockMigrationAgent
                 }
@@ -54,6 +48,8 @@ class StartupViewControllerSpec: QuickSpec {
                 container.register(WorkoutListStoryboardMetadata.self) { resolver in
                     return mockWorkoutListStoryboardMetadata
                 }
+                
+                StartupViewController.registerForInjection(container)
                 
                 let storyboard = SwinjectStoryboard.create(name: storyboardMetadata.name, bundle: nil, container: container)
                 
@@ -64,6 +60,16 @@ class StartupViewControllerSpec: QuickSpec {
                 navigationController.pushViewController(subject, animated: false)
                 
                 TestAppDelegate.setAsRootViewController(navigationController)
+            }
+            
+            describe("Injection of its dependencies") {
+                it("sets its MigrationAgent") {
+                    expect(subject.migrationAgent).to(beIdenticalTo(mockMigrationAgent))
+                }
+                
+                it("sets its WorkoutListStoryboardMetadata") {
+                    expect(subject.workoutListStoryboardMetadata).to(beIdenticalTo(mockWorkoutListStoryboardMetadata))
+                }
             }
             
             describe("After its view has loaded") {

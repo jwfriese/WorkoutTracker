@@ -1,5 +1,6 @@
 import Quick
 import Nimble
+import Swinject
 @testable import WorkoutTracker
 
 class LiftSaveAgentSpec: QuickSpec {
@@ -25,24 +26,31 @@ class LiftSaveAgentSpec: QuickSpec {
         
         describe("LiftSaveAgent") {
             var subject: LiftSaveAgent!
+            var container: Container!
             var mockLiftSerializer: MockLiftSerializer!
             var mockLocalStorageWorker: MockLocalStorageWorker!
             
             beforeEach {
-                mockLiftSerializer = MockLiftSerializer()
-                mockLocalStorageWorker = MockLocalStorageWorker()
+                container = Container()
                 
-                subject = LiftSaveAgent(withLiftSerializer: mockLiftSerializer,
-                    localStorageWorker: mockLocalStorageWorker)
+                mockLiftSerializer = MockLiftSerializer()
+                container.register(LiftSerializer.self) { _ in return mockLiftSerializer }
+                
+                mockLocalStorageWorker = MockLocalStorageWorker()
+                container.register(LocalStorageWorker.self) { _ in return mockLocalStorageWorker }
+                
+                LiftSaveAgent.registerForInjection(container)
+                
+                subject = container.resolve(LiftSaveAgent.self)
             }
             
-            describe("Its initializer") {
+            describe("Its injection") {
                 it("sets its lift serializer") {
-                    expect(subject.liftSerializer).toNot(beNil())
+                    expect(subject.liftSerializer).to(beIdenticalTo(mockLiftSerializer))
                 }
                 
                 it("sets its local storage worker") {
-                    expect(subject.localStorageWorker).toNot(beNil())
+                    expect(subject.localStorageWorker).to(beIdenticalTo(mockLocalStorageWorker))
                 }
             }
             

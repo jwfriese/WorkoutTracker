@@ -1,14 +1,9 @@
 import Foundation
+import Swinject
 
 class WorkoutLoadAgent {
     private(set) var workoutDeserializer: WorkoutDeserializer!
     private(set) var localStorageWorker: LocalStorageWorker!
-    
-    init(withWorkoutDeserializer workoutDeserializer: WorkoutDeserializer?,
-                                        localStorageWorker: LocalStorageWorker?) {
-        self.workoutDeserializer = workoutDeserializer
-        self.localStorageWorker = localStorageWorker
-    }
     
     func loadWorkout(withIdentifier workoutIdentifier: UInt) -> Workout? {
         return loadFromFile("Workouts/\(workoutIdentifier)_.json")
@@ -30,5 +25,17 @@ class WorkoutLoadAgent {
     private func loadFromFile(workoutFileName: String) -> Workout? {
         let workoutDictionary = localStorageWorker.readJSONDictionaryFromFile(workoutFileName)
         return workoutDeserializer.deserialize(workoutDictionary!)
+    }
+}
+
+extension WorkoutLoadAgent: Injectable {
+    static func registerForInjection(container: Container) {
+        container.register(WorkoutLoadAgent.self) { resolver in
+            let instance = WorkoutLoadAgent()
+            instance.workoutDeserializer = resolver.resolve(WorkoutDeserializer.self)
+            instance.localStorageWorker = resolver.resolve(LocalStorageWorker.self)
+            
+            return instance
+        }
     }
 }

@@ -1,16 +1,10 @@
 import Foundation
+import Swinject
 
 class WorkoutSaveAgent {
     private(set) var workoutSerializer: WorkoutSerializer!
     private(set) var liftSaveAgent: LiftSaveAgent!
     private(set) var localStorageWorker: LocalStorageWorker!
-    
-    init(withWorkoutSerializer workoutSerializer: WorkoutSerializer?, liftSaveAgent: LiftSaveAgent?,
-                    localStorageWorker: LocalStorageWorker?) {
-        self.workoutSerializer = workoutSerializer
-        self.liftSaveAgent = liftSaveAgent
-        self.localStorageWorker = localStorageWorker
-    }
     
     func save(workout: Workout) -> String {
         for lift in workout.lifts {
@@ -29,5 +23,19 @@ class WorkoutSaveAgent {
         }
     
         return fileName
+    }
+}
+
+extension WorkoutSaveAgent: Injectable {
+    static func registerForInjection(container: Container) {
+        container.register(WorkoutSaveAgent.self) { resolver in
+            let instance = WorkoutSaveAgent()
+            
+            instance.workoutSerializer = resolver.resolve(WorkoutSerializer.self)
+            instance.liftSaveAgent = resolver.resolve(LiftSaveAgent.self)
+            instance.localStorageWorker = resolver.resolve(LocalStorageWorker.self)
+            
+            return instance
+        }
     }
 }

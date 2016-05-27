@@ -4,10 +4,6 @@ import Swinject
 class LiftSetEditFormControllerFactory {
     private(set) var controllerContainer: Container!
     
-    init(withControllerContainer controllerContainer: Container?) {
-        self.controllerContainer = controllerContainer
-    }
-    
     func controllerForTemplate(template: LiftDataTemplate) -> LiftSetEditFormController? {
         switch (template) {
         case .WeightReps:
@@ -18,6 +14,23 @@ class LiftSetEditFormControllerFactory {
             return controllerContainer.resolve(TimeInSecondsEditFormViewController.self)
         case .WeightTimeInSeconds:
             return controllerContainer.resolve(WeightTimeInSecondsEditFormViewController.self)
+        }
+    }
+}
+
+extension LiftSetEditFormControllerFactory: Injectable {
+    static func registerForInjection(container: Container) {
+        container.register(LiftSetEditFormControllerFactory.self) { resolver in
+            let instance = LiftSetEditFormControllerFactory()
+            
+            let container = Container()
+            WeightRepsEditFormViewController.registerForInjection(container)
+            HeightRepsEditFormViewController.registerForInjection(container)
+            TimeInSecondsEditFormViewController.registerForInjection(container)
+            WeightTimeInSecondsEditFormViewController.registerForInjection(container)
+            
+            instance.controllerContainer = container
+            return instance
         }
     }
 }
