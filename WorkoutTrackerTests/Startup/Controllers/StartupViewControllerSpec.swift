@@ -21,37 +21,31 @@ class StartupViewControllerSpec: QuickSpec {
             }
         }
         
-        class MockWorkoutListStoryboardMetadata: WorkoutListStoryboardMetadata {
-            var workoutListInitialController = UINavigationController()
-            
-            override var initialViewController: UIViewController {
-                return workoutListInitialController
-            }
+        class MockWorkoutListViewController: WorkoutListViewController {
+            override func viewDidLoad() { }
         }
         
-        describe("StartupViewController") {
+        fdescribe("StartupViewController") {
             var subject: StartupViewController!
             var mockMigrationAgent: MockMigrationAgent!
-            var mockWorkoutListStoryboardMetadata: MockWorkoutListStoryboardMetadata!
+            var mockWorkoutListViewController: MockWorkoutListViewController!
             var navigationController: TestNavigationController!
             
             beforeEach {
-                mockMigrationAgent = MockMigrationAgent()
-                mockWorkoutListStoryboardMetadata = MockWorkoutListStoryboardMetadata()
-                
-                let storyboardMetadata = StartupStoryboardMetadata()
                 let container = Container()
+                
+                mockMigrationAgent = MockMigrationAgent()
                 container.register(MigrationAgent.self) { resolver in
                     return mockMigrationAgent
                 }
                 
-                container.register(WorkoutListStoryboardMetadata.self) { resolver in
-                    return mockWorkoutListStoryboardMetadata
-                }
-                
                 StartupViewController.registerForInjection(container)
                 
+                let storyboardMetadata = StartupStoryboardMetadata()
                 let storyboard = SwinjectStoryboard.create(name: storyboardMetadata.name, bundle: nil, container: container)
+                
+                mockWorkoutListViewController = MockWorkoutListViewController()
+                storyboard.bindViewController(mockWorkoutListViewController, toIdentifier: "WorkoutListViewController")
                 
                 subject = storyboard.instantiateViewControllerWithIdentifier("StartupViewController")
                     as! StartupViewController
@@ -65,10 +59,6 @@ class StartupViewControllerSpec: QuickSpec {
             describe("Injection of its dependencies") {
                 it("sets its MigrationAgent") {
                     expect(subject.migrationAgent).to(beIdenticalTo(mockMigrationAgent))
-                }
-                
-                it("sets its WorkoutListStoryboardMetadata") {
-                    expect(subject.workoutListStoryboardMetadata).to(beIdenticalTo(mockWorkoutListStoryboardMetadata))
                 }
             }
             
@@ -86,8 +76,8 @@ class StartupViewControllerSpec: QuickSpec {
                         mockMigrationAgent.finishMigrationWork()
                     }
                     
-                    xit("should replace the window's root view controller with the workout list page") {
-                        expect(UIApplication.sharedApplication().keyWindow?.rootViewController).toEventually(beIdenticalTo(mockWorkoutListStoryboardMetadata.workoutListInitialController))
+                    it("should replace the window's root view controller with the workout list page") {
+                        expect(navigationController.topViewController).to(beIdenticalTo(mockWorkoutListViewController))
                     }
                 }
             }

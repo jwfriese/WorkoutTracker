@@ -1,16 +1,18 @@
 import UIKit
 import Swinject
 
+extension Segues {
+    static var showWorkoutList: String { get { return "ShowWorkoutList" } }
+}
+
 class StartupViewController : UIViewController {
     var migrationAgent: MigrationAgent!
-    var workoutListStoryboardMetadata: WorkoutListStoryboardMetadata!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         migrationAgent.performMigrationWork() {
-            let workoutListNavigationController = self.workoutListStoryboardMetadata.initialViewController
-            UIApplication.sharedApplication().keyWindow?.rootViewController = workoutListNavigationController
+            self.performSegueWithIdentifier(Segues.showWorkoutList, sender: nil)
         }
     }
 }
@@ -19,7 +21,6 @@ extension StartupViewController: Injectable {
     static func registerForInjection(container: Container) {
         container.registerForStoryboard(StartupViewController.self) { resolver, instance in
             instance.migrationAgent = resolver.resolve(MigrationAgent.self)
-            instance.workoutListStoryboardMetadata = resolver.resolve(WorkoutListStoryboardMetadata.self)
         }
     }
 }

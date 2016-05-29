@@ -42,15 +42,15 @@ class WorkoutListViewControllerSpec: QuickSpec {
             
             override init() { }
             
-            override var container: Container {
-                let container = Container()
-                
-                container.registerForStoryboard(WorkoutViewController.self) { resolver, instance in
-                    return self.workoutViewController
-                }
-                
-                return container
-            }
+//            override var container: Container {
+//                let container = Container()
+//                
+//                container.registerForStoryboard(WorkoutViewController.self) { resolver, instance in
+//                    return self.workoutViewController
+//                }
+//                
+//                return container
+//            }
             
             override var initialViewController: UIViewController {
                 return workoutViewController
