@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B0D3AD11CF88A4E0096DBC2 /* WorkoutTrackerContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D3AD01CF88A4E0096DBC2 /* WorkoutTrackerContainer.swift */; };
+		7B0D3B6C1CFB4D5E0096DBC2 /* ReplaceRootViewControllerSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D3B6B1CFB4D5E0096DBC2 /* ReplaceRootViewControllerSegue.swift */; };
 		7B0FC9821CF481B800B88E65 /* Segues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0FC9811CF481B800B88E65 /* Segues.swift */; };
 		7B41503D1C6B9D380032333F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B41503C1C6B9D380032333F /* AppDelegate.swift */; };
 		7B4150441C6B9D380032333F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B4150431C6B9D380032333F /* Assets.xcassets */; };
@@ -135,6 +137,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7B0D3AD01CF88A4E0096DBC2 /* WorkoutTrackerContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutTrackerContainer.swift; sourceTree = "<group>"; };
+		7B0D3B6B1CFB4D5E0096DBC2 /* ReplaceRootViewControllerSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplaceRootViewControllerSegue.swift; sourceTree = "<group>"; };
 		7B0FC9811CF481B800B88E65 /* Segues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Segues.swift; sourceTree = "<group>"; };
 		7B4150391C6B9D380032333F /* WorkoutTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorkoutTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B41503C1C6B9D380032333F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -410,6 +414,7 @@
 			isa = PBXGroup;
 			children = (
 				7B5B6ACC1CE7731A0038312B /* Injectable.swift */,
+				7B0D3AD01CF88A4E0096DBC2 /* WorkoutTrackerContainer.swift */,
 			);
 			path = Injection;
 			sourceTree = "<group>";
@@ -579,6 +584,7 @@
 			isa = PBXGroup;
 			children = (
 				7BA90A791CB6977B0040B031 /* ArrayExtension.swift */,
+				7B0D3B6B1CFB4D5E0096DBC2 /* ReplaceRootViewControllerSegue.swift */,
 			);
 			path = CoreExtension;
 			sourceTree = "<group>";
@@ -1002,11 +1008,13 @@
 				7BB90DCD1C8B22E9007D365E /* WorkoutSaveAgent.swift in Sources */,
 				7B73E08D1CC7CB56007781B5 /* LiftDataTemplate.swift in Sources */,
 				7BB90DBD1C8950AD007D365E /* LiftSerializer.swift in Sources */,
+				7B0D3AD11CF88A4E0096DBC2 /* WorkoutTrackerContainer.swift in Sources */,
 				7B4620E11CE215700076278B /* LiftSetEditFormController.swift in Sources */,
 				7BB90D871C890A9D007D365E /* LiftSet.swift in Sources */,
 				7B5B6AD41CEDE8310038312B /* HeightRepsEditFormViewController.swift in Sources */,
 				7B4620DC1CE212080076278B /* WeightRepsEditFormViewController.swift in Sources */,
 				7B5B6AD11CE8C1670038312B /* LiftTableViewCellColumnView.swift in Sources */,
+				7B0D3B6C1CFB4D5E0096DBC2 /* ReplaceRootViewControllerSegue.swift in Sources */,
 				7BB90DDE1C8B8DF6007D365E /* LiftSetDeserializer.swift in Sources */,
 				7B5B6AE41CEDF93A0038312B /* WeightTimeInSecondsEditFormViewController.swift in Sources */,
 				7BB90D881C890A9D007D365E /* Workout.swift in Sources */,

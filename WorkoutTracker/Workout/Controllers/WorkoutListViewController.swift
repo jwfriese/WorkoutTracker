@@ -1,6 +1,10 @@
 import UIKit
 import Swinject
 
+extension Segues {
+    static var showWorkout: String { get { return "ShowWorkout" } }
+}
+
 class WorkoutListViewController: UIViewController {
     @IBOutlet private(set) weak var tableView: UITableView?
     
@@ -10,7 +14,6 @@ class WorkoutListViewController: UIViewController {
     var workoutSaveAgent: WorkoutSaveAgent!
     var workoutLoadAgent: WorkoutLoadAgent!
     var workoutDeleteAgent: WorkoutDeleteAgent!
-    var workoutStoryboardMetadata: WorkoutStoryboardMetadata!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +24,14 @@ class WorkoutListViewController: UIViewController {
             forCellReuseIdentifier:WorkoutListTableViewCell.name)
         
         workouts = workoutLoadAgent.loadAllWorkouts()
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let workoutViewController = segue.destinationViewController as? WorkoutViewController {
+            if let workout = sender as? Workout {
+                workoutViewController.workout = workout
+            }
+        }
     }
     
     @IBAction func addWorkoutItem() {
@@ -38,7 +49,6 @@ extension WorkoutListViewController: Injectable {
             instance.workoutSaveAgent = resolver.resolve(WorkoutSaveAgent.self)
             instance.workoutLoadAgent = resolver.resolve(WorkoutLoadAgent.self)
             instance.workoutDeleteAgent = resolver.resolve(WorkoutDeleteAgent.self)
-            instance.workoutStoryboardMetadata = resolver.resolve(WorkoutStoryboardMetadata.self)
         }
     }
 }
@@ -68,10 +78,11 @@ extension WorkoutListViewController: UITableViewDataSource {
 
 extension WorkoutListViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let workoutViewController = workoutStoryboardMetadata.initialViewController as!
-                WorkoutViewController
-        workoutViewController.workout = workouts[indexPath.row]
-        
-        self.navigationController?.pushViewController(workoutViewController, animated: true)
+//        let workoutViewController = workoutStoryboardMetadata.initialViewController as!
+//                WorkoutViewController
+//        workoutViewController.workout = workouts[indexPath.row]
+//        
+//        self.navigationController?.pushViewController(workoutViewController, animated: true)
+        performSegueWithIdentifier(Segues.showWorkout, sender: workouts[indexPath.row])
     }
 }
