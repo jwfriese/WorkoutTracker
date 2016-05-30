@@ -9,9 +9,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let startupMetadata = StartupStoryboardMetadata()
         
-        let storyboard = SwinjectStoryboard.create(name: startupMetadata.name, bundle: nil,
-            container: startupMetadata.container)
-        let rootController = storyboard.instantiateInitialViewController() as! StartupViewController
+//        let storyboard = SwinjectStoryboard.create(name: startupMetadata.name, bundle: nil,
+//            container: startupMetadata.container)
+//        let rootController = storyboard.instantiateInitialViewController() as! StartupViewController
+        let rootController = startupMetadata.initialViewController
         let rootNavigationController = UINavigationController(rootViewController: rootController)
         
         window!.rootViewController = rootNavigationController

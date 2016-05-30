@@ -32,12 +32,6 @@ class AppDelegateSpec: QuickSpec {
                 it("should set the top view controller of the navigation controller to be a StartupViewController") {
                     expect(startupViewController).toNot(beNil())
                 }
-                
-                describe("The instantiated StartupViewController") {
-                    it("has an instance of a MigrationAgent") {
-                        expect(startupViewController?.migrationAgent).toNot(beNil())
-                    }
-                }
             }
             
             it("should make its window visible and the key window") {

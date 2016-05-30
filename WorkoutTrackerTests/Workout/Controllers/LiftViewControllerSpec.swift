@@ -52,7 +52,7 @@ class LiftViewControllerSpec: QuickSpec {
                 let storyboard = SwinjectStoryboard.create(name: storyboardMetadata.name, bundle: nil, container: container)
                 
                 mockSetEditModalViewController = MockSetEditModalViewController()
-                storyboard.bindViewController(mockSetEditModalViewController, toIdentifier: "SetEditModalViewController")
+                try! storyboard.bindViewController(mockSetEditModalViewController, toIdentifier: "SetEditModalViewController")
                 
                 LiftViewController.registerForInjection(container)
                 subject = storyboard.instantiateViewControllerWithIdentifier("LiftViewController")

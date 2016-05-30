@@ -4,7 +4,6 @@ import Swinject
 @testable import WorkoutTracker
 
 class WorkoutListViewControllerSpec: QuickSpec {
-    
     override func spec() {
         class MockTimestamper: Timestamper {
             var timestamp: UInt!
@@ -37,26 +36,6 @@ class WorkoutListViewControllerSpec: QuickSpec {
             }
         }
         
-        class MockWorkoutStoryboardMetadata: WorkoutStoryboardMetadata {
-            var workoutViewController: WorkoutViewController = WorkoutViewController()
-            
-            override init() { }
-            
-            override var container: Container {
-                let container = Container()
-                
-                container.registerForStoryboard(WorkoutViewController.self) { resolver, instance in
-                    return self.workoutViewController
-                }
-                
-                return container
-            }
-            
-            override var initialViewController: UIViewController {
-                return workoutViewController
-            }
-        }
-        
         class MockWorkoutDeleteAgent: WorkoutDeleteAgent {
             var deletedWorkout: Workout?
             
@@ -65,15 +44,19 @@ class WorkoutListViewControllerSpec: QuickSpec {
             }
         }
         
+        class MockWorkoutViewController: WorkoutViewController {
+            private override func viewDidLoad() { }
+        }
+        
         describe("WorkoutListViewController") {
             var subject: WorkoutListViewController!
             var mockTimestamper: MockTimestamper!
             var mockWorkoutSaveAgent: MockWorkoutSaveAgent!
             var mockWorkoutLoadAgent: MockWorkoutLoadAgent!
             var mockWorkoutDeleteAgent: MockWorkoutDeleteAgent!
-            var mockWorkoutStoryboardMetadata: MockWorkoutStoryboardMetadata!
             
-            var navigationController: TestNavigationController!
+            var testNavigationController: TestNavigationController!
+            var mockWorkoutViewController: MockWorkoutViewController!
             
             beforeEach {
                 let container = Container()
@@ -82,25 +65,26 @@ class WorkoutListViewControllerSpec: QuickSpec {
                 mockWorkoutSaveAgent = MockWorkoutSaveAgent()
                 mockWorkoutLoadAgent = MockWorkoutLoadAgent()
                 mockWorkoutDeleteAgent = MockWorkoutDeleteAgent()
-                mockWorkoutStoryboardMetadata = MockWorkoutStoryboardMetadata()
                 
                 container.register(Timestamper.self) { _ in mockTimestamper }
                 container.register(WorkoutSaveAgent.self) { _ in mockWorkoutSaveAgent }
                 container.register(WorkoutLoadAgent.self) { _ in mockWorkoutLoadAgent }
                 container.register(WorkoutDeleteAgent.self) { _ in mockWorkoutDeleteAgent }
-                container.register(WorkoutStoryboardMetadata.self) { _ in mockWorkoutStoryboardMetadata }
                 
                 WorkoutListViewController.registerForInjection(container)
                 
                 let storyboard = SwinjectStoryboard.create(name: "WorkoutList", bundle: nil, container: container)
                 
+                mockWorkoutViewController = MockWorkoutViewController()
+                try! storyboard.bindViewController(mockWorkoutViewController, asInitialViewControllerForReferencedStoryboardWithName: "Workout")
+                
                 subject = storyboard.instantiateViewControllerWithIdentifier("WorkoutListViewController")
                     as! WorkoutListViewController
                 
-                navigationController = TestNavigationController()
-                navigationController.pushViewController(subject, animated: false)
+                testNavigationController = TestNavigationController()
+                testNavigationController.pushViewController(subject, animated: false)
                 
-                TestAppDelegate.setAsRootViewController(navigationController)
+                TestAppDelegate.setAsRootViewController(testNavigationController)
             }
             
             describe("Injection of its dependencies") {
@@ -118,10 +102,6 @@ class WorkoutListViewControllerSpec: QuickSpec {
                 
                 it("sets a WorkoutDeleteAgent") {
                     expect(subject.workoutDeleteAgent).to(beIdenticalTo(mockWorkoutDeleteAgent))
-                }
-                
-                it("sets a WorkoutStoryboardMetadata") {
-                    expect(subject.workoutStoryboardMetadata).to(beIdenticalTo(mockWorkoutStoryboardMetadata))
                 }
             }
             
@@ -215,14 +195,11 @@ class WorkoutListViewControllerSpec: QuickSpec {
                             }
                             
                             it("should present the page for that workout") {
-                                expect(navigationController.topViewController).to(beAnInstanceOf(WorkoutViewController.self))
-                                expect(navigationController.topViewController).to(
-                                    beIdenticalTo(mockWorkoutStoryboardMetadata.workoutViewController)
-                                )
+                                expect(testNavigationController.topViewController).to(beIdenticalTo(mockWorkoutViewController))
                             }
                             
                             it("sets the selected cell's lift on the presented lift page") {
-                                let workoutViewController = navigationController.topViewController as? WorkoutViewController
+                                let workoutViewController = testNavigationController.topViewController as? WorkoutViewController
                                 expect(workoutViewController?.workout).to(beIdenticalTo(firstCell.workout))
                             }
                         }
