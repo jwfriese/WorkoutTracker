@@ -6,6 +6,6 @@ install:
     - bundle install
     - brew update
     - brew install carthage
-    - carthage update --verbose --platform 'iOS' --no-use-binaries
+    - carthage bootstrap --verbose --platform 'iOS' --no-use-binaries
 script:
     - bundle exec rake specs
