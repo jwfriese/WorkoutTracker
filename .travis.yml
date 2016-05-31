@@ -2,6 +2,8 @@ language: swift
 install:
     - gem install bundler
     - bundle install
+    - brew update
+    - brew install carthage
     - carthage update --platform 'iOS' --no-use-binaries
 script:
     - bundle exec rake specs
