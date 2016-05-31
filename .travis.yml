@@ -6,6 +6,7 @@ install:
     - bundle install
     - brew update
     - brew install carthage
+    - mkdir Carthage
     - mkdir Carthage/Checkouts
     - git clone https://github.com/Quick/Nimble.git Carthage/Checkouts/Nimble
     - git clone https://github.com/Quick/Quick.git Carthage/Checkouts/Quick
