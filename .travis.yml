@@ -6,6 +6,11 @@ install:
     - bundle install
     - brew update
     - brew install carthage
-    - carthage bootstrap --verbose --platform 'iOS' --no-use-binaries
+    - mkdir Carthage/Checkouts
+    - git clone https://github.com/Quick/Nimble.git Carthage/Checkouts/Nimble
+    - git clone https://github.com/Quick/Quick.git Carthage/Checkouts/Quick
+    - git clone https://github.com/Swinject/Swinject.git Carthage/Checkouts/Swinject
+    - git clone https://github.com/jwfriese/Fleet.git Carthage/Checkouts/Fleet
+    - carthage build --verbose --platform 'iOS'
 script:
     - bundle exec rake specs
