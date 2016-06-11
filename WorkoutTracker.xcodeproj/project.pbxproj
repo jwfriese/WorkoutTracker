@@ -998,7 +998,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n\nframeworks_path=\"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH\"\ntarget_frameworks_path=\"$TARGET_BUILD_DIR/WorkoutTrackerTests.xctest/Frameworks/\"\n\ncommand=\"cp -R $frameworks_path/. $target_frameworks_path\"\n\neval \"$command\"";
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
 /* End PBXShellScriptBuildPhase section */
 
