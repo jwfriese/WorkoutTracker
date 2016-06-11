@@ -13,8 +13,8 @@ desc "Run the unit tests (specify platform by setting PLATFORM env variable)"
 task :specs, [:phone_version, :ios_version]  do |t, args|
   args.with_defaults(:phone_version => '6', :ios_version => '9.2')
   platform = ENV["PLATFORM"] || "iPhone #{args.phone_version},OS=#{args.ios_version}"
-  success = system("xcodebuild -scheme Tests -sdk iphonesimulator test -destination 'platform=iOS Simulator,name=#{platform}' | xcpretty --color --test")
-  unless  success
+  success = system("xcodebuild -scheme Tests -sdk iphonesimulator test -destination 'platform=iOS Simulator,name=#{platform}'")
+  unless success
     exit 1
   end
 end
