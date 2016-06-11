@@ -24,6 +24,6 @@ install:
     - cd Carthage/Checkouts/Fleet
     - git reset --hard e3dd652448967b9efe29d1bba4126cd7a21b0674 
     - cd ../../..
-    - carthage build --verbose --platform 'iOS' --no-use-binaries
+    - carthage build --verbose --platform 'iOS'
 script:
     - bundle exec rake specs
