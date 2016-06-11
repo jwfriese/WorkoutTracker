@@ -13,10 +13,11 @@ class WorkoutDeserializerSpec: QuickSpec {
             }
         }
         
-        describe("WorkoutDeserializer") {
+        describe("WorkoutDeserializer -") {
             var subject: WorkoutDeserializer!
             var container: Container!
             var mockLiftLoadAgent: MockLiftLoadAgent!
+            var mockTimeFormatter: MockTimeFormatter!
             
             beforeEach {
                 container = Container()
@@ -24,14 +25,21 @@ class WorkoutDeserializerSpec: QuickSpec {
                 mockLiftLoadAgent = MockLiftLoadAgent()
                 container.register(LiftLoadAgent.self) { _ in return mockLiftLoadAgent }
                 
+                mockTimeFormatter = MockTimeFormatter()
+                container.register(TimeFormatter.self) { _ in return mockTimeFormatter }
+                
                 WorkoutDeserializer.registerForInjection(container)
                 
                 subject = container.resolve(WorkoutDeserializer.self)
             }
             
             describe("Its injection") {
-                it("sets it lift load agent") {
+                it("sets its LiftLoadAgent") {
                     expect(subject.liftLoadAgent).to(beIdenticalTo(mockLiftLoadAgent))
+                }
+                
+                it("sets its TimeFormatter") {
+                    expect(subject.timeFormatter).to(beIdenticalTo(mockTimeFormatter))
                 }
             }
             
@@ -40,9 +48,10 @@ class WorkoutDeserializerSpec: QuickSpec {
                 var workoutDictionary: [String : AnyObject]!
                 
                 beforeEach {
+                    mockTimeFormatter.setIntegerTimestampFromSqlTimestamptzString(123456, forInput: "timestamptz string")
                     workoutDictionary = [
                         "name" : "turtle workout",
-                        "timestamp" : 1000,
+                        "timestamp" : "timestamptz string",
                         "lifts" : [ "lift1", "lift2", "lift3" ]
                     ]
                     
@@ -54,7 +63,7 @@ class WorkoutDeserializerSpec: QuickSpec {
                 }
                 
                 it("deserializes the workout's timestamp") {
-                    expect(workout?.timestamp).to(equal(1000))
+                    expect(workout?.timestamp).to(equal(123456))
                 }
                 
                 it("uses its lift load agent to load its list of lifts") {

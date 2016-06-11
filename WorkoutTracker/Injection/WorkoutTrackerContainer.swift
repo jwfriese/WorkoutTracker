@@ -23,6 +23,7 @@ class WorkoutTrackerContainer {
         LiftTableHeaderViewProvider.registerForInjection(container)
         LiftSetEditFormControllerFactory.registerForInjection(container)
         Timestamper.registerForInjection(container)
+        TimeFormatter.registerForInjection(container)
         WorkoutDeleteAgent.registerForInjection(container)
         MigrationAgent.registerForInjection(container)
         LiftHistoryIndexBuilder.registerForInjection(container)

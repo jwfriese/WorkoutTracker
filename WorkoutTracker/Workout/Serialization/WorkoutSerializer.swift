@@ -2,12 +2,12 @@ import Foundation
 import Swinject
 
 class WorkoutSerializer {
-    init() { }
+    private(set) var timeFormatter: TimeFormatter!
     
     func serialize(workout: Workout) -> [String : AnyObject] {
         var result = [String : AnyObject]()
         result["name"] = workout.name
-        result["timestamp"] = workout.timestamp
+        result["timestamp"] =  timeFormatter.sqlTimestamptzStringFromIntegerTimestamp(workout.timestamp)
         
         var lifts = [String]()
         for lift in workout.lifts {
@@ -22,6 +22,13 @@ class WorkoutSerializer {
 
 extension WorkoutSerializer: Injectable {
     static func registerForInjection(container: Container) {
-        container.register(WorkoutSerializer.self) { _ in return WorkoutSerializer() }
+        container.register(WorkoutSerializer.self) { resolver in
+            let timeFormatter = resolver.resolve(TimeFormatter.self)
+            
+            let workoutSerializer = WorkoutSerializer()
+            workoutSerializer.timeFormatter = timeFormatter
+            
+            return workoutSerializer
+        }
     }
 }

@@ -37,6 +37,9 @@
 		7B5B6AF31CF0D0B20038312B /* LiftDataTemplateEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5B6AF21CF0D0B20038312B /* LiftDataTemplateEntryViewController.swift */; };
 		7B5B6AF51CF0D0E30038312B /* LiftDataTemplateEntryViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5B6AF41CF0D0E30038312B /* LiftDataTemplateEntryViewControllerSpec.swift */; };
 		7B5B6AF71CF0D2130038312B /* LiftDataTemplateEntryDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5B6AF61CF0D2130038312B /* LiftDataTemplateEntryDelegate.swift */; };
+		7B675E761D09A800002E6B45 /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B675E751D09A800002E6B45 /* TimeFormatter.swift */; };
+		7B675E791D09A829002E6B45 /* TimeFormatterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B675E781D09A829002E6B45 /* TimeFormatterSpec.swift */; };
+		7B675E7B1D0A037E002E6B45 /* MockTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B675E7A1D0A037E002E6B45 /* MockTimeFormatter.swift */; };
 		7B6AC0A61C712AAB0063F667 /* AppDelegateSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6AC0A51C712AAB0063F667 /* AppDelegateSpec.swift */; };
 		7B6AC0AC1C74D5E50063F667 /* TestNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6AC0AB1C74D5E50063F667 /* TestNavigationController.swift */; };
 		7B6AC0B91C76253F0063F667 /* VisualTreeWalker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6AC0B81C76253F0063F667 /* VisualTreeWalker.swift */; };
@@ -171,6 +174,9 @@
 		7B5B6AF21CF0D0B20038312B /* LiftDataTemplateEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftDataTemplateEntryViewController.swift; sourceTree = "<group>"; };
 		7B5B6AF41CF0D0E30038312B /* LiftDataTemplateEntryViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftDataTemplateEntryViewControllerSpec.swift; sourceTree = "<group>"; };
 		7B5B6AF61CF0D2130038312B /* LiftDataTemplateEntryDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftDataTemplateEntryDelegate.swift; sourceTree = "<group>"; };
+		7B675E751D09A800002E6B45 /* TimeFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
+		7B675E781D09A829002E6B45 /* TimeFormatterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeFormatterSpec.swift; sourceTree = "<group>"; };
+		7B675E7A1D0A037E002E6B45 /* MockTimeFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockTimeFormatter.swift; sourceTree = "<group>"; };
 		7B6AC0A51C712AAB0063F667 /* AppDelegateSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateSpec.swift; sourceTree = "<group>"; };
 		7B6AC0AB1C74D5E50063F667 /* TestNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestNavigationController.swift; sourceTree = "<group>"; };
 		7B6AC0B81C76253F0063F667 /* VisualTreeWalker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualTreeWalker.swift; sourceTree = "<group>"; };
@@ -324,6 +330,7 @@
 		7B4150501C6B9D380032333F /* WorkoutTrackerTests */ = {
 			isa = PBXGroup;
 			children = (
+				7B675E771D09A815002E6B45 /* Time */,
 				7BA90A7B1CB697860040B031 /* CoreExtension */,
 				7BB90D3B1C7E10BC007D365E /* TestAppDelegate.swift */,
 				7BA92C291C9F0F24009A81E3 /* Startup */,
@@ -489,10 +496,19 @@
 			path = LiftEntry;
 			sourceTree = "<group>";
 		};
+		7B675E771D09A815002E6B45 /* Time */ = {
+			isa = PBXGroup;
+			children = (
+				7B675E781D09A829002E6B45 /* TimeFormatterSpec.swift */,
+			);
+			path = Time;
+			sourceTree = "<group>";
+		};
 		7B6AC0AA1C74D5E50063F667 /* TestMocks */ = {
 			isa = PBXGroup;
 			children = (
 				7B6AC0AB1C74D5E50063F667 /* TestNavigationController.swift */,
+				7B675E7A1D0A037E002E6B45 /* MockTimeFormatter.swift */,
 			);
 			path = TestMocks;
 			sourceTree = "<group>";
@@ -542,6 +558,7 @@
 			isa = PBXGroup;
 			children = (
 				7B6AC0C41C7A30040063F667 /* Timestamper.swift */,
+				7B675E751D09A800002E6B45 /* TimeFormatter.swift */,
 			);
 			path = Time;
 			sourceTree = "<group>";
@@ -1009,6 +1026,7 @@
 				7B73E08D1CC7CB56007781B5 /* LiftDataTemplate.swift in Sources */,
 				7BB90DBD1C8950AD007D365E /* LiftSerializer.swift in Sources */,
 				7B0D3AD11CF88A4E0096DBC2 /* WorkoutTrackerContainer.swift in Sources */,
+				7B675E761D09A800002E6B45 /* TimeFormatter.swift in Sources */,
 				7B4620E11CE215700076278B /* LiftSetEditFormController.swift in Sources */,
 				7BB90D871C890A9D007D365E /* LiftSet.swift in Sources */,
 				7B5B6AD41CEDE8310038312B /* HeightRepsEditFormViewController.swift in Sources */,
@@ -1074,6 +1092,7 @@
 				7BB90D3C1C7E10BC007D365E /* TestAppDelegate.swift in Sources */,
 				7B5B6AE11CEDF56C0038312B /* TimeInSecondsEditFormViewControllerSpec.swift in Sources */,
 				7B6AC0AC1C74D5E50063F667 /* TestNavigationController.swift in Sources */,
+				7B675E791D09A829002E6B45 /* TimeFormatterSpec.swift in Sources */,
 				7B5B6AD91CEDE88D0038312B /* HeightRepsEditFormViewControllerSpec.swift in Sources */,
 				7B6AC0CB1C7A30100063F667 /* LocalStorageWorkerSpec.swift in Sources */,
 				7B73E0921CCFB7EE007781B5 /* LiftSetJSONValidatorSpec.swift in Sources */,
@@ -1088,6 +1107,7 @@
 				7BA90A7D1CB697A50040B031 /* ArrayExtensionSpec.swift in Sources */,
 				7BB90DB01C890AAA007D365E /* WorkoutLiftTableViewCellSpec.swift in Sources */,
 				7BB118AA1CAB19F2005CC1AF /* LiftHistoryIndexLoaderSpec.swift in Sources */,
+				7B675E7B1D0A037E002E6B45 /* MockTimeFormatter.swift in Sources */,
 				7BA90A9F1CBE8BE80040B031 /* LiftTableHeaderViewProviderSpec.swift in Sources */,
 				7B4620DF1CE212750076278B /* WeightRepsEditFormViewControllerSpec.swift in Sources */,
 				7BB90DAD1C890AAA007D365E /* WorkoutListViewControllerSpec.swift in Sources */,
