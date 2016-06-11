@@ -12,6 +12,6 @@ install:
     - git clone https://github.com/Quick/Quick.git Carthage/Checkouts/Quick
     - git clone https://github.com/Swinject/Swinject.git Carthage/Checkouts/Swinject
     - git clone https://github.com/jwfriese/Fleet.git Carthage/Checkouts/Fleet
-    - carthage build --verbose --platform 'iOS'
+    - carthage build --verbose
 script:
     - bundle exec rake specs
