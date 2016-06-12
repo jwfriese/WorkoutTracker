@@ -12,8 +12,13 @@ class LiftLoadAgentSpec: QuickSpec {
             }
         }
         
+        enum TestError: ErrorType {
+            case AnyError
+        }
+        
         class MockLocalStorageWorker: LocalStorageWorker {
             var liftFilesRead: [String] = []
+            var shouldThrowError: Bool = false
             
             var liftDictionary: Dictionary<String, AnyObject>?
             var previousLiftInstanceDictionary: Dictionary<String, AnyObject> = [
@@ -22,7 +27,11 @@ class LiftLoadAgentSpec: QuickSpec {
                 "sets": [],
                 ]
             
-            override func readJSONDictionaryFromFile(fileName: String!) -> Dictionary<String, AnyObject>? {
+            override func readJSONDictionaryFromFile(fileName: String!) throws -> Dictionary<String, AnyObject>? {
+                if shouldThrowError {
+                    throw TestError.AnyError
+                }
+                
                 liftFilesRead.append(fileName)
                 
                 if fileName == "Lifts/turtle_lift/123456.json" {
@@ -241,6 +250,27 @@ class LiftLoadAgentSpec: QuickSpec {
                         ]
                         
                         lift = subject.loadLift(withName: "turtle lift", fromWorkoutWithIdentifier: 123456, shouldLoadPreviousLift: false)
+                    }
+                    
+                    it("fails to load any lift") {
+                        expect(lift).to(beNil())
+                    }
+                }
+                
+                context("When the local storage worker errors out") {
+                    beforeEach {
+                        mockLocalStorageWorker.shouldThrowError = true
+                        mockLocalStorageWorker.liftDictionary = [
+                            "name" : "turtle lift",
+                            "dataTemplate": "Weight/Reps",
+                            "sets" : [
+                                ["weight": 100],
+                                ["weight": 200],
+                                ["weight": 300]
+                            ]
+                        ]
+                        
+                        lift = subject.loadLift(withName: "turtle lift", fromWorkoutWithIdentifier: 123456, shouldLoadPreviousLift: true)
                     }
                     
                     it("fails to load any lift") {

@@ -2,6 +2,10 @@ import Foundation
 import UIKit
 import Swinject
 
+enum StorageIOError: ErrorType {
+    case UnableToLoadFile
+}
+
 class LocalStorageWorker {
     func writeData(data: NSData!, toFileWithName name: String!, createSubdirectories: Bool = false) throws {
         let filePaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
@@ -52,10 +56,14 @@ class LocalStorageWorker {
         return nil
     }
     
-    func readJSONDictionaryFromFile(fileName: String!) -> Dictionary<String, AnyObject>? {
+    func readJSONDictionaryFromFile(fileName: String!) throws -> Dictionary<String, AnyObject>? {
         let fetchedData = readDataFromFile(fileName)
-        let fetchedDictionary = try! NSJSONSerialization.JSONObjectWithData(fetchedData!, options: .AllowFragments) as? [String : AnyObject]
-        return fetchedDictionary
+        if let fetchedData = fetchedData {
+            let fetchedDictionary = try NSJSONSerialization.JSONObjectWithData(fetchedData, options: .AllowFragments) as? [String : AnyObject]
+            return fetchedDictionary
+        }
+        
+        throw StorageIOError.UnableToLoadFile
     }
     
     func readImageFromFile(fileName: String!) -> UIImage? {
@@ -123,7 +131,7 @@ class LocalStorageWorker {
         if filePaths.count > 0 {
             let documentsDirectoryPath = filePaths[0]
             let dataFilePathName = documentsDirectoryPath.stringByAppendingString("/" + fileName)
-            try! NSFileManager.defaultManager().removeItemAtPath(dataFilePathName)
+            try NSFileManager.defaultManager().removeItemAtPath(dataFilePathName)
         }
     }
     

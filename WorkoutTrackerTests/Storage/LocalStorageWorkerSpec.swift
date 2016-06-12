@@ -114,7 +114,7 @@ class LocalStorageWorkerSpec: QuickSpec {
                     
                     it("should be able to save a dictionary and fetch that same dictionary back") {
                         try! subject.writeJSONDictionary(testDictionary, toFileWithName: "integrationTest.json")
-                        let fetchedDictionary = subject.readJSONDictionaryFromFile("integrationTest.json")
+                        let fetchedDictionary = try! subject.readJSONDictionaryFromFile("integrationTest.json")
                         
                         expect(fetchedDictionary?["turtle one"] as? String).to(equal("turtle value"))
                         expect(fetchedDictionary?["turtle two"] as? Int).to(equal(1000))

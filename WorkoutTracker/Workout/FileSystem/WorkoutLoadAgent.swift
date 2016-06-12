@@ -15,16 +15,26 @@ class WorkoutLoadAgent {
         var workouts = [Workout]()
         
         for workoutFile in allWorkoutFiles {
-            let workoutDictionary = localStorageWorker.readJSONDictionaryFromFile(workoutFile)
-            workouts.append(workoutDeserializer.deserialize(workoutDictionary!))
+            do {
+                let workoutDictionary = try localStorageWorker.readJSONDictionaryFromFile(workoutFile)
+                workouts.append(workoutDeserializer.deserialize(workoutDictionary!))
+            } catch {
+                print("*** Failed to load workout from file \(workoutFile)")
+            }
         }
         
         return workouts
     }
     
     private func loadFromFile(workoutFileName: String) -> Workout? {
-        let workoutDictionary = localStorageWorker.readJSONDictionaryFromFile(workoutFileName)
-        return workoutDeserializer.deserialize(workoutDictionary!)
+        do {
+            let workoutDictionary = try localStorageWorker.readJSONDictionaryFromFile(workoutFileName)
+            return workoutDeserializer.deserialize(workoutDictionary!)
+        } catch {
+            print("*** Failed to load workout from file \(workoutFileName)")
+        }
+        
+        return nil
     }
 }
 

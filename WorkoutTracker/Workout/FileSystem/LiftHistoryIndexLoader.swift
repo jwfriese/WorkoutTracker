@@ -4,8 +4,16 @@ import Swinject
 class LiftHistoryIndexLoader {
     var localStorageWorker: LocalStorageWorker!
     
-    func load() -> [String: [UInt]] {
-        return localStorageWorker.readJSONDictionaryFromFile("Indices/LiftHistory.json") as! [String : [UInt]]
+    func load() -> [String: [UInt]]? {
+        var index: [String : [UInt]]? = nil
+        do {
+            index = try localStorageWorker.readJSONDictionaryFromFile("Indices/LiftHistory.json") as? [String : [UInt]]
+        } catch {
+            print("*** Failed to read from Indices/LiftHistory.json ***")
+            index = nil
+        }
+        
+        return index
     }
 }
 

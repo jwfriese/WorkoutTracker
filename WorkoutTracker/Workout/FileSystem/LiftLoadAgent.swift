@@ -10,7 +10,13 @@ class LiftLoadAgent {
                            shouldLoadPreviousLift: Bool) -> Lift? {
         let liftNameSnakeCase = name.stringByReplacingOccurrencesOfString(" ", withString: "_")
         let liftFileName = "Lifts/\(liftNameSnakeCase)/\(String(workoutIdentifier)).json"
-        let liftDictionary = localStorageWorker.readJSONDictionaryFromFile(liftFileName)
+        var liftDictionary: [String : AnyObject]? = nil
+        do {
+            liftDictionary = try localStorageWorker.readJSONDictionaryFromFile(liftFileName)
+        } catch {
+            print("*** Failed to load \(liftFileName) from disk")
+            return nil
+        }
         
         if let name = liftDictionary?["name"] as? String {
             if let dataTemplateRaw = liftDictionary?["dataTemplate"] as? String {
@@ -27,7 +33,7 @@ class LiftLoadAgent {
                     
                     if shouldLoadPreviousLift {
                         let liftHistory = liftHistoryIndexLoader.load()
-                        if let lifts = liftHistory[name] {
+                        if let lifts = liftHistory![name] {
                             if lifts.count > 0 {
                                 if let previousLiftWorkoutIdentifier = lifts.lastSatisfyingPredicate({ workout in workout < workoutIdentifier }) {
                                     lift.previousInstance = loadLift(withName: name,
@@ -48,9 +54,11 @@ class LiftLoadAgent {
     
     func loadLatestLiftWithName(name: String) -> Lift? {
         let liftHistoryIndex = liftHistoryIndexLoader.load()
-        if let latestWorkoutIdentifier = liftHistoryIndex[name]?.last {
-            return loadLift(withName: name, fromWorkoutWithIdentifier: latestWorkoutIdentifier,
-                            shouldLoadPreviousLift: true)
+        if let liftHistoryIndex = liftHistoryIndex {
+            if let latestWorkoutIdentifier = liftHistoryIndex[name]?.last {
+                return loadLift(withName: name, fromWorkoutWithIdentifier: latestWorkoutIdentifier,
+                                shouldLoadPreviousLift: true)
+            }
         }
         
         return nil
