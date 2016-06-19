@@ -19,16 +19,6 @@ task :specs, [:phone_version, :ios_version]  do |t, args|
   end
 end
 
-desc "Run the unit tests with a verbose build"
-task :verbose_specs, [:phone_version, :ios_version]  do |t, args|
-  args.with_defaults(:phone_version => '6', :ios_version => '9.2')
-  platform = ENV["PLATFORM"] || "iPhone #{args.phone_version},OS=#{args.ios_version}"
-  success = system("xcodebuild -verbose -scheme Tests -sdk iphonesimulator test -destination 'platform=iOS Simulator,name=#{platform}'")
-  unless  success
-    exit 1
-  end
-end
-
 desc "Clean out all provisioning profiles"
 task :wipe do
   Dir["#{ENV['HOME']}/Library/MobileDevice/Provisioning Profiles/*.mobileprovision"].each {|f|  File.delete(f) }
