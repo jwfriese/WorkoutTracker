@@ -42,7 +42,6 @@
 		7B675E7B1D0A037E002E6B45 /* MockTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B675E7A1D0A037E002E6B45 /* MockTimeFormatter.swift */; };
 		7B6AC0A61C712AAB0063F667 /* AppDelegateSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6AC0A51C712AAB0063F667 /* AppDelegateSpec.swift */; };
 		7B6AC0AC1C74D5E50063F667 /* TestNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6AC0AB1C74D5E50063F667 /* TestNavigationController.swift */; };
-		7B6AC0B91C76253F0063F667 /* VisualTreeWalker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6AC0B81C76253F0063F667 /* VisualTreeWalker.swift */; };
 		7B6AC0C71C7A30040063F667 /* Timestamper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6AC0C41C7A30040063F667 /* Timestamper.swift */; };
 		7B6AC0C81C7A30040063F667 /* LocalStorageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6AC0C61C7A30040063F667 /* LocalStorageWorker.swift */; };
 		7B6AC0CB1C7A30100063F667 /* LocalStorageWorkerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6AC0CA1C7A30100063F667 /* LocalStorageWorkerSpec.swift */; };
@@ -124,6 +123,11 @@
 		7BB90DE01C8B8E50007D365E /* LiftSetDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB90DDF1C8B8E50007D365E /* LiftSetDeserializerSpec.swift */; };
 		7BB90DE21C8D41AB007D365E /* WorkoutDeleteAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB90DE11C8D41AB007D365E /* WorkoutDeleteAgent.swift */; };
 		7BB90DE41C8D41D4007D365E /* WorkoutDeleteAgentSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB90DE31C8D41D4007D365E /* WorkoutDeleteAgentSpec.swift */; };
+		7BBFCD231D1D6CDC00C3EF0F /* CustomViewElements.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BBFCD221D1D6CDC00C3EF0F /* CustomViewElements.xib */; };
+		7BBFCD251D1D6D0100C3EF0F /* CustomViewElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBFCD241D1D6D0100C3EF0F /* CustomViewElements.swift */; };
+		7BBFCD271D1D6DAE00C3EF0F /* NSBundle+Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBFCD261D1D6DAE00C3EF0F /* NSBundle+Test.swift */; };
+		7BBFCD291D1D726100C3EF0F /* SetEditFormEntryFieldSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBFCD281D1D726100C3EF0F /* SetEditFormEntryFieldSpec.swift */; };
+		7BBFCD2B1D1D729A00C3EF0F /* SetEditFormEntryField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBFCD2A1D1D729A00C3EF0F /* SetEditFormEntryField.swift */; };
 		7BD8525E1CE21AC300F77FEF /* LiftSetEditFormControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8525D1CE21AC300F77FEF /* LiftSetEditFormControllerFactory.swift */; };
 		7BD852601CE21AEA00F77FEF /* LiftSetEditFormControllerFactorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8525F1CE21AEA00F77FEF /* LiftSetEditFormControllerFactorySpec.swift */; };
 		7BD852621CE3613D00F77FEF /* SetEditFormDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD852611CE3613D00F77FEF /* SetEditFormDelegate.swift */; };
@@ -179,7 +183,6 @@
 		7B675E7A1D0A037E002E6B45 /* MockTimeFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockTimeFormatter.swift; sourceTree = "<group>"; };
 		7B6AC0A51C712AAB0063F667 /* AppDelegateSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateSpec.swift; sourceTree = "<group>"; };
 		7B6AC0AB1C74D5E50063F667 /* TestNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestNavigationController.swift; sourceTree = "<group>"; };
-		7B6AC0B81C76253F0063F667 /* VisualTreeWalker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualTreeWalker.swift; sourceTree = "<group>"; };
 		7B6AC0C41C7A30040063F667 /* Timestamper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timestamper.swift; sourceTree = "<group>"; };
 		7B6AC0C61C7A30040063F667 /* LocalStorageWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalStorageWorker.swift; sourceTree = "<group>"; };
 		7B6AC0CA1C7A30100063F667 /* LocalStorageWorkerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalStorageWorkerSpec.swift; sourceTree = "<group>"; };
@@ -261,6 +264,11 @@
 		7BB90DDF1C8B8E50007D365E /* LiftSetDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftSetDeserializerSpec.swift; sourceTree = "<group>"; };
 		7BB90DE11C8D41AB007D365E /* WorkoutDeleteAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutDeleteAgent.swift; sourceTree = "<group>"; };
 		7BB90DE31C8D41D4007D365E /* WorkoutDeleteAgentSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutDeleteAgentSpec.swift; sourceTree = "<group>"; };
+		7BBFCD221D1D6CDC00C3EF0F /* CustomViewElements.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomViewElements.xib; sourceTree = "<group>"; };
+		7BBFCD241D1D6D0100C3EF0F /* CustomViewElements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViewElements.swift; sourceTree = "<group>"; };
+		7BBFCD261D1D6DAE00C3EF0F /* NSBundle+Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSBundle+Test.swift"; sourceTree = "<group>"; };
+		7BBFCD281D1D726100C3EF0F /* SetEditFormEntryFieldSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetEditFormEntryFieldSpec.swift; sourceTree = "<group>"; };
+		7BBFCD2A1D1D729A00C3EF0F /* SetEditFormEntryField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetEditFormEntryField.swift; sourceTree = "<group>"; };
 		7BD8525D1CE21AC300F77FEF /* LiftSetEditFormControllerFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftSetEditFormControllerFactory.swift; sourceTree = "<group>"; };
 		7BD8525F1CE21AEA00F77FEF /* LiftSetEditFormControllerFactorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftSetEditFormControllerFactorySpec.swift; sourceTree = "<group>"; };
 		7BD852611CE3613D00F77FEF /* SetEditFormDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetEditFormDelegate.swift; sourceTree = "<group>"; };
@@ -359,6 +367,7 @@
 		7B4620D41CE211950076278B /* SetEditing */ = {
 			isa = PBXGroup;
 			children = (
+				7BBFCD1A1D1AC84200C3EF0F /* Theme */,
 				7B4620DA1CE211DA0076278B /* FormControllers */,
 				7B4620D51CE211A20076278B /* SetEditModalViewController.swift */,
 				7BD852611CE3613D00F77FEF /* SetEditFormDelegate.swift */,
@@ -369,6 +378,7 @@
 		7B4620D71CE211B00076278B /* SetEditing */ = {
 			isa = PBXGroup;
 			children = (
+				7BBFCD1F1D1D654800C3EF0F /* Theme */,
 				7B4620DD1CE212300076278B /* FormControllers */,
 				7B4620D81CE211BC0076278B /* SetEditModalViewControllerSpec.swift */,
 			);
@@ -549,7 +559,9 @@
 		7B6AC0B71C76253F0063F667 /* TestUtilities */ = {
 			isa = PBXGroup;
 			children = (
-				7B6AC0B81C76253F0063F667 /* VisualTreeWalker.swift */,
+				7BBFCD261D1D6DAE00C3EF0F /* NSBundle+Test.swift */,
+				7BBFCD241D1D6D0100C3EF0F /* CustomViewElements.swift */,
+				7BBFCD221D1D6CDC00C3EF0F /* CustomViewElements.xib */,
 			);
 			path = TestUtilities;
 			sourceTree = "<group>";
@@ -858,6 +870,22 @@
 			path = FileSystem;
 			sourceTree = "<group>";
 		};
+		7BBFCD1A1D1AC84200C3EF0F /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				7BBFCD2A1D1D729A00C3EF0F /* SetEditFormEntryField.swift */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
+		7BBFCD1F1D1D654800C3EF0F /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				7BBFCD281D1D726100C3EF0F /* SetEditFormEntryFieldSpec.swift */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -962,6 +990,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BBFCD231D1D6CDC00C3EF0F /* CustomViewElements.xib in Resources */,
 				7B6AC0CF1C7A312E0063F667 /* testImage.jpg in Resources */,
 				7B6AC0D01C7A312E0063F667 /* testImage.png in Resources */,
 			);
@@ -1029,6 +1058,7 @@
 				7B675E761D09A800002E6B45 /* TimeFormatter.swift in Sources */,
 				7B4620E11CE215700076278B /* LiftSetEditFormController.swift in Sources */,
 				7BB90D871C890A9D007D365E /* LiftSet.swift in Sources */,
+				7BBFCD2B1D1D729A00C3EF0F /* SetEditFormEntryField.swift in Sources */,
 				7B5B6AD41CEDE8310038312B /* HeightRepsEditFormViewController.swift in Sources */,
 				7B4620DC1CE212080076278B /* WeightRepsEditFormViewController.swift in Sources */,
 				7B5B6AD11CE8C1670038312B /* LiftTableViewCellColumnView.swift in Sources */,
@@ -1072,7 +1102,9 @@
 				7BB90DE01C8B8E50007D365E /* LiftSetDeserializerSpec.swift in Sources */,
 				7BB90DB71C890C55007D365E /* WorkoutSerializerSpec.swift in Sources */,
 				7BB90DBF1C8950DB007D365E /* LiftSerializerSpec.swift in Sources */,
+				7BBFCD251D1D6D0100C3EF0F /* CustomViewElements.swift in Sources */,
 				7B5B6AF51CF0D0E30038312B /* LiftDataTemplateEntryViewControllerSpec.swift in Sources */,
+				7BBFCD291D1D726100C3EF0F /* SetEditFormEntryFieldSpec.swift in Sources */,
 				7BB90DD81C8B2509007D365E /* WorkoutDeserializerSpec.swift in Sources */,
 				7BB01A321CB1986800A511FE /* LiftSaveAgentSpec.swift in Sources */,
 				7BB90DAB1C890AAA007D365E /* LiftViewControllerSpec.swift in Sources */,
@@ -1102,8 +1134,8 @@
 				7BA92C2D1C9F0F24009A81E3 /* StartupViewControllerSpec.swift in Sources */,
 				7BB90DA61C890AAA007D365E /* WorkoutStoryboardMetadataSpec.swift in Sources */,
 				7BB90DD01C8B231E007D365E /* WorkoutSaveAgentSpec.swift in Sources */,
-				7B6AC0B91C76253F0063F667 /* VisualTreeWalker.swift in Sources */,
 				7BB90DA81C890AAA007D365E /* LiftSpec.swift in Sources */,
+				7BBFCD271D1D6DAE00C3EF0F /* NSBundle+Test.swift in Sources */,
 				7BA90A7D1CB697A50040B031 /* ArrayExtensionSpec.swift in Sources */,
 				7BB90DB01C890AAA007D365E /* WorkoutLiftTableViewCellSpec.swift in Sources */,
 				7BB118AA1CAB19F2005CC1AF /* LiftHistoryIndexLoaderSpec.swift in Sources */,
